@@ -64,48 +64,24 @@ namespace CarRental
 
                     switch (tableName)
                     {
-                        case "manufacturer":
-                            strCommand = $@"Insert Into `manufacturer`({String.Join(",", titleField)}) VALUES(
+                        case "Role":
+                            strCommand = $@"Insert Into `Role`({String.Join(",", titleField)}) VALUES(
                                 '{valField[0]}','{valField[1]}')";
                             break;
-                        case "order":
-                            strCommand = $@"Insert Into `order`({String.Join(",", titleField)}) VALUES(
+                        case "Cars":
+                            strCommand = $@"Insert Into `Cars`({String.Join(",", titleField)}) VALUES(
                                 '{valField[0]}','{valField[1]}','{valField[2]}','{valField[3]}','{valField[4]}','{valField[5]}','{valField[6]}')";
                             break;
-                        case "orderpickuppoint":
-                            strCommand = $@"Insert Into `orderpickuppoint`({String.Join(",", titleField.Select(word => "`" + word + "`"))}) VALUES(
-                                '{valField[0]}','{valField[1]}','{valField[2]}','{valField[3]}','{valField[4]}')";
+                        case "Customers":
+                            strCommand = $@"Insert Into `Customers`({String.Join(",", titleField.Select(word => "`" + word + "`"))}) VALUES(
+                                '{valField[0]}','{valField[1]}','{valField[2]}','{valField[3]}','{valField[4]}','{valField[5]}')";
                             break;
-                        case "orderproduct":
-                            MySqlCommand cmdCheckTableProduct = new MySqlCommand("SELECT COUNT(*) FROM product;", con);
-                            count = cmdCheckTableProduct.ExecuteNonQuery();
+                        case "Employee":
+                            MySqlCommand cmdCheckTableRole = new MySqlCommand("SELECT COUNT(*) FROM role;", con);
+                            count = cmdCheckTableRole.ExecuteNonQuery();
                             if (count > 0)
                             {
-                                strCommand = $@"Insert Into `orderproduct`({String.Join(",", titleField)}) VALUES(
-                                '{valField[0]}','{valField[1]}','{valField[2]}')";
-                            }
-                            else
-                            {
-                                MessageBox.Show("Сначала заполните таблицу Product");
-                                return;
-                            }
-
-                            break;
-                        case "product":
-                            strCommand = $@"Insert Into `product`({String.Join(",", titleField)}) VALUES(
-                                '{valField[0]}','{valField[1]}','{valField[2]}','{valField[3]}','{valField[4]}','{valField[5]}','{valField[6]}','{valField[7]}','{valField[8]}','{valField[9]}','{valField[10]}','{valField[11]}')";
-                            break;
-                        case "productcategory":
-                            strCommand = $@"Insert Into `productcategory`({String.Join(",", titleField)}) VALUES(
-                                '{valField[0]}','{valField[1]}')";
-                            break;
-                        case "role":
-                            strCommand = $@"Insert Into `role`({String.Join(",", titleField)}) VALUES(
-                                '{valField[0]}','{valField[1]}')";
-                            break;
-                            if (count > 0)
-                            {
-                                strCommand = $@"Insert Into `user`({String.Join(",", titleField)}) VALUES(
+                                strCommand = $@"Insert Into `Employee`({String.Join(",", titleField)}) VALUES(
                                 '{valField[0]}','{valField[1]}','{valField[2]}','{valField[3]}','{valField[4]}','{valField[5]}','{valField[6]}')";
                             }
                             else
@@ -113,9 +89,8 @@ namespace CarRental
                                 MessageBox.Show("Сначала заполните таблицу Role");
                                 return;
                             }
-
                             break;
-                    }
+                        }
 
                     #endregion
                     MySqlCommand cmd = new MySqlCommand(strCommand, con);
