@@ -29,26 +29,22 @@ namespace CarRental
         /// </summary>
         private void InitializeComponent()
         {
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbTables = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnImportData = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnRestoreDatabase = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // comboBox1
+            // cmbTables
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Cars",
-            "Employee",
-            "Customers"});
-            this.comboBox1.Location = new System.Drawing.Point(42, 110);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(332, 32);
-            this.comboBox1.TabIndex = 174;
+            this.cmbTables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTables.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cmbTables.FormattingEnabled = true;
+            this.cmbTables.Location = new System.Drawing.Point(42, 110);
+            this.cmbTables.Name = "cmbTables";
+            this.cmbTables.Size = new System.Drawing.Size(332, 32);
+            this.cmbTables.TabIndex = 174;
             // 
             // button2
             // 
@@ -64,19 +60,19 @@ namespace CarRental
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
+            // btnImportData
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(42, 167);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(332, 59);
-            this.button3.TabIndex = 177;
-            this.button3.Text = "Выбор CSV файла";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnImportData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.btnImportData.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnImportData.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnImportData.ForeColor = System.Drawing.Color.White;
+            this.btnImportData.Location = new System.Drawing.Point(42, 167);
+            this.btnImportData.Name = "btnImportData";
+            this.btnImportData.Size = new System.Drawing.Size(332, 59);
+            this.btnImportData.TabIndex = 177;
+            this.btnImportData.Text = "Выбор CSV файла";
+            this.btnImportData.UseVisualStyleBackColor = false;
+            this.btnImportData.Click += new System.EventHandler(this.btnImportData_Click);
             // 
             // label1
             // 
@@ -90,18 +86,19 @@ namespace CarRental
             this.label1.TabIndex = 178;
             this.label1.Text = "Импорт";
             // 
-            // button4
+            // btnRestoreDatabase
             // 
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(42, 245);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(332, 59);
-            this.button4.TabIndex = 179;
-            this.button4.Text = "Восстановление БД";
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnRestoreDatabase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.btnRestoreDatabase.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRestoreDatabase.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnRestoreDatabase.ForeColor = System.Drawing.Color.White;
+            this.btnRestoreDatabase.Location = new System.Drawing.Point(42, 245);
+            this.btnRestoreDatabase.Name = "btnRestoreDatabase";
+            this.btnRestoreDatabase.Size = new System.Drawing.Size(332, 59);
+            this.btnRestoreDatabase.TabIndex = 179;
+            this.btnRestoreDatabase.Text = "Восстановление БД";
+            this.btnRestoreDatabase.UseVisualStyleBackColor = false;
+            this.btnRestoreDatabase.Click += new System.EventHandler(this.btnRestoreDatabase_Click);
             // 
             // sysAdminForm
             // 
@@ -110,11 +107,11 @@ namespace CarRental
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(414, 539);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.btnRestoreDatabase);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btnImportData);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbTables);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "sysAdminForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -126,10 +123,10 @@ namespace CarRental
 
         #endregion
 
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbTables;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnImportData;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnRestoreDatabase;
     }
 }
