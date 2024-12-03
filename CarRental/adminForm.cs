@@ -546,8 +546,8 @@ namespace CarRental
 
         private void reportBtn_Click(object sender, EventArgs e)
         {
-            sysAdminForm sysAdminForm = new sysAdminForm();
-            sysAdminForm.ShowDialog();
+            importForm importForm = new importForm();
+            importForm.ShowDialog();
         }
     }
 }
