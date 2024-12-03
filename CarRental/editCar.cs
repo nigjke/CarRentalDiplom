@@ -103,5 +103,10 @@ namespace CarRental
                 e.Handled = true;
             }
         }
+
+        private void editCar_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
