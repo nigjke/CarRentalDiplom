@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -28,7 +29,8 @@ namespace CarRental
         {
             String loginUser = loginField.Text;
             String pwdUser = pwdField.Text;
-            if (loginUser == "" || pwdUser == "") { 
+            if (loginUser == "" || pwdUser == "")
+            {
                 MessageBox.Show("Введите логин и пароль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 loginField.Text = "Login";
                 pwdField.Text = "Password";
@@ -39,30 +41,42 @@ namespace CarRental
             }
             else
             {
-                int role = db.CheckUserRole(loginUser, pwdUser);
-                if (role == 2)
+                string adminUsername = ConfigurationManager.AppSettings["AdminUsername"];
+
+                string adminPassword = ConfigurationManager.AppSettings["AdminPassword"];
+
+                if (loginUser == adminUsername && pwdUser == adminPassword)
                 {
-                    adminForm a = new adminForm(loginUser);
-                    a.Show();
-                    this.Hide();
-                }
-                else if (role == 1)
-                {
-                    managerForm a = new managerForm(loginUser);
-                    a.Show();
+                    sysAdminForm sysAdminForm = new sysAdminForm();
+                    sysAdminForm.Show();
                     this.Hide();
                 }
                 else
                 {
-                    loginField.Text = "Login";
-                    pwdField.Text = "Password";
-                    pwdField.PasswordChar = default;
-                    pictureBox3.BackgroundImage = Properties.Resources.padlock;
-                    panel1.BackColor = Color.White;
-                    pwdField.ForeColor = Color.White;
+                    int role = db.CheckUserRole(loginUser, pwdUser);
+                    if (role == 2)
+                    {
+                        adminForm a = new adminForm(loginUser);
+                        a.Show();
+                        this.Hide();
+                    }
+                    else if (role == 1)
+                    {
+                        managerForm a = new managerForm(loginUser);
+                        a.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        loginField.Text = "Login";
+                        pwdField.Text = "Password";
+                        pwdField.PasswordChar = default;
+                        pictureBox3.BackgroundImage = Properties.Resources.padlock;
+                        panel1.BackColor = Color.White;
+                        pwdField.ForeColor = Color.White;
+                    }
                 }
             }
-
         }
         private void loginField_KeyPress(object sender, KeyPressEventArgs e)
         {
