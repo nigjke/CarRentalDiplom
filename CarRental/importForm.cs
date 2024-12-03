@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -13,10 +12,9 @@ using System.Windows.Forms;
 
 namespace CarRental
 {
-    public partial class sysAdminForm : Form
+    public partial class importForm : Form
     {
-        string connect = db.connect;
-        public sysAdminForm()
+        public importForm()
         {
             InitializeComponent();
             LoadTables();
@@ -25,10 +23,7 @@ namespace CarRental
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-            loginForm loginForm = new loginForm();
-            loginForm.Show();
         }
-
         private void LoadTables()
         {
             cmbTables.Items.Add("Role");
@@ -143,6 +138,3 @@ namespace CarRental
         }
     }
 }
-
-
-
