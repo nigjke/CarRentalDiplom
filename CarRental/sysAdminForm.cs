@@ -119,7 +119,11 @@ namespace CarRental
                                     counter++;
                                 }
                             }
-                            catch (Exception ex) { MessageBox.Show($"Ошибка: {ex.Message}"); }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Ошибка: {ex.Message}");
+                                return;
+                            }
                         }
                     }
                 }
