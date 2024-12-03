@@ -86,7 +86,7 @@ namespace CarRental
             this.label1.TabIndex = 178;
             this.label1.Text = "Импорт";
             // 
-            // btnRestoreDatabase
+            // btnRestoreDatabases
             // 
             this.btnRestoreDatabase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             this.btnRestoreDatabase.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
