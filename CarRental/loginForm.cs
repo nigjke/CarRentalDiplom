@@ -62,7 +62,7 @@ namespace CarRental
             {
                 MessageBox.Show("Введите логин и пароль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 loginField.Text = "Login";
-                pwdField.Text = "Password";
+                pwdField.Text = "Passwrd";
                 pwdField.PasswordChar = default;
                 pictureBox3.BackgroundImage = Properties.Resources.padlock;
                 panel1.BackColor = Color.White;
