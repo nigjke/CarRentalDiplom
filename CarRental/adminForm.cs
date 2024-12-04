@@ -382,22 +382,24 @@ namespace CarRental
             {
                 connection.Open();
                 string query = "";
-                string counter = "";
                 int pageSize = 20;
                 int offset = (currentPage - 1) * pageSize;
                 if (table == "customers")
                 {
-                    counter = "SELECT COUNT(*) FROM customers";
+                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM customers", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
                     query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers LIMIT {pageSize} OFFSET {offset}";
                 }
                 else if (table == "cars")
                 {
-                    counter = "SELECT COUNT(*) FROM cars";
+                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM cars", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
                     query = $"SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус' , price 'Цена за сутки' FROM cars LIMIT {pageSize} OFFSET {offset}";
                 }
                 else if (table == "employee")
                 {
-                    counter = "SELECT COUNT(*) FROM employee";
+                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM employee", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
                     query = $"SELECT employee.firstName as 'Имя', employee.lastName as 'Фамилия', employee.phone as 'Телефон', role.name as 'Роль', employee.employeeLogin as 'Логин', employee.employeePass as 'Пароль' FROM employee JOIN role ON employee.Role_id=role.Role_id LIMIT {pageSize} OFFSET {offset}";
                 }
                 MySqlCommand command = new MySqlCommand(query, connection);
