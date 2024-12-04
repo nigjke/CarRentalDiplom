@@ -40,6 +40,8 @@ namespace CarRental
             pwdField.Enabled = false;
             loginField.Enabled = false;
             inputcaptcha.Text = "";
+            panel2.BackColor = Color.White;
+            inputcaptcha.ForeColor = Color.White;
 
         }
 
@@ -251,6 +253,8 @@ namespace CarRental
 
         private void button1_Click(object sender, EventArgs e)
         {
+            panel2.BackColor = Color.White;
+            inputcaptcha.ForeColor = Color.White;
             if (inputcaptcha.Text == _currentCaptcha)
             {
                 MessageBox.Show("Успешный ввод");
@@ -270,7 +274,14 @@ namespace CarRental
                 loginField.Enabled = false;
                 ShowCaptchaAndControls();
                 UpdateCaptcha();
+                inputcaptcha.Text = "";
             }
+        }
+
+        private void inputcaptcha_Click(object sender, EventArgs e)
+        {
+            panel2.BackColor = Color.FromArgb(92, 96, 255);
+            inputcaptcha.ForeColor = Color.FromArgb(92, 96, 255);
         }
     }
 }
