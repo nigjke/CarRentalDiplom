@@ -141,7 +141,6 @@ namespace CarRental
                     {
                         string filePath = openFileDialog.FileName;
                         ImportData(filePath, cmbTables.SelectedItem.ToString());
-#a
                     }
                 }
             }

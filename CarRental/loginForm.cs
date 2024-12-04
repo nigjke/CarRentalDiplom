@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,9 +16,26 @@ namespace CarRental
 {
     public partial class loginForm : Form
     {
+        private CaptchaGenerator _captchaGenerator = new CaptchaGenerator();
+        private string _currentCaptcha;
+        private DateTime _lastFailedAttempt = DateTime.MinValue;
+        private int countfailloginandpwd = 0;
+        private int _blockDurationSeconds = 10;
+
+        private Size initialSize = new Size(452, 643);
+        private Size expandedSize = new Size(857, 643);
+        private string captchaText;
         public loginForm()
         {
             InitializeComponent();
+            HideCaptchaAndControls();
+            this.Size = initialSize;
+
+        }
+        private void UpdateCaptcha()
+        {
+            _currentCaptcha = _captchaGenerator.GenerateCaptcha();
+            captchaImage.Image = _captchaGenerator.RenderCaptcha(_currentCaptcha);
         }
 
         private void close_Click(object sender, EventArgs e)
@@ -25,7 +43,7 @@ namespace CarRental
             Application.Exit();
         }
 
-        public void sendBtn_Click(object sender, EventArgs e)
+        public async void sendBtn_Click(object sender, EventArgs e)
         {
             String loginUser = loginField.Text;
             String pwdUser = pwdField.Text;
@@ -74,6 +92,29 @@ namespace CarRental
                         pictureBox3.BackgroundImage = Properties.Resources.padlock;
                         panel1.BackColor = Color.White;
                         pwdField.ForeColor = Color.White;
+                        this.Size = expandedSize;
+                        ShowCaptchaAndControls();
+                        countfailloginandpwd++;
+                        if (DateTime.Now - _lastFailedAttempt < TimeSpan.FromSeconds(_blockDurationSeconds))
+                        {
+                            this.Enabled = false;
+                            MessageBox.Show("Вы были заблокированы на 10 секунд из-за слишком большого количества неудачных попыток входа в систему.");
+                            await Task.Delay(TimeSpan.FromSeconds(10));
+                            this.Enabled = true;
+                            return;
+                        }
+                        if (inputcaptcha.Text != _currentCaptcha && countfailloginandpwd == 1)
+                        {
+                            _lastFailedAttempt = DateTime.Now;
+                            UpdateCaptcha();
+                            updatecaptch.Click += (s, args) => UpdateCaptcha();
+                            MessageBox.Show("Неверный логин, пароль или КАПЧА. Пожалуйста, повторите попытку");
+                            this.Size = expandedSize;
+                            ShowCaptchaAndControls();
+                            inputcaptcha.Enabled = true;
+                            updatecaptch.Enabled = true;
+                            return;
+                        }
                     }
                 }
             }
@@ -139,5 +180,48 @@ namespace CarRental
         {
             pwdField.PasswordChar = default;
         }
+        public class CaptchaGenerator
+        {
+            private static readonly Random _random = new Random();
+            private const string _characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            private const int _captchaLength = 4;
+
+            public string GenerateCaptcha()
+            {
+                var captcha = new string(Enumerable.Range(0, _captchaLength)
+                    .Select(_ => _characters[_random.Next(_characters.Length)]).ToArray());
+                return captcha;
+            }
+
+            public Bitmap RenderCaptcha(string captcha)
+            {
+                var bitmap = new Bitmap(150, 50);
+                using (var graphics = Graphics.FromImage(bitmap))
+                {
+                    graphics.Clear(Color.White);
+                    graphics.DrawString(captcha, new Font("Monserat", 24), new SolidBrush(Color.Black), 10, 10);
+
+                    for (int i = 0; i < 50; i++)
+                    {
+                        graphics.DrawLine(new Pen(Color.Gray, 1), _random.Next(bitmap.Width), _random.Next(bitmap.Height),
+                            _random.Next(bitmap.Width), _random.Next(bitmap.Height));
+                    }
+                }
+                return bitmap;
+            }
+        }
+        private void ShowCaptchaAndControls()
+        {
+            captchaImage.Visible = true;
+            inputcaptcha.Visible = true;
+            updatecaptch.Visible = true;
+        }
+        private void HideCaptchaAndControls()
+        {
+            captchaImage.Visible = false;
+            inputcaptcha.Visible = false;
+            updatecaptch.Visible = false;
+        }
+
     }
 }
