@@ -18,8 +18,12 @@ namespace CarRental
 {
     public partial class adminForm : Form
     {
+        private int currentPage = 1;
+        private int totalRecords = 0;
         private db db;
         private static string table = string.Empty;
+        string counter;
+        int pageSize = 20;
         public adminForm(string labelLog)
         {
             db = new db();
@@ -378,25 +382,37 @@ namespace CarRental
             {
                 connection.Open();
                 string query = "";
+                int pageSize = 20;
+                int offset = (currentPage - 1) * pageSize;
                 if (table == "customers")
                 {
-                    query = "SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers";
+                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM customers", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+                    query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers LIMIT {pageSize} OFFSET {offset}";
                 }
                 else if (table == "cars")
                 {
-                    query = "SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус' , price 'Цена за сутки' FROM cars";
+                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM cars", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+                    query = $"SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус' , price 'Цена за сутки' FROM cars LIMIT {pageSize} OFFSET {offset}";
                 }
-                else
+                else if (table == "employee")
                 {
-                    query = "SELECT employee.firstName as 'Имя', employee.lastName as 'Фамилия', employee.phone as 'Телефон', role.name as 'Роль', employee.employeeLogin as 'Логин', employee.employeePass as 'Пароль' FROM employee JOIN role ON employee.Role_id=role.Role_id";
+                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM employee", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+                    query = $"SELECT employee.firstName as 'Имя', employee.lastName as 'Фамилия', employee.phone as 'Телефон', role.name as 'Роль', employee.employeeLogin as 'Логин', employee.employeePass as 'Пароль' FROM employee JOIN role ON employee.Role_id=role.Role_id LIMIT {pageSize} OFFSET {offset}";
                 }
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataAdapter adapter = new MySqlDataAdapter(command);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
                 dataGridView1.DataSource = dataTable;
+                labelInfo.Text = $"{offset + 1} - {offset + dataTable.Rows.Count} из {totalRecords}";
+                pictureBox2.Enabled = currentPage > 1;
+                pictureBox3.Enabled = currentPage * pageSize < totalRecords;
             }
         }
+
         private void button8_Click_1(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
@@ -548,6 +564,24 @@ namespace CarRental
         {
             importForm importForm = new importForm();
             importForm.ShowDialog();
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            if(currentPage * pageSize < totalRecords)
+            {  
+                currentPage++;
+                LoadData();
+            }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            if (currentPage * pageSize < totalRecords)
+            {
+                currentPage--;
+                LoadData();
+            }
         }
     }
 }
