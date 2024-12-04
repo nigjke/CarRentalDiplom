@@ -24,7 +24,6 @@ namespace CarRental
 
         private Size initialSize = new Size(452, 643);
         private Size expandedSize = new Size(857, 643);
-        private string captchaText;
         public loginForm()
         {
             InitializeComponent();
