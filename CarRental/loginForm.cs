@@ -40,12 +40,18 @@ namespace CarRental
             pwdField.Enabled = false;
             loginField.Enabled = false;
             inputcaptcha.Text = "";
+            panel2.BackColor = Color.White;
+            inputcaptcha.ForeColor = Color.White;
 
         }
 
         private void close_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            DialogResult result = MessageBox.Show("Вы уверены, что хотите выйти?", "Подтверждение выхода", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
         }
 
         public async void sendBtn_Click(object sender, EventArgs e)
@@ -135,7 +141,6 @@ namespace CarRental
                             _lastFailedAttempt = DateTime.Now;
                             UpdateCaptcha();
                             updatecaptch.Click += (s, args) => UpdateCaptcha();
-                            MessageBox.Show("Неверный логин, пароль или КАПЧА. Пожалуйста, повторите попытку");
                             this.Size = expandedSize;
                             ShowCaptchaAndControls();
                             inputcaptcha.Enabled = true;
@@ -226,7 +231,7 @@ namespace CarRental
                 using (var graphics = Graphics.FromImage(bitmap))
                 {
                     graphics.Clear(Color.White);
-                    graphics.DrawString(captcha, new Font("Monserat", 32), new SolidBrush(Color.Black), _random.Next(0,250), _random.Next(80, 200));
+                    graphics.DrawString(captcha, new Font("Monserat", 32), new SolidBrush(Color.Black), _random.Next(0,250), _random.Next(10, 150));
                     for (int i = 0; i < 50; i++)
                     {
                         graphics.DrawLine(new Pen(Color.Gray, 1), _random.Next(bitmap.Width), _random.Next(bitmap.Height),
@@ -251,6 +256,8 @@ namespace CarRental
 
         private void button1_Click(object sender, EventArgs e)
         {
+            panel2.BackColor = Color.White;
+            inputcaptcha.ForeColor = Color.White;
             if (inputcaptcha.Text == _currentCaptcha)
             {
                 MessageBox.Show("Успешный ввод");
@@ -270,7 +277,14 @@ namespace CarRental
                 loginField.Enabled = false;
                 ShowCaptchaAndControls();
                 UpdateCaptcha();
+                inputcaptcha.Text = "";
             }
+        }
+
+        private void inputcaptcha_Click(object sender, EventArgs e)
+        {
+            panel2.BackColor = Color.FromArgb(92, 96, 255);
+            inputcaptcha.ForeColor = Color.FromArgb(92, 96, 255);
         }
     }
 }

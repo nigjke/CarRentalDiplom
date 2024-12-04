@@ -42,6 +42,7 @@
             this.inputcaptcha = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.updatecaptch = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -116,7 +117,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Location = new System.Drawing.Point(28, 364);
+            this.panel1.Location = new System.Drawing.Point(28, 361);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(393, 1);
             this.panel1.TabIndex = 10;
@@ -177,12 +178,16 @@
             // 
             // inputcaptcha
             // 
-            this.inputcaptcha.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.inputcaptcha.Location = new System.Drawing.Point(453, 334);
+            this.inputcaptcha.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
+            this.inputcaptcha.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.inputcaptcha.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.inputcaptcha.ForeColor = System.Drawing.Color.White;
+            this.inputcaptcha.Location = new System.Drawing.Point(452, 322);
             this.inputcaptcha.MaxLength = 20;
             this.inputcaptcha.Name = "inputcaptcha";
-            this.inputcaptcha.Size = new System.Drawing.Size(393, 31);
+            this.inputcaptcha.Size = new System.Drawing.Size(393, 37);
             this.inputcaptcha.TabIndex = 19;
+            this.inputcaptcha.Click += new System.EventHandler(this.inputcaptcha_Click);
             // 
             // button1
             // 
@@ -213,6 +218,14 @@
             this.updatecaptch.Text = "Обновить";
             this.updatecaptch.UseVisualStyleBackColor = false;
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Location = new System.Drawing.Point(453, 361);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(393, 1);
+            this.panel2.TabIndex = 11;
+            // 
             // loginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -221,6 +234,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
             this.ClientSize = new System.Drawing.Size(857, 643);
             this.ControlBox = false;
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.updatecaptch);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.inputcaptcha);
@@ -268,6 +282,7 @@
         private System.Windows.Forms.TextBox inputcaptcha;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button updatecaptch;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 
