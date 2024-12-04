@@ -170,14 +170,14 @@
             // 
             this.captchaImage.Location = new System.Drawing.Point(453, 33);
             this.captchaImage.Name = "captchaImage";
-            this.captchaImage.Size = new System.Drawing.Size(392, 191);
+            this.captchaImage.Size = new System.Drawing.Size(393, 224);
             this.captchaImage.TabIndex = 18;
             this.captchaImage.TabStop = false;
             // 
             // inputcaptcha
             // 
             this.inputcaptcha.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.inputcaptcha.Location = new System.Drawing.Point(453, 232);
+            this.inputcaptcha.Location = new System.Drawing.Point(453, 334);
             this.inputcaptcha.MaxLength = 20;
             this.inputcaptcha.Name = "inputcaptcha";
             this.inputcaptcha.Size = new System.Drawing.Size(393, 31);
@@ -190,7 +190,7 @@
             this.updatecaptch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updatecaptch.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.updatecaptch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
-            this.updatecaptch.Location = new System.Drawing.Point(453, 301);
+            this.updatecaptch.Location = new System.Drawing.Point(452, 403);
             this.updatecaptch.Margin = new System.Windows.Forms.Padding(2);
             this.updatecaptch.Name = "updatecaptch";
             this.updatecaptch.Size = new System.Drawing.Size(393, 64);

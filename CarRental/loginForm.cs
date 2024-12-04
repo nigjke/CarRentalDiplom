@@ -195,12 +195,11 @@ namespace CarRental
 
             public Bitmap RenderCaptcha(string captcha)
             {
-                var bitmap = new Bitmap(150, 50);
+                var bitmap = new Bitmap(500, 200);
                 using (var graphics = Graphics.FromImage(bitmap))
                 {
                     graphics.Clear(Color.White);
-                    graphics.DrawString(captcha, new Font("Monserat", 24), new SolidBrush(Color.Black), 10, 10);
-
+                    graphics.DrawString(captcha, new Font("Monserat", 32), new SolidBrush(Color.Black), _random.Next(0,250), _random.Next(50, 200));
                     for (int i = 0; i < 50; i++)
                     {
                         graphics.DrawLine(new Pen(Color.Gray, 1), _random.Next(bitmap.Width), _random.Next(bitmap.Height),
