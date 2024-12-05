@@ -415,14 +415,21 @@ namespace CarRental
                     totalRecords = Convert.ToInt32(counter.ExecuteScalar());
                     query = $"SELECT employee.firstName as 'Имя', employee.lastName as 'Фамилия', employee.phone as 'Телефон', role.name as 'Роль', employee.employeeLogin as 'Логин', employee.employeePass as 'Пароль' FROM employee JOIN role ON employee.Role_id=role.Role_id LIMIT {pageSize} OFFSET {offset}";
                 }
+                else
+                {
+                    offset = (currentPage - 1) * pageSize;
+                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM rentals", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+                    query = $"Select make as 'Марка', model as 'Модель', first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', rental_date as 'Дата взятия', return_date as 'Дата возврата', total_amount as 'Сумма' FROM carrental.rentals inner join customers on rentals.customer_id = customers.customer_id inner join cars on cars.car_id = rentals.car_id LIMIT {pageSize} OFFSET {offset};";
+                }
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataAdapter adapter = new MySqlDataAdapter(command);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
                 dataGridView1.DataSource = dataTable;
                 labelInfo.Text = $"{offset + 1} - {offset + dataTable.Rows.Count} из {totalRecords}";
-                button10.Enabled = currentPage > 1;
-                button11.Enabled = currentPage * pageSize < totalRecords;
+                pictureBox2.Enabled = currentPage > 1;
+                pictureBox3.Enabled = currentPage * pageSize < totalRecords;
             }
         }
 
@@ -578,17 +585,16 @@ namespace CarRental
             importForm importForm = new importForm();
             importForm.ShowDialog();
         }
-
-        private void button10_Click(object sender, EventArgs e)
+        private void pictureBox2_Click(object sender, EventArgs e)
         {
-            if (currentPage > 0)
+            if(currentPage > 0)
             {
                 currentPage--;
                 LoadData();
             }
         }
 
-        private void button11_Click(object sender, EventArgs e)
+        private void pictureBox3_Click(object sender, EventArgs e)
         {
             if (currentPage * pageSize < totalRecords)
             {
