@@ -69,6 +69,7 @@ namespace CarRental
             string query = "SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус', price 'Цена за сутки' FROM cars";
             table = "cars";
             db.MySqlReturnData(query, dataGridView1);
+            LoadData();
 
         }
 
@@ -96,7 +97,10 @@ namespace CarRental
             button7.Visible = false;
             button8.Visible = false;
             button9.Visible = false;
-        }
+            currentPage = 1;
+            totalRecords = 0;
+            LoadData();
+    }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -123,6 +127,8 @@ namespace CarRental
             button7.Visible = true;
             button8.Visible = true;
             button9.Visible = true;
+            currentPage = 1;
+            LoadData();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -150,6 +156,8 @@ namespace CarRental
             button7.Visible = true;
             button8.Visible = true;
             button9.Visible = true;
+            currentPage = 1;
+            LoadData();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -177,6 +185,8 @@ namespace CarRental
             button7.Visible = false;
             button8.Visible = false;
             button9.Visible = false;
+            currentPage = 1;
+            LoadData();
         }
         private void button5_Click(object sender, EventArgs e)
         {
@@ -383,21 +393,24 @@ namespace CarRental
                 connection.Open();
                 string query = "";
                 int pageSize = 20;
-                int offset = (currentPage - 1) * pageSize;
+                int offset = 0;
                 if (table == "customers")
                 {
+                    offset = (currentPage - 1) * pageSize;
                     MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM customers", connection);
                     totalRecords = Convert.ToInt32(counter.ExecuteScalar());
                     query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers LIMIT {pageSize} OFFSET {offset}";
                 }
                 else if (table == "cars")
                 {
+                    offset = (currentPage - 1) * pageSize;
                     MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM cars", connection);
                     totalRecords = Convert.ToInt32(counter.ExecuteScalar());
                     query = $"SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус' , price 'Цена за сутки' FROM cars LIMIT {pageSize} OFFSET {offset}";
                 }
                 else if (table == "employee")
                 {
+                    offset = (currentPage - 1) * pageSize;
                     MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM employee", connection);
                     totalRecords = Convert.ToInt32(counter.ExecuteScalar());
                     query = $"SELECT employee.firstName as 'Имя', employee.lastName as 'Фамилия', employee.phone as 'Телефон', role.name as 'Роль', employee.employeeLogin as 'Логин', employee.employeePass as 'Пароль' FROM employee JOIN role ON employee.Role_id=role.Role_id LIMIT {pageSize} OFFSET {offset}";
@@ -408,8 +421,8 @@ namespace CarRental
                 adapter.Fill(dataTable);
                 dataGridView1.DataSource = dataTable;
                 labelInfo.Text = $"{offset + 1} - {offset + dataTable.Rows.Count} из {totalRecords}";
-                pictureBox2.Enabled = currentPage > 1;
-                pictureBox3.Enabled = currentPage * pageSize < totalRecords;
+                button10.Enabled = currentPage > 1;
+                button11.Enabled = currentPage * pageSize < totalRecords;
             }
         }
 
@@ -566,20 +579,20 @@ namespace CarRental
             importForm.ShowDialog();
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
+        private void button10_Click(object sender, EventArgs e)
         {
-            if(currentPage * pageSize < totalRecords)
-            {  
-                currentPage++;
+            if (currentPage > 0)
+            {
+                currentPage--;
                 LoadData();
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void button11_Click(object sender, EventArgs e)
         {
             if (currentPage * pageSize < totalRecords)
             {
-                currentPage--;
+                currentPage++;
                 LoadData();
             }
         }
