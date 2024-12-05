@@ -22,7 +22,6 @@ namespace CarRental
         private int totalRecords = 0;
         private db db;
         private static string table = string.Empty;
-        string counter;
         int pageSize = 20;
         public adminForm(string labelLog)
         {
@@ -32,6 +31,7 @@ namespace CarRental
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.CellClick += dataGridView1_CellClick;
+            FormatRows();
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -386,8 +386,32 @@ namespace CarRental
             }
             LoadData();
         }
-        private void LoadData()
+        private void FormatRows()
         {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.Cells["Дата возврата"].Value != DBNull.Value)
+                {
+                    DateTime endDate = Convert.ToDateTime(row.Cells["Дата взятия"].Value);
+                    DateTime startDate = Convert.ToDateTime(row.Cells["Дата возврата"].Value);
+                    DateTime now = DateTime.Now;
+                    if (endDate < now)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Red;
+                    }
+                    else if (startDate > now)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Yellow;
+                    }
+                }
+            }
+        }
+            private void LoadData()
+            {
             using (MySqlConnection connection = new MySqlConnection(db.connect))
             {
                 connection.Open();
@@ -421,6 +445,7 @@ namespace CarRental
                     MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM rentals", connection);
                     totalRecords = Convert.ToInt32(counter.ExecuteScalar());
                     query = $"Select make as 'Марка', model as 'Модель', first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', rental_date as 'Дата взятия', return_date as 'Дата возврата', total_amount as 'Сумма' FROM carrental.rentals inner join customers on rentals.customer_id = customers.customer_id inner join cars on cars.car_id = rentals.car_id LIMIT {pageSize} OFFSET {offset};";
+                    FormatRows();
                 }
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataAdapter adapter = new MySqlDataAdapter(command);
