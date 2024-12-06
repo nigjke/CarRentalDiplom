@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -13,10 +12,9 @@ using System.Windows.Forms;
 
 namespace CarRental
 {
-    public partial class sysAdminForm : Form
+    public partial class importForm : Form
     {
-        string connect = db.connect;
-        public sysAdminForm()
+        public importForm()
         {
             InitializeComponent();
             LoadTables();
@@ -25,10 +23,7 @@ namespace CarRental
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-            loginForm loginForm = new loginForm();
-            loginForm.Show();
         }
-
         private void LoadTables()
         {
             cmbTables.Items.Add("Role");
@@ -100,7 +95,7 @@ namespace CarRental
                                     query = $"INSERT INTO `{tablename}` (Role_id, name) VALUES ({values[0]}, {values[1]})";
                                     break;
                                 case "Cars":
-                                    query = $"INSERT INTO `{tablename}` (car_id, make, model, year, license_plate,price) VALUES ({values[0]}, {values[1]}, {values[2]}, {values[3]}, {values[4]}, {values[5]})";
+                                    query = $"INSERT INTO `{tablename}` (car_id, make, model, year, license_plate,status,price) VALUES ({values[0]}, {values[1]}, {values[2]}, {values[3]}, {values[4]}, {values[5]}, {values[6]})";
                                     break;
                                 case "Customers":
                                     query = $"INSERT INTO `{tablename}` (customer_id, first_name, last_name, phone,driver_license,passport) VALUES ({values[0]}, {values[1]}, {values[2]}, {values[3]}, {values[4]}, {values[5]})";
@@ -119,11 +114,7 @@ namespace CarRental
                                     counter++;
                                 }
                             }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show($"Ошибка: {ex.Message}");
-                                return;
-                            }
+                            catch (Exception ex) { MessageBox.Show($"Ошибка: {ex.Message}"); }
                         }
                     }
                 }
@@ -147,6 +138,3 @@ namespace CarRental
         }
     }
 }
-
-
-

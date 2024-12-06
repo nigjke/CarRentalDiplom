@@ -50,7 +50,7 @@
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(15, 175);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(147, 32);
+            this.label3.Size = new System.Drawing.Size(148, 32);
             this.label3.TabIndex = 141;
             this.label3.Text = "Гос.Номер";
             // 
@@ -93,6 +93,7 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+
             // label7
             // 
             this.label7.AutoSize = true;
@@ -100,7 +101,7 @@
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(15, 124);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(57, 32);
+            this.label7.Size = new System.Drawing.Size(58, 32);
             this.label7.TabIndex = 139;
             this.label7.Text = "Год";
             // 
@@ -124,7 +125,7 @@
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(15, 71);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 32);
+            this.label2.Size = new System.Drawing.Size(112, 32);
             this.label2.TabIndex = 138;
             this.label2.Text = "Модель";
             // 
@@ -135,7 +136,7 @@
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(15, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 32);
+            this.label1.Size = new System.Drawing.Size(96, 32);
             this.label1.TabIndex = 137;
             this.label1.Text = "Марка";
             // 
@@ -171,7 +172,7 @@
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(15, 230);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(79, 32);
+            this.label4.Size = new System.Drawing.Size(80, 32);
             this.label4.TabIndex = 143;
             this.label4.Text = "Цена";
             // 
@@ -210,6 +211,7 @@
             this.Name = "editCar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "editCar";
+            this.Load += new System.EventHandler(this.editCar_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

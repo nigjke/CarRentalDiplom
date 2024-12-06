@@ -21,9 +21,11 @@ namespace CarRental
 {
     public partial class adminForm : Form
     {
+        private int currentPage = 1;
+        private int totalRecords = 0;
         private db db;
         private static string table = string.Empty;
-        private DataGridViewRow selectedRow;
+        int pageSize = 20;
         public adminForm(string labelLog)
         {
             db = new db();
@@ -69,7 +71,7 @@ namespace CarRental
             string query = "SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус', price 'Цена за сутки' FROM cars";
             table = "cars";
             db.MySqlReturnData(query, dataGridView1);
-            reportBtn.Enabled = false;
+            LoadData();
 
         }
 
@@ -97,8 +99,10 @@ namespace CarRental
             button7.Visible = false;
             button8.Visible = false;
             button9.Visible = false;
-            reportBtn.Enabled = false;
-        }
+            currentPage = 1;
+            totalRecords = 0;
+            LoadData();
+          }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -125,7 +129,9 @@ namespace CarRental
             button7.Visible = true;
             button8.Visible = true;
             button9.Visible = true;
-            reportBtn.Enabled = false;
+
+            currentPage = 1;
+            LoadData();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -153,7 +159,8 @@ namespace CarRental
             button7.Visible = true;
             button8.Visible = true;
             button9.Visible = true;
-            reportBtn.Enabled = false;
+            currentPage = 1;
+            LoadData();
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -183,7 +190,8 @@ namespace CarRental
             button7.Visible = false;
             button8.Visible = false;
             button9.Visible = false;
-            reportBtn.Enabled = true;
+            currentPage = 1;
+            LoadData();
         }
         private void button5_Click(object sender, EventArgs e)
         {
@@ -435,31 +443,53 @@ namespace CarRental
             }
             LoadData();
         }
-        private void LoadData()
-        {
+            private void LoadData()
+            {
             using (MySqlConnection connection = new MySqlConnection(db.connect))
             {
                 connection.Open();
                 string query = "";
+                int pageSize = 20;
+                int offset = 0;
                 if (table == "customers")
                 {
-                    query = "SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers";
+                    offset = (currentPage - 1) * pageSize;
+                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM customers", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+                    query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers LIMIT {pageSize} OFFSET {offset}";
                 }
                 else if (table == "cars")
                 {
-                    query = "SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус' , price 'Цена за сутки' FROM cars";
+                    offset = (currentPage - 1) * pageSize;
+                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM cars", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+                    query = $"SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус' , price 'Цена за сутки' FROM cars LIMIT {pageSize} OFFSET {offset}";
+                }
+                else if (table == "employee")
+                {
+                    offset = (currentPage - 1) * pageSize;
+                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM employee", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+                    query = $"SELECT employee.firstName as 'Имя', employee.lastName as 'Фамилия', employee.phone as 'Телефон', role.name as 'Роль', employee.employeeLogin as 'Логин', employee.employeePass as 'Пароль' FROM employee JOIN role ON employee.Role_id=role.Role_id LIMIT {pageSize} OFFSET {offset}";
                 }
                 else
                 {
-                    query = "SELECT employee.firstName as 'Имя', employee.lastName as 'Фамилия', employee.phone as 'Телефон', role.name as 'Роль', employee.employeeLogin as 'Логин', employee.employeePass as 'Пароль' FROM employee JOIN role ON employee.Role_id=role.Role_id";
+                    offset = (currentPage - 1) * pageSize;
+                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM rentals", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+                    query = $"Select make as 'Марка', model as 'Модель', first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', rental_date as 'Дата взятия', return_date as 'Дата возврата', total_amount as 'Сумма' FROM carrental.rentals inner join customers on rentals.customer_id = customers.customer_id inner join cars on cars.car_id = rentals.car_id LIMIT {pageSize} OFFSET {offset};";
                 }
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataAdapter adapter = new MySqlDataAdapter(command);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
                 dataGridView1.DataSource = dataTable;
+                labelInfo.Text = $"{offset + 1} - {offset + dataTable.Rows.Count} из {totalRecords}";
+                pictureBox2.Enabled = currentPage > 1;
+                pictureBox3.Enabled = currentPage * pageSize < totalRecords;
             }
         }
+
         private void button8_Click_1(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
@@ -609,4 +639,50 @@ namespace CarRental
 
         private void reportBtn_Click(object sender, EventArgs e)
         {
+            importForm importForm = new importForm();
+            importForm.ShowDialog();
+        }
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            if(currentPage > 0)
+            {
+                currentPage--;
+                LoadData();
+            }
+        }
 
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            if (currentPage * pageSize < totalRecords)
+            {
+                currentPage++;
+                LoadData();
+            }
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (table == "rentals")
+            {
+                if (dataGridView1.Columns[e.ColumnIndex].Name == "Дата возврата" && e.Value != null)
+                {
+                    DateTime endDate = Convert.ToDateTime(dataGridView1.Rows[e.RowIndex].Cells["Дата возврата"].Value);
+                    DateTime startDate = Convert.ToDateTime(dataGridView1.Rows[e.RowIndex].Cells["Дата взятия"].Value);
+                    DateTime now = DateTime.Now;
+                    if (endDate < now)
+                    {
+                        dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                    }
+                    else if (startDate > now)
+                    {
+                        dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Yellow;
+                    }
+                }
+            }
+        }
+    }
+}
