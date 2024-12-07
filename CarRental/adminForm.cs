@@ -41,11 +41,10 @@ namespace CarRental
             dataGridView1.CellClick += dataGridView1_CellClick;
         }
         private void InitializeInactivityTimer()
-
         {
             inactivityTime = int.Parse(ConfigurationManager.AppSettings["InactivityTime"]);
             inactivityTimer = new Timer();
-            inactivityTimer.Interval = 1000; // 1 second
+            inactivityTimer.Interval = 1000; 
             inactivityTimer.Tick += InactivityTimer_Tick;
             inactivityTimer.Start();
             lastActivityTime = DateTime.Now;
