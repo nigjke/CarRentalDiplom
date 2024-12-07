@@ -116,7 +116,6 @@
             this.textBox2.Size = new System.Drawing.Size(188, 32);
             this.textBox2.TabIndex = 2;
             this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
-            this.textBox2.Leave += new System.EventHandler(this.textBox2_Leave);
             // 
             // label2
             // 
@@ -150,8 +149,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(188, 32);
             this.textBox1.TabIndex = 1;
-            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
-            this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
+
             // 
             // textBox4
             // 
@@ -211,7 +209,6 @@
             this.Name = "editCar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "editCar";
-            this.Load += new System.EventHandler(this.editCar_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
