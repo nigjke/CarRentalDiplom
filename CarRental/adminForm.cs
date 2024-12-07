@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -27,6 +28,9 @@ namespace CarRental
         int pageSize = 20;
         private DataTable customersTable;
         private DataGridViewRow selectedRow;
+        private Timer inactivityTimer;
+        private int inactivityTime;
+        private DateTime lastActivityTime;
         public adminForm(string labelLog)
         {
             db = new db();
@@ -36,8 +40,39 @@ namespace CarRental
             dataGridView1.MultiSelect = false;
             dataGridView1.CellClick += dataGridView1_CellClick;
         }
+        private void InitializeInactivityTimer()
 
-        private void button8_Click(object sender, EventArgs e)
+        {
+            inactivityTime = int.Parse(ConfigurationManager.AppSettings["InactivityTime"]);
+            inactivityTimer = new Timer();
+            inactivityTimer.Interval = 1000; // 1 second
+            inactivityTimer.Tick += InactivityTimer_Tick;
+            inactivityTimer.Start();
+            lastActivityTime = DateTime.Now;
+        }
+        private void InactivityTimer_Tick(object sender, EventArgs e)
+
+        {
+
+            if ((DateTime.Now - lastActivityTime).TotalSeconds > inactivityTime)
+            {
+                inactivityTimer.Stop();
+                loginForm loginForm = new loginForm();
+                loginForm.Show();
+                this.Hide();
+            }
+        }
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            lastActivityTime = DateTime.Now;
+        }
+        protected override void OnKeyPress(KeyPressEventArgs e)
+        {
+            base.OnKeyPress(e);
+            lastActivityTime = DateTime.Now;
+        }
+    private void button8_Click(object sender, EventArgs e)
         {
             this.Close();
             loginForm loginForm = new loginForm();
