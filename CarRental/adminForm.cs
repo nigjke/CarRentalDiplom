@@ -38,6 +38,7 @@ namespace CarRental
             this.label1.Text = $"{labelLog}";
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
+            InitializeInactivityTimer();
             dataGridView1.CellClick += dataGridView1_CellClick;
         }
         private void InitializeInactivityTimer()
