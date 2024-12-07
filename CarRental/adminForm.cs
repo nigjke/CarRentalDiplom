@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -14,7 +15,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using static Mysqlx.Notice.Frame.Types;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CarRental
@@ -26,6 +26,11 @@ namespace CarRental
         private db db;
         private static string table = string.Empty;
         int pageSize = 20;
+        private DataTable customersTable;
+        private DataGridViewRow selectedRow;
+        private Timer inactivityTimer;
+        private int inactivityTime;
+        private DateTime lastActivityTime;
         public adminForm(string labelLog)
         {
             db = new db();
@@ -35,8 +40,36 @@ namespace CarRental
             dataGridView1.MultiSelect = false;
             dataGridView1.CellClick += dataGridView1_CellClick;
         }
-
-        private void button8_Click(object sender, EventArgs e)
+        private void InitializeInactivityTimer()
+        {
+            inactivityTime = int.Parse(ConfigurationManager.AppSettings["InactivityTime"]);
+            inactivityTimer = new Timer();
+            inactivityTimer.Interval = 1000; 
+            inactivityTimer.Tick += InactivityTimer_Tick;
+            inactivityTimer.Start();
+            lastActivityTime = DateTime.Now;
+        }
+        private void InactivityTimer_Tick(object sender, EventArgs e)
+        {
+            if ((DateTime.Now - lastActivityTime).TotalSeconds > inactivityTime)
+            {
+                inactivityTimer.Stop();
+                loginForm loginForm = new loginForm();
+                loginForm.Show();
+                this.Hide();
+            }
+        }
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            lastActivityTime = DateTime.Now;
+        }
+        protected override void OnKeyPress(KeyPressEventArgs e)
+        {
+            base.OnKeyPress(e);
+            lastActivityTime = DateTime.Now;
+        }
+    private void button8_Click(object sender, EventArgs e)
         {
             this.Close();
             loginForm loginForm = new loginForm();
@@ -72,9 +105,42 @@ namespace CarRental
             table = "cars";
             db.MySqlReturnData(query, dataGridView1);
             LoadData();
-
         }
-
+        private string MaskData(string data, int visibleDigits = 2)
+        {
+            if (data.Length > visibleDigits)
+            {
+                return new string('*', data.Length - visibleDigits) + data.Substring(data.Length - visibleDigits);
+            }
+            return data;
+        }
+        private void LoadMaskedData()
+        {
+            int offset = 0;
+            using (MySqlConnection connection = new MySqlConnection(db.connect))
+            {
+                connection.Open();
+                offset = (currentPage - 1) * pageSize;
+                string query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers LIMIT {(currentPage - 1) * pageSize}, {pageSize}";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                customersTable = new DataTable();
+                adapter.Fill(customersTable);
+                foreach (DataRow row in customersTable.Rows)
+                {
+                    row["Телефон"] = MaskData(row["Телефон"].ToString());
+                    row["Вод.Удостоверение"] = MaskData(row["Вод.Удостоверение"].ToString());
+                    row["Паспорт"] = MaskData(row["Паспорт"].ToString());
+                }
+                dataGridView1.DataSource = customersTable;
+                string countQuery = "SELECT COUNT(*) FROM customers";
+                MySqlCommand countCommand = new MySqlCommand(countQuery, connection);
+                totalRecords = Convert.ToInt32(countCommand.ExecuteScalar());
+                connection.Close();
+                labelInfo.Text = $"{currentPage} - {offset + customersTable.Rows.Count} из {totalRecords}";
+                pictureBox2.Enabled = currentPage > 1;
+                pictureBox3.Enabled = currentPage * pageSize < totalRecords;
+            }
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             button2.BackColor = Color.FromArgb(92, 96, 255);
@@ -101,11 +167,29 @@ namespace CarRental
             button9.Visible = false;
             currentPage = 1;
             totalRecords = 0;
-            LoadData();
+            LoadMaskedData();
           }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void ShowFullInfo(object sender, EventArgs e)
         {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+                using (MySqlConnection connection = new MySqlConnection(db.connect))
+                {
+                    int selectedIndex = dataGridView1.SelectedRows[0].Index;
+                    DataRow selectedRow = customersTable.Rows[selectedIndex];
+                    string firstName = selectedRow["Имя"].ToString();
+                    string lastName = selectedRow["Фамилия"].ToString();
+                    string query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers WHERE first_name = '{firstName}' AND last_name = '{lastName}'";
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                    DataTable fullInfoTable = new DataTable();
+                    adapter.Fill(fullInfoTable);
+                    fullInformation fullInfoForm = new fullInformation(fullInfoTable);
+                    fullInfoForm.Show();
+                }
+            }
+        }
+            private void button1_Click(object sender, EventArgs e)
+            {
             button1.BackColor = Color.FromArgb(92, 96, 255);
             button1.ForeColor = Color.FromArgb(34, 36, 49);
             button4.BackColor = Color.FromArgb(34, 36, 49);
@@ -484,7 +568,7 @@ namespace CarRental
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
                 dataGridView1.DataSource = dataTable;
-                labelInfo.Text = $"{offset + 1} - {offset + dataTable.Rows.Count} из {totalRecords}";
+                labelInfo.Text = $"{currentPage} - {offset + dataTable.Rows.Count} из {totalRecords}";
                 pictureBox2.Enabled = currentPage > 1;
                 pictureBox3.Enabled = currentPage * pageSize < totalRecords;
             }
@@ -647,7 +731,13 @@ namespace CarRental
             if(currentPage > 0)
             {
                 currentPage--;
-                LoadData();
+                if(table == "customers")
+                {
+                    LoadMaskedData();
+                }
+                else {
+                    LoadData();
+                }
             }
         }
 
@@ -656,7 +746,14 @@ namespace CarRental
             if (currentPage * pageSize < totalRecords)
             {
                 currentPage++;
-                LoadData();
+                if (table == "customers")
+                {
+                    LoadMaskedData();
+                }
+                else
+                {
+                    LoadData();
+                }
             }
         }
 
@@ -682,6 +779,16 @@ namespace CarRental
                         dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Yellow;
                     }
                 }
+            }
+        }
+
+        private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && table == "customers")
+            {
+                ContextMenuStrip menu = new ContextMenuStrip();
+                menu.Items.Add("Открыть дополнительную информацию", null, ShowFullInfo);
+                menu.Show(dataGridView1, new System.Drawing.Point(e.X, e.Y));
             }
         }
     }
