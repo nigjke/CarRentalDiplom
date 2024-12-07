@@ -145,7 +145,9 @@ namespace CarRental
                 {
                     int selectedIndex = dataGridView1.SelectedRows[0].Index;
                     DataRow selectedRow = customersTable.Rows[selectedIndex];
-                    string query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers WHERE first_name = '{selectedRow["Имя"]}' AND last_name = '{selectedRow["Фамилия"]}'";
+                    string firstName = selectedRow["Имя"].ToString();
+                    string lastName = selectedRow["Фамилия"].ToString();
+                    string query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers WHERE first_name = '{firstName}' AND last_name = '{lastName}'";
                     MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
                     DataTable fullInfoTable = new DataTable();
                     adapter.Fill(fullInfoTable);
