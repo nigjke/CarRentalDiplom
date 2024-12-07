@@ -51,9 +51,7 @@ namespace CarRental
             lastActivityTime = DateTime.Now;
         }
         private void InactivityTimer_Tick(object sender, EventArgs e)
-
         {
-
             if ((DateTime.Now - lastActivityTime).TotalSeconds > inactivityTime)
             {
                 inactivityTimer.Stop();
