@@ -13,22 +13,22 @@ namespace CarRental
 {
     internal class db
     {
-        public static string connect = @"server=localhost;port=3306;username=root;password=root;database=carRental";
-        MySqlConnection connection = new MySqlConnection(connect); 
+        public static string connect = @"server=localhost;port=3306;username=root;password=root;database=carrentaldb";
+        MySqlConnection connection = new MySqlConnection(connect);
 
         public DataTable MySqlReturnData(string query,DataGridView grid)
         {
             try
             {
-                using (MySqlConnection myCon = new MySqlConnection(connect))
+                using (connection)
                 {
-                    myCon.Open();
-                    if (myCon.State != ConnectionState.Open)
+                    connection.Open();
+                    if (connection.State != ConnectionState.Open)
                     {
                         MessageBox.Show("Не удалось установить подключение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return null;
                     }
-                    using (MySqlDataAdapter sda = new MySqlDataAdapter(query, myCon))
+                    using (MySqlDataAdapter sda = new MySqlDataAdapter(query, connection))
                     {
                         DataTable dt = new DataTable();
                         sda.Fill(dt);

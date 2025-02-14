@@ -64,7 +64,11 @@ namespace CarRental
                     des1 = Convert.ToInt32(Rooms.Rows[i]["Role_id"]);
                 }
 
-                string sqlQuery = $@"Insert Into employee(Role_id,firstName,lastName,phone,employeeLogin,employeePass) Values ('{des1}','{textBox1.Text}','{textBox2.Text}','{maskedTextBox1.Text}','{textBox3.Text}','{password}')";
+                string sqlQuery = $@"Insert Into employee(Role_id,first_name,
+
+
+
+,phone,employeeLogin,employeePass) Values ('{des1}','{textBox1.Text}','{textBox2.Text}','{maskedTextBox1.Text}','{textBox3.Text}','{password}')";
                 using (MySqlConnection con = new MySqlConnection())
                 {
                     con.ConnectionString = connect;

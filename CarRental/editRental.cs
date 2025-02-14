@@ -20,8 +20,8 @@ namespace CarRental
         string connect = db.connect;
         private TextBox txtMake;
         private TextBox txtModel;
-        private TextBox txtFirstName;
-        private TextBox txtLastName;
+        private TextBox txtFirst_Name;
+        private TextBox txtLast_name;
         private TextBox txtPhone;
         private DateTimePicker dtpRentalDate;
         private DateTimePicker dtpReturnDate;

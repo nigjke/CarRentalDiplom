@@ -56,7 +56,7 @@ namespace CarRental
 
             return hashPasswd;
         }
-        private void UpdateDatabase(object role, string firstName, string lastName, string phone, string employeeLogin, string employeePass)
+        private void UpdateDatabase(object role, string first_name, string last_name, string phone, string employeeLogin, string employeePass)
         {
 
                 DataTable Rooms = new DataTable();
@@ -76,10 +76,10 @@ namespace CarRental
                 using (MySqlConnection connection = new MySqlConnection(db.connect))
                 {
                     connection.Open();
-                    MySqlCommand command = new MySqlCommand($"UPDATE employee SET Role_id = {des1}, firstName = @firstName, lastName = @lastName, phone = @phone, employeeLogin = @employeeLogin, employeePass = @employeePass WHERE employeePass = @employeePass", connection);
+                    MySqlCommand command = new MySqlCommand($"UPDATE employee SET Role_id = {des1}, first_name = @first_name, last_name = @last_name, phone = @phone, employeeLogin = @employeeLogin, employeePass = @employeePass WHERE employeePass = @employeePass", connection);
                     command.Parameters.AddWithValue(Convert.ToString(des1), role);
-                    command.Parameters.AddWithValue("@firstName", firstName);
-                    command.Parameters.AddWithValue("@lastName", lastName);
+                    command.Parameters.AddWithValue("@first_name", first_name);
+                    command.Parameters.AddWithValue("@last_name", last_name);
                     command.Parameters.AddWithValue("@phone", phone);
                     command.Parameters.AddWithValue("@employeeLogin", employeeLogin);
                     command.Parameters.AddWithValue("@employeePass", employeePass);

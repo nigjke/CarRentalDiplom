@@ -36,15 +36,15 @@ namespace CarRental
         private void editCustomer_Load(object sender, EventArgs e)
         {
         }
-        private void UpdateDatabase(string firstName, string lastName, string phone, string driverLicense, string passport)
+        private void UpdateDatabase(string first_name, string last_name, string phone, string driverLicense, string passport)
         {
 
             using (MySqlConnection connection = new MySqlConnection(db.connect))
             {
                 connection.Open();
-                MySqlCommand command = new MySqlCommand("UPDATE customers SET first_name = @firstName, last_name = @lastName, phone = @phone, driver_license = @driverLicense WHERE passport = @passport", connection);
-                command.Parameters.AddWithValue("@firstName", firstName);
-                command.Parameters.AddWithValue("@lastName", lastName);
+                MySqlCommand command = new MySqlCommand("UPDATE customers SET first_name = @first_name, last_name = @last_name, phone = @phone, driver_license = @driverLicense WHERE passport = @passport", connection);
+                command.Parameters.AddWithValue("@first_name", first_name);
+                command.Parameters.AddWithValue("@last_name", last_name);
                 command.Parameters.AddWithValue("@phone", phone);
                 command.Parameters.AddWithValue("@driverLicense", driverLicense);
                 command.Parameters.AddWithValue("@passport", passport);
