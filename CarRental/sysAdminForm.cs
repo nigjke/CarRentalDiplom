@@ -106,7 +106,7 @@ namespace CarRental
                                     query = $"INSERT INTO `{tablename}` (customer_id, first_name, last_name, phone,driver_license,passport) VALUES ({values[0]}, {values[1]}, {values[2]}, {values[3]}, {values[4]}, {values[5]})";
                                     break;
                                 case "Employee":
-                                    query = $"INSERT INTO `{tablename}` (employee_id, Role_id, firstName, lastName, phone , employeeLogin, employeePass) VALUES ({values[0]}, {values[1]}, {values[2]}, {values[3]}, {values[4]}, {values[5]} , {values[6]})";
+                                    query = $"INSERT INTO `{tablename}` (employee_id, Role_id, first_name, last_name, phone , employeeLogin, employeePass) VALUES ({values[0]}, {values[1]}, {values[2]}, {values[3]}, {values[4]}, {values[5]} , {values[6]})";
                                     break;
 
                             }
