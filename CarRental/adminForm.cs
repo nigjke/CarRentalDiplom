@@ -160,7 +160,6 @@ namespace CarRental
             comboBox1.Items.Add("По Телефону");
             comboBox1.Items.Add("По Вод.Удостоверению");
             comboBox1.Items.Add("По Паспорту");
-            string query = "SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers";
             table = "customers";
             button7.Visible = false;
             button8.Visible = false;
@@ -207,7 +206,6 @@ namespace CarRental
             comboBox1.Items.Add("По Гос.Номеру");
             comboBox1.Items.Add("По Статусу");
             comboBox1.Items.Add("По Цене");
-            string query = "SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус' , price 'Цена за сутки' FROM cars";
             table = "cars";
             button7.Visible = true;
             button8.Visible = true;
@@ -235,7 +233,6 @@ namespace CarRental
             comboBox1.Items.Add("По Роле");
             comboBox1.Items.Add("По Логину");
             comboBox1.Items.Add("По Паролю");
-            string query = "SELECT employee.first_name as 'Имя', employee.last_name as 'Фамилия', employee.phone as 'Телефон', role.name as 'Роль', employee.employeeLogin as 'Логин', employee.employeePass as 'Пароль' FROM employee JOIN role ON employee.Role_id=role.Role_id";
             table = "employee";
             button7.Visible = true;
             button8.Visible = true;
@@ -265,7 +262,6 @@ namespace CarRental
             comboBox1.Items.Add("По дате взятия");
             comboBox1.Items.Add("По дате возврата");
             comboBox1.Items.Add("По сумме");
-            string query = "Select make as 'Марка', model as 'Модель', first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', rental_date as 'Дата взятия', return_date as 'Дата возврата', total_amount as 'Сумма' FROM carrentaldb.rentals inner join customers on rentals.customer_id = customers.customer_id inner join cars on cars.car_id = rentals.car_id; ";
             table = "rentals";
             button7.Visible = false;
             button8.Visible = false;
@@ -648,10 +644,6 @@ namespace CarRental
             {
                 selectedRow = dataGridView1.Rows[e.RowIndex];
             }
-        }
-        private void DeleteRowFromDatabase(DataGridViewRow row)
-        {
-            int id = Convert.ToInt32(row.Cells["Логин"].Value);
         }
         private void button9_Click(object sender, EventArgs e)
         {

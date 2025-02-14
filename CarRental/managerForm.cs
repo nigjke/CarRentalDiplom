@@ -47,7 +47,6 @@ namespace CarRental
             comboBox1.Items.Add("По Гос.Номеру");
             comboBox1.Items.Add("По Статусу");
             comboBox1.Items.Add("По Цене");
-            string query = "SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус' , price 'Цена за сутки' FROM cars";
             table = "cars";
             LoadData();
         }
@@ -71,7 +70,6 @@ namespace CarRental
             comboBox1.Items.Add("По Телефону");
             comboBox1.Items.Add("По Вод.Удостоверению");
             comboBox1.Items.Add("По Паспорту");
-            string query = "SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers";
             table = "customers";
             LoadData();
         }
@@ -128,7 +126,6 @@ namespace CarRental
             comboBox1.Items.Add("По дате взятия");
             comboBox1.Items.Add("По дате возврата");
             comboBox1.Items.Add("По сумме");
-            string query = "Select make as 'Марка', model as 'Модель', first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', rental_date as 'Дата взятия', return_date as 'Дата возврата', total_amount as 'Сумма' FROM carrentaldb.rentals inner join customers on rentals.customer_id = customers.customer_id inner join cars on cars.car_id = rentals.car_id; ";
             table = "rentals";
             LoadData();
         }
