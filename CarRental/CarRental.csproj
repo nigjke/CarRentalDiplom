@@ -137,22 +137,22 @@
       <DependentUpon>adminForm.cs</DependentUpon>
     </Compile>
     <Compile Include="db.cs" />
-    <Compile Include="editCar.cs">
+    <Compile Include="edit\editCar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="editCar.Designer.cs">
+    <Compile Include="edit\editCar.Designer.cs">
       <DependentUpon>editCar.cs</DependentUpon>
     </Compile>
-    <Compile Include="editEmployee.cs">
+    <Compile Include="edit\editEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="editEmployee.Designer.cs">
+    <Compile Include="edit\editEmployee.Designer.cs">
       <DependentUpon>editEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="editRental.cs">
+    <Compile Include="edit\editRental.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="editRental.Designer.cs">
+    <Compile Include="edit\editRental.Designer.cs">
       <DependentUpon>editRental.cs</DependentUpon>
     </Compile>
     <Compile Include="edit\editCustomer.cs">
@@ -173,6 +173,7 @@
     <Compile Include="importForm.Designer.cs">
       <DependentUpon>importForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoadData.cs" />
     <Compile Include="loginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -208,13 +209,13 @@
     <EmbeddedResource Include="adminForm.resx">
       <DependentUpon>adminForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="editCar.resx">
+    <EmbeddedResource Include="edit\editCar.resx">
       <DependentUpon>editCar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="editEmployee.resx">
+    <EmbeddedResource Include="edit\editEmployee.resx">
       <DependentUpon>editEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="editRental.resx">
+    <EmbeddedResource Include="edit\editRental.resx">
       <DependentUpon>editRental.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="edit\editCustomer.resx">
