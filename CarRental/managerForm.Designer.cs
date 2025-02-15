@@ -33,23 +33,23 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(managerForm));
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.rentalBtn = new System.Windows.Forms.Button();
+            this.customerBtn = new System.Windows.Forms.Button();
+            this.carBtn = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button9 = new System.Windows.Forms.Button();
+            this.checkBtn = new System.Windows.Forms.Button();
             this.exitBtn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button7 = new System.Windows.Forms.Button();
+            this.searchBox = new System.Windows.Forms.TextBox();
+            this.addBtn = new System.Windows.Forms.Button();
             this.backBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.editBtn = new System.Windows.Forms.Button();
+            this.ascendingBtn = new System.Windows.Forms.Button();
+            this.descendingBtn = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
@@ -68,50 +68,50 @@
             this.pictureBox4.TabStop = false;
             this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
-            // button4
+            // rentalBtn
             // 
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.button4.Location = new System.Drawing.Point(0, 391);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(341, 92);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Аренды";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.rentalBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rentalBtn.FlatAppearance.BorderSize = 0;
+            this.rentalBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rentalBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rentalBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.rentalBtn.Location = new System.Drawing.Point(0, 391);
+            this.rentalBtn.Name = "rentalBtn";
+            this.rentalBtn.Size = new System.Drawing.Size(341, 92);
+            this.rentalBtn.TabIndex = 6;
+            this.rentalBtn.Text = "Аренды";
+            this.rentalBtn.UseVisualStyleBackColor = true;
+            this.rentalBtn.Click += new System.EventHandler(this.rentalBtn_Click);
             // 
-            // button2
+            // customerBtn
             // 
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.button2.Location = new System.Drawing.Point(0, 296);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(341, 93);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Клиенты";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.customerBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.customerBtn.FlatAppearance.BorderSize = 0;
+            this.customerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.customerBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.customerBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.customerBtn.Location = new System.Drawing.Point(0, 296);
+            this.customerBtn.Name = "customerBtn";
+            this.customerBtn.Size = new System.Drawing.Size(341, 93);
+            this.customerBtn.TabIndex = 4;
+            this.customerBtn.Text = "Клиенты";
+            this.customerBtn.UseVisualStyleBackColor = true;
+            this.customerBtn.Click += new System.EventHandler(this.customerBtn_Click);
             // 
-            // button1
+            // carBtn
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.button1.Location = new System.Drawing.Point(0, 205);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(341, 92);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Машины";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.carBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.carBtn.FlatAppearance.BorderSize = 0;
+            this.carBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.carBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.carBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.carBtn.Location = new System.Drawing.Point(0, 205);
+            this.carBtn.Name = "carBtn";
+            this.carBtn.Size = new System.Drawing.Size(341, 92);
+            this.carBtn.TabIndex = 3;
+            this.carBtn.Text = "Машины";
+            this.carBtn.UseVisualStyleBackColor = true;
+            this.carBtn.Click += new System.EventHandler(this.carBtn_Click);
             // 
             // panel2
             // 
@@ -163,20 +163,20 @@
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
             // 
-            // button9
+            // checkBtn
             // 
-            this.button9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.button9.FlatAppearance.BorderSize = 0;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button9.ForeColor = System.Drawing.Color.White;
-            this.button9.Location = new System.Drawing.Point(1094, 681);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(204, 61);
-            this.button9.TabIndex = 29;
-            this.button9.Text = "Создание чека";
-            this.button9.UseVisualStyleBackColor = false;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.checkBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.checkBtn.FlatAppearance.BorderSize = 0;
+            this.checkBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBtn.ForeColor = System.Drawing.Color.White;
+            this.checkBtn.Location = new System.Drawing.Point(1094, 681);
+            this.checkBtn.Name = "checkBtn";
+            this.checkBtn.Size = new System.Drawing.Size(204, 61);
+            this.checkBtn.TabIndex = 29;
+            this.checkBtn.Text = "Создание чека";
+            this.checkBtn.UseVisualStyleBackColor = false;
+            this.checkBtn.Click += new System.EventHandler(this.checkBtn_Click);
             // 
             // exitBtn
             // 
@@ -193,37 +193,37 @@
             this.exitBtn.UseVisualStyleBackColor = false;
             this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
             // 
-            // textBox1
+            // searchBox
             // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.ForeColor = System.Drawing.Color.White;
-            this.textBox1.HideSelection = false;
-            this.textBox1.Location = new System.Drawing.Point(361, 35);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(450, 25);
-            this.textBox1.TabIndex = 21;
-            this.textBox1.TabStop = false;
-            this.textBox1.Text = "Поиск";
-            this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.searchBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.searchBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.searchBox.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.searchBox.ForeColor = System.Drawing.Color.White;
+            this.searchBox.HideSelection = false;
+            this.searchBox.Location = new System.Drawing.Point(361, 35);
+            this.searchBox.Margin = new System.Windows.Forms.Padding(2);
+            this.searchBox.Name = "searchBox";
+            this.searchBox.Size = new System.Drawing.Size(450, 25);
+            this.searchBox.TabIndex = 21;
+            this.searchBox.TabStop = false;
+            this.searchBox.Text = "Поиск";
+            this.searchBox.Click += new System.EventHandler(this.textBox1_Click);
+            this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
             // 
-            // button7
+            // addBtn
             // 
-            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.button7.FlatAppearance.BorderSize = 0;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(361, 682);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(204, 60);
-            this.button7.TabIndex = 27;
-            this.button7.Text = "Добавить";
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.addBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.addBtn.FlatAppearance.BorderSize = 0;
+            this.addBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.addBtn.ForeColor = System.Drawing.Color.White;
+            this.addBtn.Location = new System.Drawing.Point(361, 682);
+            this.addBtn.Name = "addBtn";
+            this.addBtn.Size = new System.Drawing.Size(204, 60);
+            this.addBtn.TabIndex = 27;
+            this.addBtn.Text = "Добавить";
+            this.addBtn.UseVisualStyleBackColor = false;
+            this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
             // 
             // backBtn
             // 
@@ -246,9 +246,9 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.button4);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.rentalBtn);
+            this.panel1.Controls.Add(this.customerBtn);
+            this.panel1.Controls.Add(this.carBtn);
             this.panel1.Controls.Add(this.exitBtn);
             this.panel1.Controls.Add(this.backBtn);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
@@ -257,50 +257,50 @@
             this.panel1.Size = new System.Drawing.Size(344, 768);
             this.panel1.TabIndex = 30;
             // 
-            // button8
+            // editBtn
             // 
-            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.button8.FlatAppearance.BorderSize = 0;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(717, 681);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(204, 61);
-            this.button8.TabIndex = 28;
-            this.button8.Text = "Редактировать";
-            this.button8.UseVisualStyleBackColor = false;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.editBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.editBtn.FlatAppearance.BorderSize = 0;
+            this.editBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.editBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.editBtn.ForeColor = System.Drawing.Color.White;
+            this.editBtn.Location = new System.Drawing.Point(717, 681);
+            this.editBtn.Name = "editBtn";
+            this.editBtn.Size = new System.Drawing.Size(204, 61);
+            this.editBtn.TabIndex = 28;
+            this.editBtn.Text = "Редактировать";
+            this.editBtn.UseVisualStyleBackColor = false;
+            this.editBtn.Click += new System.EventHandler(this.editBtn_Click);
             // 
-            // button6
+            // ascendingBtn
             // 
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button6.ForeColor = System.Drawing.Color.White;
-            this.button6.Location = new System.Drawing.Point(1021, 81);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(113, 38);
-            this.button6.TabIndex = 25;
-            this.button6.Text = "по возрастанию";
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.ascendingBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.ascendingBtn.FlatAppearance.BorderSize = 0;
+            this.ascendingBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ascendingBtn.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ascendingBtn.ForeColor = System.Drawing.Color.White;
+            this.ascendingBtn.Location = new System.Drawing.Point(1021, 81);
+            this.ascendingBtn.Name = "ascendingBtn";
+            this.ascendingBtn.Size = new System.Drawing.Size(113, 38);
+            this.ascendingBtn.TabIndex = 25;
+            this.ascendingBtn.Text = "по возрастанию";
+            this.ascendingBtn.UseVisualStyleBackColor = false;
+            this.ascendingBtn.Click += new System.EventHandler(this.ascendingBtn_Click);
             // 
-            // button5
+            // descendingBtn
             // 
-            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.button5.FlatAppearance.BorderSize = 0;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(1185, 81);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(113, 38);
-            this.button5.TabIndex = 24;
-            this.button5.Text = "по убыванию";
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.descendingBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.descendingBtn.FlatAppearance.BorderSize = 0;
+            this.descendingBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.descendingBtn.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.descendingBtn.ForeColor = System.Drawing.Color.White;
+            this.descendingBtn.Location = new System.Drawing.Point(1185, 81);
+            this.descendingBtn.Name = "descendingBtn";
+            this.descendingBtn.Size = new System.Drawing.Size(113, 38);
+            this.descendingBtn.TabIndex = 24;
+            this.descendingBtn.Text = "по убыванию";
+            this.descendingBtn.UseVisualStyleBackColor = false;
+            this.descendingBtn.Click += new System.EventHandler(this.descendingBtn_Click);
             // 
             // comboBox1
             // 
@@ -378,13 +378,13 @@
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button7);
+            this.Controls.Add(this.checkBtn);
+            this.Controls.Add(this.searchBox);
+            this.Controls.Add(this.addBtn);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.editBtn);
+            this.Controls.Add(this.ascendingBtn);
+            this.Controls.Add(this.descendingBtn);
             this.Controls.Add(this.comboBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -407,23 +407,23 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button rentalBtn;
+        private System.Windows.Forms.Button customerBtn;
+        private System.Windows.Forms.Button carBtn;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button checkBtn;
         private System.Windows.Forms.Button exitBtn;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.TextBox searchBox;
+        private System.Windows.Forms.Button addBtn;
         private System.Windows.Forms.Button backBtn;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button editBtn;
+        private System.Windows.Forms.Button ascendingBtn;
+        private System.Windows.Forms.Button descendingBtn;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
     }
