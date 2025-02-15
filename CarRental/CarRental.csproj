@@ -167,13 +167,13 @@
     <Compile Include="fullInformation.Designer.cs">
       <DependentUpon>fullInformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="helper.cs" />
     <Compile Include="importForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="importForm.Designer.cs">
       <DependentUpon>importForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoadData.cs" />
     <Compile Include="loginForm.cs">
       <SubType>Form</SubType>
     </Compile>
