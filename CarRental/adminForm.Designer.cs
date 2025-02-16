@@ -175,7 +175,7 @@
             this.backBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.backBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.backBtn.Location = new System.Drawing.Point(0, 641);
+            this.backBtn.Location = new System.Drawing.Point(3, 770);
             this.backBtn.Name = "backBtn";
             this.backBtn.Size = new System.Drawing.Size(341, 85);
             this.backBtn.TabIndex = 10;
@@ -190,7 +190,7 @@
             this.reportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.reportBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.reportBtn.ForeColor = System.Drawing.Color.White;
-            this.reportBtn.Location = new System.Drawing.Point(366, 744);
+            this.reportBtn.Location = new System.Drawing.Point(366, 876);
             this.reportBtn.Name = "reportBtn";
             this.reportBtn.Size = new System.Drawing.Size(204, 61);
             this.reportBtn.TabIndex = 11;
@@ -204,7 +204,7 @@
             this.exitBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.exitBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.exitBtn.Location = new System.Drawing.Point(3, 732);
+            this.exitBtn.Location = new System.Drawing.Point(3, 861);
             this.exitBtn.Name = "exitBtn";
             this.exitBtn.Size = new System.Drawing.Size(341, 85);
             this.exitBtn.TabIndex = 15;
@@ -219,7 +219,7 @@
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(602, 743);
+            this.button7.Location = new System.Drawing.Point(611, 876);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(204, 60);
             this.button7.TabIndex = 12;
@@ -234,7 +234,7 @@
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(845, 742);
+            this.button8.Location = new System.Drawing.Point(852, 875);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(204, 61);
             this.button8.TabIndex = 13;
@@ -249,7 +249,7 @@
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button9.ForeColor = System.Drawing.Color.White;
-            this.button9.Location = new System.Drawing.Point(1099, 742);
+            this.button9.Location = new System.Drawing.Point(1099, 876);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(204, 61);
             this.button9.TabIndex = 14;
@@ -271,7 +271,7 @@
             this.panel1.Controls.Add(this.backBtn);
             this.panel1.Location = new System.Drawing.Point(1, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(344, 817);
+            this.panel1.Size = new System.Drawing.Size(344, 949);
             this.panel1.TabIndex = 16;
             // 
             // label4
@@ -441,7 +441,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(1322, 815);
+            this.ClientSize = new System.Drawing.Size(1322, 949);
             this.ControlBox = false;
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
