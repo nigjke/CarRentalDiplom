@@ -194,6 +194,7 @@
             this.reportBtn.Name = "reportBtn";
             this.reportBtn.Size = new System.Drawing.Size(204, 61);
             this.reportBtn.TabIndex = 11;
+            this.reportBtn.Text = "Отчет";
             this.reportBtn.UseVisualStyleBackColor = false;
             this.reportBtn.Click += new System.EventHandler(this.reportBtn_Click);
             // 
@@ -389,7 +390,7 @@
             this.dataGridView1.RowTemplate.Height = 30;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(937, 521);
+            this.dataGridView1.Size = new System.Drawing.Size(937, 589);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseClick);
@@ -399,7 +400,7 @@
             this.labelInfo.AutoSize = true;
             this.labelInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelInfo.ForeColor = System.Drawing.Color.Transparent;
-            this.labelInfo.Location = new System.Drawing.Point(422, 674);
+            this.labelInfo.Location = new System.Drawing.Point(372, 761);
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(51, 20);
             this.labelInfo.TabIndex = 21;
@@ -418,7 +419,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::CarRental.Properties.Resources.arrow;
-            this.pictureBox2.Location = new System.Drawing.Point(366, 694);
+            this.pictureBox2.Location = new System.Drawing.Point(366, 814);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(32, 32);
             this.pictureBox2.TabIndex = 22;
@@ -428,7 +429,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = global::CarRental.Properties.Resources.arr;
-            this.pictureBox3.Location = new System.Drawing.Point(1271, 694);
+            this.pictureBox3.Location = new System.Drawing.Point(1271, 814);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(32, 32);
             this.pictureBox3.TabIndex = 23;

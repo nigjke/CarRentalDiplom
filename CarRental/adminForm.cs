@@ -312,7 +312,9 @@ namespace CarRental
 
         private void employeeBtn_Click(object sender, EventArgs e)
         {
-
+            SetButtonVisibility(true, true, false);
+            helper.SetButtonColors(customerBtn, rentalBtn, carBtn);
+            LoadTable("employee", "Сотрудники", new string[] { "По Имени", "По Фамилии", "По Телефону", "По Вод.Удостоверению", "По Паспорту" });
         }
 
         private void customerBtn_Click(object sender, EventArgs e)
