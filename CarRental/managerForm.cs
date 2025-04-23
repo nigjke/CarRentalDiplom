@@ -12,7 +12,7 @@ namespace CarRental
         private helper helper;
         private static string table = string.Empty;
         private DataGridViewRow selectedRow;
-
+        private int selectedCarId = -1;
         public managerForm(string labelLog)
         {
             db = new db();
@@ -22,6 +22,8 @@ namespace CarRental
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.CellClick += dataGridView1_CellClick;
+            dataGridView1.ContextMenuStrip = contextMenuStrip1;
+            dataGridView1.CellMouseDown += dataGridView1_CellMouseDown;
         }
 
         private void SetButtonVisibility(bool btn7, bool btn8, bool btn9)
@@ -62,15 +64,15 @@ namespace CarRental
                 string query = string.Empty;
                 if (table == "customers")
                 {
-                    query = "SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers";
+                    query = "SELECT customer_id, first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers";
                 }
                 else if (table == "cars")
                 {
-                    query = "SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус', price as 'Цена за сутки' FROM cars";
+                    query = "SELECT car_id, make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус', price as 'Цена за сутки' FROM cars";
                 }
                 else if (table == "rentals")
                 {
-                    query = "SELECT make as 'Марка', model as 'Модель', first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', rental_date as 'Дата взятия', return_date as 'Дата возврата', total_amount as 'Сумма' FROM carrentaldb.rentals " +
+                    query = "SELECT rental_id, make as 'Марка', model as 'Модель', first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', rental_date as 'Дата взятия', return_date as 'Дата возврата', total_amount as 'Сумма' FROM carrentaldb.rentals " +
                             "INNER JOIN customers ON rentals.customer_id = customers.customer_id " +
                             "INNER JOIN cars ON cars.car_id = rentals.car_id;";
                 }
@@ -79,6 +81,7 @@ namespace CarRental
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
                 dataGridView1.DataSource = dataTable;
+                dataGridView1.Columns[0].Visible = false;
             }
         }
 
@@ -243,6 +246,27 @@ namespace CarRental
             {
                 MessageBox.Show("Пожалуйста, выберите строку.");
             }
+        }
+
+        private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
+            {   
+                if (table == "cars")
+                {
+                    dataGridView1.ClearSelection();
+                    dataGridView1.Rows[e.RowIndex].Selected = true;
+
+                    selectedCarId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["car_id"].Value);
+                    contextMenuStrip1.Show(Cursor.Position);
+                }
+            }
+        }
+
+        private void viewCarMenuItem_Click(object sender, EventArgs e)
+        {
+            var carInfo = new fullInfoCar.fullInfoCar(selectedCarId);
+            carInfo.ShowDialog();
         }
     }
 }
