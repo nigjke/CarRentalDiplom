@@ -87,7 +87,7 @@ namespace CarRental
         private void adminForm_Load(object sender, EventArgs e)
         {
             SetButtonVisibility(true, true, true);
-            helper.SetButtonColors(rentalBtn, customerBtn, carBtn);
+            helper.SetButtonColors(rentalBtn, customerBtn, carBtn, employeeBtn);
             LoadTable("rentals", "Аренды", new string[] { "По Марке", "По Модели", "По Имени", "По Фамилии", "По Телефону", "По дате взятия", "По дате возврата", "По сумме" });
         }
         private string MaskData(string data, int visibleDigits = 2)
@@ -305,29 +305,29 @@ namespace CarRental
         // Menu Buttons
         private void carBtn_Click(object sender, EventArgs e)
         {
-            SetButtonVisibility(false, false, false);
-            helper.SetButtonColors(carBtn, rentalBtn, customerBtn);
+            SetButtonVisibility(true, true, true);
+            helper.SetButtonColors(carBtn, rentalBtn, customerBtn, employeeBtn);
             LoadTable("cars", "Машины", new string[] { "По Марке", "По Модели", "По Году выпуска", "По Гос.Номеру", "По Статусу", "По Цене" });
         }
 
         private void employeeBtn_Click(object sender, EventArgs e)
         {
-            SetButtonVisibility(true, true, false);
-            helper.SetButtonColors(customerBtn, rentalBtn, carBtn);
+            SetButtonVisibility(false, false, false);
+            helper.SetButtonColors(employeeBtn, rentalBtn, carBtn, customerBtn);
             LoadTable("employee", "Сотрудники", new string[] { "По Имени", "По Фамилии", "По Телефону", "По Вод.Удостоверению", "По Паспорту" });
         }
 
         private void customerBtn_Click(object sender, EventArgs e)
         {
             SetButtonVisibility(true, true, false);
-            helper.SetButtonColors(customerBtn, rentalBtn, carBtn);
+            helper.SetButtonColors(customerBtn, rentalBtn, carBtn, employeeBtn);
             LoadTable("customers", "Клиенты", new string[] { "По Имени", "По Фамилии", "По Телефону", "По Вод.Удостоверению", "По Паспорту" });
         }
 
         private void rentalBtn_Click(object sender, EventArgs e)
         {
             SetButtonVisibility(true, true, true);
-            helper.SetButtonColors(rentalBtn, customerBtn, carBtn);
+            helper.SetButtonColors(rentalBtn, customerBtn, carBtn, employeeBtn);
             LoadTable("rentals", "Аренды", new string[] { "По Марке", "По Модели", "По Имени", "По Фамилии", "По Телефону", "По дате взятия", "По дате возврата", "По сумме" });
         }
         private void backBtn_Click(object sender, EventArgs e)

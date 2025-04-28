@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
@@ -17,6 +19,7 @@ namespace CarRental
     {
         private db db;
         string connect = db.connect;
+        private byte[] imageBytes;
         public addCar()
         {
             db = new db();
@@ -92,6 +95,77 @@ namespace CarRental
             {
                 e.Handled = true;
 
+            }
+        }
+
+        private void uploadBtn_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
+                        if (fileInfo.Length > 25 * 1024 * 1024)
+                        {
+                            MessageBox.Show("Файл слишком большой! Максимум 25 МБ.");
+                            return;
+                        }
+                        try
+                        {
+                            pictureBox1.Image = new System.Drawing.Bitmap(openFileDialog.FileName);
+
+                            using (MemoryStream ms = new MemoryStream())
+                            {
+                                pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
+                                imageBytes = ms.ToArray();
+                            }
+
+                            SaveImageToDatabase(imageBytes);
+                            MessageBox.Show("Изображение успешно загружено!");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Ошибка: {ex.Message}");
+                        }
+                    }
+                }
+            }    
+        }
+        private Image CompressImage(Image image)
+        {
+            ImageCodecInfo jpegCodec = ImageCodecInfo.GetImageEncoders().First(x => x.FormatID == ImageFormat.Jpeg.Guid);
+            EncoderParameters encoderParams = new EncoderParameters(1);
+            encoderParams.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 70L);
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, jpegCodec, encoderParams);
+                return Image.FromStream(ms);
+            }
+        }
+        private void SaveImageToDatabase(byte[] imageData)
+        {
+            using (MySqlConnection connection = new MySqlConnection(db.connect))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "INSERT INTO cars (photo) VALUES (@image)"; 
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    {
+                        cmd.Parameters.Add("@image", MySqlDbType.Blob).Value = imageData;
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    throw new Exception($"MySQL Error: {ex.Message}");
+                }
             }
         }
     }

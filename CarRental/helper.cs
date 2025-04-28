@@ -8,7 +8,7 @@ namespace CarRental
 {
     public class helper
     {
-        public void SetButtonColors(Button activeButton, Button other1, Button other2)
+        public void SetButtonColors(Button activeButton, Button other1, Button other2, Button other3 = null)
         {
             activeButton.BackColor = Color.FromArgb(92, 96, 255);
             activeButton.ForeColor = Color.FromArgb(34, 36, 49);
@@ -16,6 +16,11 @@ namespace CarRental
             other1.ForeColor = Color.FromArgb(92, 96, 255);
             other2.BackColor = Color.FromArgb(34, 36, 49);
             other2.ForeColor = Color.FromArgb(92, 96, 255);
+            if (other3 != null)
+            {
+                other3.BackColor = Color.FromArgb(34, 36, 49);
+                other3.ForeColor = Color.FromArgb(92, 96, 255);
+            }
         }
 
         public void SortDataGridViewAscending(string tableName, int selectedIndex, DataGridView dataGridview1)
