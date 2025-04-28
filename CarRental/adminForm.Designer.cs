@@ -34,7 +34,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(adminForm));
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.carBtn = new System.Windows.Forms.Button();
-            this.customerBtn = new System.Windows.Forms.Button();
             this.employeeBtn = new System.Windows.Forms.Button();
             this.rentalBtn = new System.Windows.Forms.Button();
             this.descendingBtn = new System.Windows.Forms.Button();
@@ -57,6 +56,7 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.customerBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -92,21 +92,6 @@
             this.carBtn.Text = "Машины";
             this.carBtn.UseVisualStyleBackColor = true;
             this.carBtn.Click += new System.EventHandler(this.carBtn_Click);
-            // 
-            // customerBtn
-            // 
-            this.customerBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.customerBtn.FlatAppearance.BorderSize = 0;
-            this.customerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customerBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.customerBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.customerBtn.Location = new System.Drawing.Point(0, 296);
-            this.customerBtn.Name = "customerBtn";
-            this.customerBtn.Size = new System.Drawing.Size(341, 93);
-            this.customerBtn.TabIndex = 4;
-            this.customerBtn.Text = "Клиенты";
-            this.customerBtn.UseVisualStyleBackColor = true;
-            this.customerBtn.Click += new System.EventHandler(this.customerBtn_Click);
             // 
             // employeeBtn
             // 
@@ -436,6 +421,21 @@
             this.pictureBox3.TabStop = false;
             this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
+            // customerBtn
+            // 
+            this.customerBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.customerBtn.FlatAppearance.BorderSize = 0;
+            this.customerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.customerBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.customerBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.customerBtn.Location = new System.Drawing.Point(0, 296);
+            this.customerBtn.Name = "customerBtn";
+            this.customerBtn.Size = new System.Drawing.Size(341, 93);
+            this.customerBtn.TabIndex = 4;
+            this.customerBtn.Text = "Клиенты";
+            this.customerBtn.UseVisualStyleBackColor = true;
+            this.customerBtn.Click += new System.EventHandler(this.customerBtn_Click);
+            // 
             // adminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -483,7 +483,6 @@
         #endregion
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button carBtn;
-        private System.Windows.Forms.Button customerBtn;
         private System.Windows.Forms.Button employeeBtn;
         private System.Windows.Forms.Button rentalBtn;
         private System.Windows.Forms.Button descendingBtn;
@@ -506,5 +505,6 @@
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Button customerBtn;
     }
 }
