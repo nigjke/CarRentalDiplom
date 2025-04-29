@@ -34,6 +34,9 @@ namespace CarRental
         private int inactivityTime;
         private DateTime lastActivityTime;
         private int selectedCarId = -1;
+        private bool isFullScreen = false;
+        private FormWindowState previousWindowState;
+        private Rectangle previousBounds;
 
         public adminForm(string labelLog)
         {
@@ -535,5 +538,47 @@ namespace CarRental
                 }
             }
         }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            ToggleFullScreen();
+        }
+        private void ToggleFullScreen()
+        {
+            if (isFullScreen)
+            {
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.WindowState = previousWindowState;
+                this.Bounds = previousBounds;
+
+                pictureBox5.Image = Properties.Resources.png_clipart_computer_icons_icon_design_symbol_full_screen_miscellaneous_angle;
+            }
+            else
+            {
+                previousWindowState = this.WindowState;
+                previousBounds = this.Bounds;
+
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.WindowState = FormWindowState.Normal;
+                this.Bounds = Screen.PrimaryScreen.Bounds;
+
+                pictureBox5.Image = Properties.Resources.png_transparent_computer_icons_avatar_expand_icon_angle_text_rectangle_thumbnail;
+            }
+
+            isFullScreen = !isFullScreen;
+
+            UpdateLayout();
+        }
+
+        private void UpdateLayout()
+        {
+            dataGridView1.Size = new Size(
+                this.ClientSize.Width - 40,
+                this.ClientSize.Height - 150
+            );
+
+            this.Refresh();
+        }
+
     }
 }

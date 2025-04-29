@@ -63,6 +63,26 @@ namespace CarRental.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _10944818 {
+            get {
+                object obj = ResourceManager.GetObject("10944818", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _109448181 {
+            get {
+                object obj = ResourceManager.GetObject("109448181", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _1637827423_1_flomaster_club_p_mashina_risunok_karandashom_lyogkie_detski_1 {
             get {
                 object obj = ResourceManager.GetObject("1637827423_1-flomaster-club-p-mashina-risunok-karandashom-lyogkie-detski-1", resourceCulture);
@@ -186,6 +206,26 @@ namespace CarRental.Properties {
         internal static System.Drawing.Bitmap padlock1 {
             get {
                 object obj = ResourceManager.GetObject("padlock1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap png_clipart_computer_icons_icon_design_symbol_full_screen_miscellaneous_angle {
+            get {
+                object obj = ResourceManager.GetObject("png-clipart-computer-icons-icon-design-symbol-full-screen-miscellaneous-angle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap png_transparent_computer_icons_avatar_expand_icon_angle_text_rectangle_thumbnail {
+            get {
+                object obj = ResourceManager.GetObject("png-transparent-computer-icons-avatar-expand-icon-angle-text-rectangle-thumbnail", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -310,6 +310,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="car+rental-1326929064099195464_32px %281%29.ico" />
+    <None Include="Resources\png-transparent-computer-icons-avatar-expand-icon-angle-text-rectangle-thumbnail.png" />
+    <None Include="Resources\png-clipart-computer-icons-icon-design-symbol-full-screen-miscellaneous-angle.png" />
+    <None Include="Resources\109448181.png" />
+    <None Include="Resources\10944818.png" />
     <None Include="Resources\1637827423_1-flomaster-club-p-mashina-risunok-karandashom-lyogkie-detski-1.jpg" />
     <None Include="Resources\arr.png" />
   </ItemGroup>
