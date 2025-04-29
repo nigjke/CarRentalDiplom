@@ -34,12 +34,20 @@ namespace CarRental
         private int inactivityTime;
         private DateTime lastActivityTime;
         private int selectedCarId = -1;
+        private bool isFullScreen = false;
+        private FormWindowState previousWindowState;
+        private Rectangle previousBounds;
+        private float originalWidth;
+        private float originalHeight;
+        private Size originalFormSize;
+        private Size referenceSize = new Size(1322, 949);
+        private Dictionary<Control, Rectangle> controlRatios = new Dictionary<Control, Rectangle>();
 
         public adminForm(string labelLog)
         {
+            InitializeComponent();
             helper = new helper();
             db = new db();
-            InitializeComponent();
             this.label1.Text = $"{labelLog}";
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             InitializeInactivityTimer();
@@ -47,14 +55,17 @@ namespace CarRental
             dataGridView1.CellClick += dataGridView1_CellClick;
             dataGridView1.ContextMenuStrip = contextMenuStrip1;
             dataGridView1.CellMouseDown += dataGridView1_CellMouseDown;
+            originalWidth = this.Width;
+            originalHeight = this.Height;
+            InitControlRatios();
         }
-        
+
         // Timer 
         private void InitializeInactivityTimer()
         {
             inactivityTime = int.Parse(ConfigurationManager.AppSettings["InactivityTime"]);
             inactivityTimer = new Timer();
-            inactivityTimer.Interval = 1000; 
+            inactivityTimer.Interval = 1000;
             inactivityTimer.Tick += InactivityTimer_Tick;
             inactivityTimer.Start();
             lastActivityTime = DateTime.Now;
@@ -293,14 +304,15 @@ namespace CarRental
         // Paginations
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            if(currentPage > 0)
+            if (currentPage > 0)
             {
                 currentPage--;
-                if(table == "customers")
+                if (table == "customers")
                 {
                     LoadMaskedData();
                 }
-                else {
+                else
+                {
                     LoadData();
                 }
             }
@@ -489,6 +501,7 @@ namespace CarRental
                 MessageBox.Show("Пожалуйста, выберите строку для удаления.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void reportBtn_Click(object sender, EventArgs e)
         {
             importForm importForm = new importForm();
@@ -534,6 +547,135 @@ namespace CarRental
                     contextMenuStrip1.Show(Cursor.Position);
                 }
             }
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            ToggleFullScreen();
+        }
+        private void ToggleFullScreen()
+        {
+            if (isFullScreen)
+            {
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.WindowState = previousWindowState;
+                this.Bounds = previousBounds;
+
+                referenceSize = this.ClientSize;
+            }
+            else
+            {
+                previousWindowState = this.WindowState;
+                previousBounds = this.Bounds;
+
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.WindowState = FormWindowState.Normal;
+                this.Bounds = Screen.PrimaryScreen.Bounds;
+
+                referenceSize = this.ClientSize;
+            }
+            isFullScreen = !isFullScreen;
+            ScaleControls();
+        }
+
+        private void UpdateLayout()
+        {
+            dataGridView1.Size = new Size(
+                this.ClientSize.Width - 40,
+                this.ClientSize.Height - 150
+            );
+
+            this.Refresh();
+        }
+        private void InitControlRatios()
+        {
+            foreach (Control control in GetAllControls(this))
+            {
+                controlRatios[control] = new Rectangle(
+                    control.Left, control.Top,
+                    control.Width, control.Height
+                );
+            }
+        }
+
+        // Получение всех контролов
+        private IEnumerable<Control> GetAllControls(Control container)
+        {
+            foreach (Control control in container.Controls)
+            {
+                yield return control;
+                foreach (var child in GetAllControls(control))
+                {
+                    yield return child;
+                }
+            }
+        }
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            ScaleControls();
+            UpdateMargins();
+            if (originalWidth == 0 || originalHeight == 0) return;
+
+            float widthRatio = this.Width / originalWidth;
+            float heightRatio = this.Height / originalHeight;
+
+            foreach (var entry in controlRatios)
+            {
+                Control control = entry.Key;
+                Rectangle ratio = entry.Value;
+
+                if (control is DataGridView) continue;
+
+                int newX = (int)(ratio.X * widthRatio);
+                int newY = (int)(ratio.Y * heightRatio);
+                int newWidth = (int)(ratio.Width * widthRatio);
+                int newHeight = (int)(ratio.Height * heightRatio);
+
+                control.Location = new Point(newX, newY);
+                control.Size = new Size(newWidth, newHeight);
+            }
+
+            // Особые настройки для DataGridView
+            dataGridView1.Width = (int)(this.Width * 0.7f);
+            dataGridView1.Height = (int)(this.Height * 0.6f);
+        }
+        private void UpdateMargins()
+        {
+            int baseMargin = (int)(20 * (this.Width / (float)originalFormSize.Width));
+            label2.Margin = new Padding(baseMargin * 2, baseMargin, 0, 0);
+            dataGridView1.Margin = new Padding(baseMargin, baseMargin * 4, baseMargin, baseMargin * 3);
+        }
+
+
+        private void ScaleControls()
+        {
+            float scaleX = (float)ClientSize.Width / referenceSize.Width;
+            float scaleY = (float)ClientSize.Height / referenceSize.Height;
+
+            ScaleControl(comboBox1, scaleX, scaleY);
+            ScaleControl(ascendingBtn, scaleX, scaleY);
+            ScaleControl(descendingBtn, scaleX, scaleY);
+            ScaleControl(label2, scaleX, scaleY);
+            ScaleControl(dataGridView1, scaleX, scaleY);
+        }
+
+        private void ScaleControl(Control control, float scaleX, float scaleY)
+        {
+            // Позиция
+            int newX = (int)(control.Location.X * scaleX);
+            int newY = (int)(control.Location.Y * scaleY);
+
+            // Размер
+            int newWidth = (int)(control.Width * scaleX);
+            int newHeight = (int)(control.Height * scaleY);
+
+            // Шрифт
+            float fontSize = control.Font.Size * Math.Min(scaleX, scaleY);
+
+            control.Location = new Point(newX, newY);
+            control.Size = new Size(newWidth, newHeight);
+            control.Font = new Font(control.Font.FontFamily, fontSize);
         }
     }
 }
