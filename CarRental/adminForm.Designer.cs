@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -48,6 +49,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.customerBtn = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.searchBox = new System.Windows.Forms.TextBox();
@@ -56,13 +58,15 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.customerBtn = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.viewCarMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -291,6 +295,21 @@
             this.pictureBox1.TabIndex = 16;
             this.pictureBox1.TabStop = false;
             // 
+            // customerBtn
+            // 
+            this.customerBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.customerBtn.FlatAppearance.BorderSize = 0;
+            this.customerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.customerBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.customerBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.customerBtn.Location = new System.Drawing.Point(0, 296);
+            this.customerBtn.Name = "customerBtn";
+            this.customerBtn.Size = new System.Drawing.Size(341, 93);
+            this.customerBtn.TabIndex = 4;
+            this.customerBtn.Text = "Клиенты";
+            this.customerBtn.UseVisualStyleBackColor = true;
+            this.customerBtn.Click += new System.EventHandler(this.customerBtn_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -378,6 +397,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(937, 589);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            this.dataGridView1.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
             this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseClick);
             // 
             // labelInfo
@@ -421,20 +441,19 @@
             this.pictureBox3.TabStop = false;
             this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
-            // customerBtn
+            // contextMenuStrip1
             // 
-            this.customerBtn.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.customerBtn.FlatAppearance.BorderSize = 0;
-            this.customerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customerBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.customerBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.customerBtn.Location = new System.Drawing.Point(0, 296);
-            this.customerBtn.Name = "customerBtn";
-            this.customerBtn.Size = new System.Drawing.Size(341, 93);
-            this.customerBtn.TabIndex = 4;
-            this.customerBtn.Text = "Клиенты";
-            this.customerBtn.UseVisualStyleBackColor = true;
-            this.customerBtn.Click += new System.EventHandler(this.customerBtn_Click);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewCarMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(142, 26);
+            // 
+            // viewCarMenuItem
+            // 
+            this.viewCarMenuItem.Name = "viewCarMenuItem";
+            this.viewCarMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.viewCarMenuItem.Text = "Посмотреть";
+            this.viewCarMenuItem.Click += new System.EventHandler(this.viewCarMenuItem_Click);
             // 
             // adminForm
             // 
@@ -475,6 +494,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -506,5 +526,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Button customerBtn;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem viewCarMenuItem;
     }
 }

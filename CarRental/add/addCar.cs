@@ -27,21 +27,46 @@ namespace CarRental
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && maskedTextBox1.Text != "" && comboBox1.Text != "" && textBox4.Text != "")
+            if (textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != ""
+                    && maskedTextBox1.Text != "" && textBox4.Text != "")
             {
-                MySqlConnection con = new MySqlConnection(connect);
-                con.Open();
-                MySqlCommand cmd = new MySqlCommand($@"Insert Into cars(make,model,year,license_plate,status,price)Values ('{textBox1.Text}','{textBox2.Text}','{textBox3.Text}','{maskedTextBox1.Text}','{comboBox1.Text}','{textBox4.Text}')", con);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                MessageBox.Show("Машина добавлена");
-                textBox1.Text = "";
-                textBox2.Text = "";
-                textBox3.Text = "";
-                maskedTextBox1.Text = "";
-                comboBox1.Text = "";
-                textBox4.Text = "";
-                DialogResult = DialogResult.OK;
+                try
+                {
+                    using (MySqlConnection con = new MySqlConnection(connect))
+                    {
+                        con.Open();
+
+                        string query = @"INSERT INTO cars 
+                    (make, model, year, license_plate, status, price, photo) 
+                    VALUES 
+                    (@make, @model, @year, @license_plate, @status, @price, @photo)";
+
+                        MySqlCommand cmd = new MySqlCommand(query, con);
+
+                        // Преобразование данных
+                        int year = Convert.ToInt32(textBox3.Text);
+                        decimal price = Convert.ToDecimal(textBox4.Text);
+                        string status = comboBox1.SelectedItem.ToString();
+
+                        // Добавление параметров
+                        cmd.Parameters.AddWithValue("@make", textBox1.Text);
+                        cmd.Parameters.AddWithValue("@model", textBox2.Text);
+                        cmd.Parameters.AddWithValue("@year", year);
+                        cmd.Parameters.AddWithValue("@license_plate", maskedTextBox1.Text);
+                        cmd.Parameters.AddWithValue("@status", status);
+                        cmd.Parameters.AddWithValue("@price", price);
+                        cmd.Parameters.Add("@photo", MySqlDbType.Blob).Value = imageBytes ?? (object)DBNull.Value;
+
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Машина добавлена");
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}");
+                }
             }
             else
             {
@@ -123,8 +148,6 @@ namespace CarRental
                                 pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
                                 imageBytes = ms.ToArray();
                             }
-
-                            SaveImageToDatabase(imageBytes);
                             MessageBox.Show("Изображение успешно загружено!");
                         }
                         catch (Exception ex)
@@ -145,27 +168,6 @@ namespace CarRental
             {
                 image.Save(ms, jpegCodec, encoderParams);
                 return Image.FromStream(ms);
-            }
-        }
-        private void SaveImageToDatabase(byte[] imageData)
-        {
-            using (MySqlConnection connection = new MySqlConnection(db.connect))
-            {
-                try
-                {
-                    connection.Open();
-                    string query = "INSERT INTO cars (photo) VALUES (@image)"; 
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
-                    {
-                        cmd.Parameters.Add("@image", MySqlDbType.Blob).Value = imageData;
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                catch (MySqlException ex)
-                {
-                    throw new Exception($"MySQL Error: {ex.Message}");
-                }
             }
         }
     }
