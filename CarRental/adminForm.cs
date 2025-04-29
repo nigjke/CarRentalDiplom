@@ -33,6 +33,7 @@ namespace CarRental
         private Timer inactivityTimer;
         private int inactivityTime;
         private DateTime lastActivityTime;
+        private int selectedCarId = -1;
 
         public adminForm(string labelLog)
         {
@@ -41,9 +42,11 @@ namespace CarRental
             InitializeComponent();
             this.label1.Text = $"{labelLog}";
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.MultiSelect = false;
             InitializeInactivityTimer();
+            dataGridView1.MultiSelect = false;
             dataGridView1.CellClick += dataGridView1_CellClick;
+            dataGridView1.ContextMenuStrip = contextMenuStrip1;
+            dataGridView1.CellMouseDown += dataGridView1_CellMouseDown;
         }
         
         // Timer 
@@ -138,28 +141,43 @@ namespace CarRental
                     offset = (currentPage - 1) * pageSize;
                     MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM customers", connection);
                     totalRecords = Convert.ToInt32(counter.ExecuteScalar());
-                    query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers LIMIT {pageSize} OFFSET {offset}";
+                    query = $"SELECT customer_id, first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers LIMIT {pageSize} OFFSET {offset}";
                 }
                 else if (table == "cars")
                 {
                     offset = (currentPage - 1) * pageSize;
                     MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM cars", connection);
                     totalRecords = Convert.ToInt32(counter.ExecuteScalar());
-                    query = $"SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус' , price 'Цена за сутки' FROM cars LIMIT {pageSize} OFFSET {offset}";
+                    query = $"SELECT car_id, make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус' , price 'Цена за сутки' FROM cars LIMIT {pageSize} OFFSET {offset}";
                 }
                 else if (table == "employee")
                 {
                     offset = (currentPage - 1) * pageSize;
                     MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM employee", connection);
                     totalRecords = Convert.ToInt32(counter.ExecuteScalar());
-                    query = $"SELECT employee.first_name as 'Имя', employee.last_name as 'Фамилия', employee.phone as 'Телефон', role.name as 'Роль', employee.employeeLogin as 'Логин', employee.employeePass as 'Пароль' FROM carrentaldb.employee JOIN role ON employee.Role_id=role.Role_id LIMIT {pageSize} OFFSET {offset}";
+                    query = $"SELECT employee_id, employee.first_name as 'Имя', employee.last_name as 'Фамилия', employee.phone as 'Телефон', role.name as 'Роль', employee.employeeLogin as 'Логин', employee.employeePass as 'Пароль' FROM carrentaldb.employee JOIN role ON employee.Role_id=role.Role_id LIMIT {pageSize} OFFSET {offset}";
                 }
                 else
                 {
                     offset = (currentPage - 1) * pageSize;
                     MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM rentals", connection);
                     totalRecords = Convert.ToInt32(counter.ExecuteScalar());
-                    query = $"Select make as 'Марка', model as 'Модель', first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', rental_date as 'Дата взятия', return_date as 'Дата возврата', total_amount as 'Сумма' FROM carrentaldb.rentals inner join customers on rentals.customer_id = customers.customer_id inner join cars on cars.car_id = rentals.car_id LIMIT {pageSize} OFFSET {offset};";
+                    query = $@"
+                SELECT 
+                    r.car_id, 
+                    c.make as 'Марка', 
+                    c.model as 'Модель', 
+                    cust.first_name as 'Имя', 
+                    cust.last_name as 'Фамилия', 
+                    cust.phone as 'Телефон', 
+                    r.rental_date as 'Дата взятия', 
+                    r.return_date as 'Дата возврата', 
+                    r.total_amount as 'Сумма' 
+                FROM 
+                    carrentaldb.rentals r
+                    INNER JOIN customers cust ON r.customer_id = cust.customer_id
+                    INNER JOIN cars c ON c.car_id = r.car_id 
+                LIMIT {pageSize} OFFSET {offset}";
                 }
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataAdapter adapter = new MySqlDataAdapter(command);
@@ -169,6 +187,7 @@ namespace CarRental
                 labelInfo.Text = $"{currentPage} - {offset + dataTable.Rows.Count} из {totalRecords}";
                 pictureBox2.Enabled = currentPage > 1;
                 pictureBox3.Enabled = currentPage * pageSize < totalRecords;
+                dataGridView1.Columns[0].Visible = false;
             }
         }
         private void LoadTable(string tableName, string labelText, string[] comboBoxItems)
@@ -494,6 +513,27 @@ namespace CarRental
         private void textBox1_Click(object sender, EventArgs e)
         {
             searchBox.Text = string.Empty;
+        }
+
+        private void viewCarMenuItem_Click(object sender, EventArgs e)
+        {
+            var carInfo = new fullInfoCar.fullInfoCar(selectedCarId);
+            carInfo.ShowDialog();
+        }
+
+        private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
+            {
+                if (table == "cars")
+                {
+                    dataGridView1.ClearSelection();
+                    dataGridView1.Rows[e.RowIndex].Selected = true;
+
+                    selectedCarId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["car_id"].Value);
+                    contextMenuStrip1.Show(Cursor.Position);
+                }
+            }
         }
     }
 }

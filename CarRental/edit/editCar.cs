@@ -14,6 +14,7 @@ namespace CarRental
         private DataGridViewRow selectedRow;
         private byte[] imageBytes;
         private bool isImageUploaded = false;
+        private int car_id;
         public editCar(DataGridViewRow row)
         {
             db = new db();
@@ -31,28 +32,32 @@ namespace CarRental
             textBox4.Text = selectedRow.Cells["Цена за сутки"].Value.ToString();
             pictureBox1.Image = null;
             imageBytes = null;
+
+            car_id = Convert.ToInt32(selectedRow.Cells["car_id"].Value);
         }
 
-        private void UpdateDatabase(string make, string model, string year, string new_license_plate, string price, string old_license_plate, byte[] imageData)
+        private void UpdateDatabase(string make, string model, string year, string license_plate, string price, int car_id, byte[] imageData)
         {
             using (MySqlConnection connection = new MySqlConnection(db.connect))
             {
                 connection.Open();
+
                 string query = isImageUploaded
-     ? "UPDATE cars SET make=@make, model=@model, year=@year, " +
-       "license_plate=@newLicensePlate, price=@price, photo=@image " +
-       "WHERE license_plate=@oldLicensePlate"
-     : "UPDATE cars SET make=@make, model=@model, year=@year, " +
-       "license_plate=@newLicensePlate, price=@price " +
-       "WHERE license_plate=@oldLicensePlate";
+                    ? "UPDATE cars SET make=@make, model=@model, year=@year, " +
+                      "license_plate=@license_plate, price=@price, photo=@image " +
+                      "WHERE car_id=@carId"
+                    : "UPDATE cars SET make=@make, model=@model, year=@year, " +
+                      "license_plate=@license_plate, price=@price " +
+                      "WHERE car_id=@carId";
+
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@make", make);
                 command.Parameters.AddWithValue("@model", model);
                 command.Parameters.AddWithValue("@year", year);
-                command.Parameters.AddWithValue("@new_license_plate", new_license_plate);
+                command.Parameters.AddWithValue("@license_plate", license_plate);
                 command.Parameters.AddWithValue("@price", price);
-                command.Parameters.AddWithValue("@old_license_plate", old_license_plate);
-                command.Parameters.Add("@image", MySqlDbType.Blob).Value = imageData;
+                command.Parameters.AddWithValue("@carId", car_id);
+
                 if (isImageUploaded)
                 {
                     command.Parameters.Add("@image", MySqlDbType.LongBlob).Value = imageData;
@@ -66,9 +71,7 @@ namespace CarRental
         {
             if (textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && maskedTextBox1.Text != "" && textBox4.Text != "")
             {
-                string old_license_plate = selectedRow.Cells["Гос.Номер"].Value.ToString();
-                UpdateDatabase(textBox1.Text, textBox2.Text, textBox3.Text, maskedTextBox1.Text, textBox4.Text, old_license_plate, imageBytes);
-
+                UpdateDatabase(textBox1.Text, textBox2.Text, textBox3.Text, maskedTextBox1.Text, textBox4.Text, car_id, isImageUploaded ? imageBytes : null);
                 DialogResult = DialogResult.OK;
                 Close();
             }

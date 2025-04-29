@@ -33,8 +33,8 @@
             this.carYear = new System.Windows.Forms.Label();
             this.carStatus = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.carPrice = new System.Windows.Forms.Label();
             this.carName = new System.Windows.Forms.Label();
+            this.carPrice = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.photo)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -44,6 +44,7 @@
             this.photo.Location = new System.Drawing.Point(68, 28);
             this.photo.Name = "photo";
             this.photo.Size = new System.Drawing.Size(426, 255);
+            this.photo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.photo.TabIndex = 0;
             this.photo.TabStop = false;
             // 
@@ -99,17 +100,6 @@
             this.panel1.Size = new System.Drawing.Size(564, 661);
             this.panel1.TabIndex = 20;
             // 
-            // carPrice
-            // 
-            this.carPrice.AutoSize = true;
-            this.carPrice.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.carPrice.ForeColor = System.Drawing.Color.White;
-            this.carPrice.Location = new System.Drawing.Point(62, 489);
-            this.carPrice.Name = "carPrice";
-            this.carPrice.Size = new System.Drawing.Size(79, 32);
-            this.carPrice.TabIndex = 20;
-            this.carPrice.Text = "Цена";
-            // 
             // carName
             // 
             this.carName.AutoSize = true;
@@ -120,6 +110,17 @@
             this.carName.Size = new System.Drawing.Size(160, 42);
             this.carName.TabIndex = 21;
             this.carName.Text = "Машина";
+            // 
+            // carPrice
+            // 
+            this.carPrice.AutoSize = true;
+            this.carPrice.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.carPrice.ForeColor = System.Drawing.Color.White;
+            this.carPrice.Location = new System.Drawing.Point(62, 489);
+            this.carPrice.Name = "carPrice";
+            this.carPrice.Size = new System.Drawing.Size(79, 32);
+            this.carPrice.TabIndex = 20;
+            this.carPrice.Text = "Цена";
             // 
             // fullInfoCar
             // 

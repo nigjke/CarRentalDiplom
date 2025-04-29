@@ -19,7 +19,8 @@ namespace CarRental
     {
         private db db;
         string connect = db.connect;
-        private byte[] imageBytes;
+        private byte[] _imageBytes;
+        private const int MaxImageSizeMB = 25;
         public addCar()
         {
             db = new db();
@@ -27,28 +28,55 @@ namespace CarRental
         }
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && maskedTextBox1.Text != "" && comboBox1.Text != "" && textBox4.Text != "")
+            if (!ValidateInputs()) return;
+            try
+                {
+                    AddCarToDatabase();
+                    ClearForm();
+                    MessageBox.Show("Машина добавлена");
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка: {ex.Message}");
+                }
+        }
+        private void AddCarToDatabase()
+        {
+            using (var con = new MySqlConnection(db.connect))
             {
-                MySqlConnection con = new MySqlConnection(connect);
                 con.Open();
-                MySqlCommand cmd = new MySqlCommand($@"Insert Into cars(make,model,year,license_plate,status,price)Values ('{textBox1.Text}','{textBox2.Text}','{textBox3.Text}','{maskedTextBox1.Text}','{comboBox1.Text}','{textBox4.Text}')", con);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                MessageBox.Show("Машина добавлена");
-                textBox1.Text = "";
-                textBox2.Text = "";
-                textBox3.Text = "";
-                maskedTextBox1.Text = "";
-                comboBox1.Text = "";
-                textBox4.Text = "";
-                DialogResult = DialogResult.OK;
-            }
-            else
-            {
-                MessageBox.Show("Заполните все поля");
+
+                const string query = @"INSERT INTO cars 
+                    (make, model, year, license_plate, status, price, photo) 
+                    VALUES 
+                    (@make, @model, @year, @license_plate, @status, @price, @photo)";
+
+                using (var cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@make", textBox1.Text.Trim());
+                    cmd.Parameters.AddWithValue("@model", textBox2.Text.Trim());
+                    cmd.Parameters.AddWithValue("@year", int.Parse(textBox3.Text));
+                    cmd.Parameters.AddWithValue("@license_plate", maskedTextBox1.Text);
+                    cmd.Parameters.AddWithValue("@status", comboBox1.SelectedItem);
+                    cmd.Parameters.AddWithValue("@price", decimal.Parse(textBox4.Text));
+                    cmd.Parameters.Add("@photo", MySqlDbType.Blob).Value = _imageBytes;
+
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
-
+        private void ClearForm()
+        {
+            textBox1.Clear();
+            textBox2.Clear();
+            textBox3.Clear();
+            maskedTextBox1.Clear();
+            textBox4.Clear();
+            pictureBox1.Image = null;
+            _imageBytes = null;
+        }
         private void button2_Click_1(object sender, EventArgs e)
         {
             this.Close();
@@ -97,75 +125,89 @@ namespace CarRental
 
             }
         }
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(textBox1.Text) ||
+                string.IsNullOrWhiteSpace(textBox2.Text) ||
+                string.IsNullOrWhiteSpace(textBox3.Text) ||
+                !maskedTextBox1.MaskCompleted ||
+                string.IsNullOrWhiteSpace(textBox4.Text))
+            {
+                MessageBox.Show("Заполните все поля корректно");
+                return false;
+            }
 
+            if (!int.TryParse(textBox3.Text, out _) ||
+                !decimal.TryParse(textBox4.Text, out _))
+            {
+                MessageBox.Show("Некорректные числовые значения");
+                return false;
+            }
+
+            return true;
+        }
         private void uploadBtn_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+
+            using (var openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
 
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
-                        if (fileInfo.Length > 25 * 1024 * 1024)
-                        {
-                            MessageBox.Show("Файл слишком большой! Максимум 25 МБ.");
-                            return;
-                        }
-                        try
-                        {
-                            pictureBox1.Image = new System.Drawing.Bitmap(openFileDialog.FileName);
+                if (openFileDialog.ShowDialog() != DialogResult.OK) return;
 
-                            using (MemoryStream ms = new MemoryStream())
-                            {
-                                pictureBox1.Image.Save(ms, pictureBox1.Image.RawFormat);
-                                imageBytes = ms.ToArray();
-                            }
-
-                            SaveImageToDatabase(imageBytes);
-                            MessageBox.Show("Изображение успешно загружено!");
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Ошибка: {ex.Message}");
-                        }
-                    }
-                }
-            }    
-        }
-        private Image CompressImage(Image image)
-        {
-            ImageCodecInfo jpegCodec = ImageCodecInfo.GetImageEncoders().First(x => x.FormatID == ImageFormat.Jpeg.Guid);
-            EncoderParameters encoderParams = new EncoderParameters(1);
-            encoderParams.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 70L);
-
-            using (MemoryStream ms = new MemoryStream())
-            {
-                image.Save(ms, jpegCodec, encoderParams);
-                return Image.FromStream(ms);
-            }
-        }
-        private void SaveImageToDatabase(byte[] imageData)
-        {
-            using (MySqlConnection connection = new MySqlConnection(db.connect))
-            {
                 try
                 {
-                    connection.Open();
-                    string query = "INSERT INTO cars (photo) VALUES (@image)"; 
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                    var fileInfo = new FileInfo(openFileDialog.FileName);
+                    if (fileInfo.Length > MaxImageSizeMB * 1024 * 1024)
                     {
-                        cmd.Parameters.Add("@image", MySqlDbType.Blob).Value = imageData;
-                        cmd.ExecuteNonQuery();
+                        MessageBox.Show($"Файл слишком большой! Максимум {MaxImageSizeMB} МБ.");
+                        return;
                     }
+                    if (pictureBox1.Image != null)
+                    {
+                        pictureBox1.Image.Dispose();
+                        pictureBox1.Image = null;
+                    }
+                    byte[] fileBytes = File.ReadAllBytes(openFileDialog.FileName);
+                    using (var ms = new MemoryStream(fileBytes))
+                    {
+                        var originalImage = Image.FromStream(ms);
+                        var compressedImage = CompressImage(originalImage);
+                        _imageBytes = ImageToByteArray(compressedImage);
+                        pictureBox1.Image = compressedImage;
+                    }
+
+                    MessageBox.Show("Изображение загружено");
                 }
-                catch (MySqlException ex)
+                catch (Exception ex)
                 {
-                    throw new Exception($"MySQL Error: {ex.Message}");
+                    MessageBox.Show($"Ошибка: {ex.Message}");
                 }
+            }
+        }
+        private static byte[] ImageToByteArray(Image image)
+        {
+            using (var ms = new MemoryStream())
+            {
+                image.Save(ms, ImageFormat.Jpeg);
+                return ms.ToArray();
+            }
+        }
+
+        private static Image CompressImage(Image image)
+        {
+            var jpegCodec = ImageCodecInfo.GetImageEncoders()
+                .First(x => x.FormatID == ImageFormat.Jpeg.Guid);
+
+            var encoderParams = new EncoderParameters(1)
+            {
+                Param = { [0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 70L) }
+            };
+
+            using (var ms = new MemoryStream())
+            {
+                image.Save(ms, jpegCodec, encoderParams);
+                return Image.FromStream(new MemoryStream(ms.ToArray()));
             }
         }
     }

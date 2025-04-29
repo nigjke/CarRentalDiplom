@@ -43,15 +43,14 @@ namespace CarRental.fullInfoCar
                         carYear.Text = $"Год: {reader.GetInt32("Год выпуска")} км";
                         carStatus.Text = $"Статус: {reader.GetString("Статус")}";
                         carPrice.Text = $"Цена в день: {reader.GetDecimal("Цена за сутки"):N0} ₽";
-
-                        //if (!reader.IsDBNull(reader.GetOrdinal("photo")))
-                        //{
-                        //    byte[] imgBytes = (byte[])reader["photo"];
-                        //    using (var ms = new MemoryStream(imgBytes))
-                        //    {
-                        //        photo.Image = Image.FromStream(ms);
-                        //    }
-                        //}
+                        if (!reader.IsDBNull(reader.GetOrdinal("photo")))
+                        {
+                            byte[] imgBytes = (byte[])reader["photo"];
+                            using (var ms = new MemoryStream(imgBytes))
+                            {
+                                photo.Image = Image.FromStream(ms);
+                            }
+                        }
                     }
                 }
             }

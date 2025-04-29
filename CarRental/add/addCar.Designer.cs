@@ -68,13 +68,12 @@
             this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "available",
-            "rented"});
+            "Свободная"});
             this.comboBox1.Location = new System.Drawing.Point(281, 222);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(187, 32);
             this.comboBox1.TabIndex = 5;
-            this.comboBox1.Text = "Свободна";
+            this.comboBox1.Text = "Свободная";
             // 
             // textBox4
             // 
