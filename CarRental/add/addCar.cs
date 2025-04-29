@@ -26,6 +26,7 @@ namespace CarRental
             db = new db();
             InitializeComponent();
         }
+
         private void button1_Click_1(object sender, EventArgs e)
         {
             if (!ValidateInputs()) return;
