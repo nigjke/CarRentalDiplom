@@ -41,6 +41,7 @@
             // 
             // photo
             // 
+            this.photo.Image = global::CarRental.Properties.Resources._1637827423_1_flomaster_club_p_mashina_risunok_karandashom_lyogkie_detski_1;
             this.photo.Location = new System.Drawing.Point(68, 28);
             this.photo.Name = "photo";
             this.photo.Size = new System.Drawing.Size(426, 255);

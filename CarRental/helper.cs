@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Runtime.Remoting.Contexts;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
 
@@ -79,6 +81,18 @@ namespace CarRental
             {
                 doc = null;
                 wordApp = null;
+            }
+        }
+        public static byte[] GetCarPhoto(int carId)
+        {
+            using (var con = new MySqlConnection(db.connect))
+            {
+                con.Open();
+                using (var cmd = new MySqlCommand("SELECT photo FROM cars WHERE car_id = @id", con))
+                {
+                    cmd.Parameters.AddWithValue("@id", carId);
+                    return cmd.ExecuteScalar() as byte[];
+                }
             }
         }
     }
