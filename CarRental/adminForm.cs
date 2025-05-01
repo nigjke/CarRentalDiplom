@@ -34,6 +34,7 @@ namespace CarRental
         private int inactivityTime;
         private DateTime lastActivityTime;
         private int selectedCarId = -1;
+        private int selectedEmployeeId = -1;
         private bool isFullScreen = false;
         private FormWindowState previousWindowState;
         private Rectangle previousBounds;
@@ -530,22 +531,51 @@ namespace CarRental
 
         private void viewCarMenuItem_Click(object sender, EventArgs e)
         {
-            var carInfo = new fullInfoCar.fullInfoCar(selectedCarId);
-            carInfo.ShowDialog();
+            if (table == "cars")
+            {
+                if (selectedCarId == -1)
+                {
+                    MessageBox.Show("Машина не выбрана.");
+                    return;
+                }
+                using (var carInfo = new fullInfoCar.fullInfoCar(selectedCarId))
+                {
+                    carInfo.ShowDialog();
+                }
+            }
+            if (table == "employee")
+            {
+                if (selectedEmployeeId == -1)
+                {
+                    MessageBox.Show("Выберите сотрудника!");
+                    return;
+                }
+                var employeeForm = new fullInfo.fullInfoEmployee(selectedEmployeeId);
+                employeeForm.FormClosed += (s, args) => employeeForm.Dispose();
+                employeeForm.ShowDialog();
+            }
+            if (table == "customers")
+            {
+                var carInfo = new fullInfoCar.fullInfoCar(selectedCarId);
+                carInfo.ShowDialog();
+            }
         }
 
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
             {
-                if (table == "cars")
-                {
                     dataGridView1.ClearSelection();
                     dataGridView1.Rows[e.RowIndex].Selected = true;
-
+                if (table == "cars")
+                {
                     selectedCarId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["car_id"].Value);
-                    contextMenuStrip1.Show(Cursor.Position);
                 }
+                if (table == "employee")
+                {
+                    selectedEmployeeId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["employee_id"].Value);
+                }
+                    contextMenuStrip1.Show(Cursor.Position);
             }
         }
 
@@ -576,16 +606,6 @@ namespace CarRental
             }
             isFullScreen = !isFullScreen;
             ScaleControls();
-        }
-
-        private void UpdateLayout()
-        {
-            dataGridView1.Size = new Size(
-                this.ClientSize.Width - 40,
-                this.ClientSize.Height - 150
-            );
-
-            this.Refresh();
         }
         private void InitControlRatios()
         {

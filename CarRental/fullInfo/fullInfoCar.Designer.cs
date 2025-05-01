@@ -96,7 +96,7 @@
             this.panel1.Controls.Add(this.closeBtn);
             this.panel1.Controls.Add(this.carStatus);
             this.panel1.Controls.Add(this.carYear);
-            this.panel1.Location = new System.Drawing.Point(34, 30);
+            this.panel1.Location = new System.Drawing.Point(35, 30);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(564, 661);
             this.panel1.TabIndex = 20;
