@@ -161,10 +161,10 @@
     <Compile Include="edit\editCustomer.Designer.cs">
       <DependentUpon>editCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="fullInfoCar\fullInfoCar.cs">
+    <Compile Include="fullInfo\fullInfoCar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fullInfoCar\fullInfoCar.Designer.cs">
+    <Compile Include="fullInfo\fullInfoCar.Designer.cs">
       <DependentUpon>fullInfoCar.cs</DependentUpon>
     </Compile>
     <Compile Include="fullInformation.cs">
@@ -172,6 +172,12 @@
     </Compile>
     <Compile Include="fullInformation.Designer.cs">
       <DependentUpon>fullInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fullInfo\fullInfoEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fullInfo\fullInfoEmployee.Designer.cs">
+      <DependentUpon>fullInfoEmployee.cs</DependentUpon>
     </Compile>
     <Compile Include="helper.cs" />
     <Compile Include="importForm.cs">
@@ -227,11 +233,14 @@
     <EmbeddedResource Include="edit\editCustomer.resx">
       <DependentUpon>editCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fullInfoCar\fullInfoCar.resx">
+    <EmbeddedResource Include="fullInfo\fullInfoCar.resx">
       <DependentUpon>fullInfoCar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fullInformation.resx">
       <DependentUpon>fullInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fullInfo\fullInfoEmployee.resx">
+      <DependentUpon>fullInfoEmployee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="importForm.resx">
       <DependentUpon>importForm.cs</DependentUpon>
