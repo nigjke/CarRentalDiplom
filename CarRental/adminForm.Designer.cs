@@ -129,7 +129,7 @@ namespace CarRental
             this.rentalBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rentalBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rentalBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.rentalBtn.Location = new System.Drawing.Point(0, 470);
+            this.rentalBtn.Location = new System.Drawing.Point(0, 482);
             this.rentalBtn.Name = "rentalBtn";
             this.rentalBtn.Size = new System.Drawing.Size(341, 92);
             this.rentalBtn.TabIndex = 6;
@@ -152,11 +152,10 @@ namespace CarRental
             this.descendingBtn.Text = "по убыванию";
             this.descendingBtn.UseVisualStyleBackColor = false;
             this.descendingBtn.Click += new System.EventHandler(this.descendingBtn_Click);
-            this.descendingBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             // 
             // ascendingBtn
             // 
-            this.ascendingBtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.ascendingBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ascendingBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             this.ascendingBtn.FlatAppearance.BorderSize = 0;
             this.ascendingBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -168,7 +167,6 @@ namespace CarRental
             this.ascendingBtn.TabIndex = 8;
             this.ascendingBtn.Text = "по возрастанию";
             this.ascendingBtn.UseVisualStyleBackColor = false;
-            this.ascendingBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             this.ascendingBtn.Click += new System.EventHandler(this.ascendingBtn_Click);
             // 
             // backBtn
@@ -341,12 +339,10 @@ namespace CarRental
             this.label2.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(360, 109);
-            this.label2.Margin = new System.Windows.Forms.Padding(20, 20, 0, 0);
+            this.label2.Margin = new System.Windows.Forms.Padding(30, 20, 0, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(144, 36);
             this.label2.TabIndex = 17;
-            this.label2.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-            this.label2.Margin = new Padding(30, 20, 0, 0);
             this.label2.Text = "Машины";
             // 
             // panel2
@@ -411,7 +407,7 @@ namespace CarRental
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(366, 148);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(20, 80, 20, 100);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(30, 80, 30, 100);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -433,9 +429,6 @@ namespace CarRental
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
-            this.dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom
-                          | AnchorStyles.Left | AnchorStyles.Right;
-            this.dataGridView1.Margin = new Padding(30, 80, 30, 100);
             this.dataGridView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseClick);
             // 
             // labelInfo
