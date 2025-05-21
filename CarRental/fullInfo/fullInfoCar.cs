@@ -38,6 +38,7 @@ namespace CarRental.fullInfoCar
                         model,
                         year,
                         status,
+                        license_plate,
                         price,
                         photo 
                     FROM cars 
@@ -58,6 +59,7 @@ namespace CarRental.fullInfoCar
                                     carName.Text = $"{reader["make"]} {reader["model"]}";
                                     carYear.Text = $"Год выпуска: {reader["year"]}";
                                     carStatus.Text = $"Статус: {reader["status"]}";
+                                    carNumber.Text = $"Гос.номер: {reader["license_plate"]}";
                                     carPrice.Text = $"Цена за сутки: {Convert.ToDecimal(reader["price"]):N0} ₽";
                                 });
 

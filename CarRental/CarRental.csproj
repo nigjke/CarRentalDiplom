@@ -161,6 +161,12 @@
     <Compile Include="edit\editCustomer.Designer.cs">
       <DependentUpon>editCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="fullInfo\carReview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fullInfo\carReview.Designer.cs">
+      <DependentUpon>carReview.cs</DependentUpon>
+    </Compile>
     <Compile Include="fullInfo\fullInfoCar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="edit\editCustomer.resx">
       <DependentUpon>editCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fullInfo\carReview.resx">
+      <DependentUpon>carReview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fullInfo\fullInfoCar.resx">
       <DependentUpon>fullInfoCar.cs</DependentUpon>

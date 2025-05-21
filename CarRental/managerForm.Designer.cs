@@ -55,6 +55,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewCarMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -373,9 +374,10 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewCarMenuItem});
+            this.viewCarMenuItem,
+            this.reviewToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
             // 
             // viewCarMenuItem
             // 
@@ -383,6 +385,13 @@
             this.viewCarMenuItem.Size = new System.Drawing.Size(180, 22);
             this.viewCarMenuItem.Text = "Посмотреть";
             this.viewCarMenuItem.Click += new System.EventHandler(this.viewCarMenuItem_Click);
+            // 
+            // reviewToolStripMenuItem
+            // 
+            this.reviewToolStripMenuItem.Name = "reviewToolStripMenuItem";
+            this.reviewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reviewToolStripMenuItem.Text = "Отзывы";
+            this.reviewToolStripMenuItem.Click += new System.EventHandler(this.reviewToolStripMenuItem_Click);
             // 
             // managerForm
             // 
@@ -447,5 +456,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem viewCarMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reviewToolStripMenuItem;
     }
 }

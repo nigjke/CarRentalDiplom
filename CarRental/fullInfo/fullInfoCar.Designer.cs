@@ -31,8 +31,9 @@
             this.photo = new System.Windows.Forms.PictureBox();
             this.closeBtn = new System.Windows.Forms.Button();
             this.carYear = new System.Windows.Forms.Label();
-            this.carStatus = new System.Windows.Forms.Label();
+            this.carNumber = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.carStatus = new System.Windows.Forms.Label();
             this.carName = new System.Windows.Forms.Label();
             this.carPrice = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.photo)).BeginInit();
@@ -69,37 +70,49 @@
             this.carYear.AutoSize = true;
             this.carYear.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.carYear.ForeColor = System.Drawing.Color.White;
-            this.carYear.Location = new System.Drawing.Point(62, 394);
+            this.carYear.Location = new System.Drawing.Point(63, 372);
             this.carYear.Name = "carYear";
             this.carYear.Size = new System.Drawing.Size(57, 32);
             this.carYear.TabIndex = 18;
             this.carYear.Text = "Год";
+            // 
+            // carNumber
+            // 
+            this.carNumber.AutoSize = true;
+            this.carNumber.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.carNumber.ForeColor = System.Drawing.Color.White;
+            this.carNumber.Location = new System.Drawing.Point(62, 456);
+            this.carNumber.Name = "carNumber";
+            this.carNumber.Size = new System.Drawing.Size(151, 32);
+            this.carNumber.TabIndex = 19;
+            this.carNumber.Text = "Гос. номер";
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.carStatus);
+            this.panel1.Controls.Add(this.carName);
+            this.panel1.Controls.Add(this.carPrice);
+            this.panel1.Controls.Add(this.photo);
+            this.panel1.Controls.Add(this.closeBtn);
+            this.panel1.Controls.Add(this.carNumber);
+            this.panel1.Controls.Add(this.carYear);
+            this.panel1.Location = new System.Drawing.Point(35, 30);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(564, 661);
+            this.panel1.TabIndex = 20;
             // 
             // carStatus
             // 
             this.carStatus.AutoSize = true;
             this.carStatus.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.carStatus.ForeColor = System.Drawing.Color.White;
-            this.carStatus.Location = new System.Drawing.Point(62, 442);
+            this.carStatus.Location = new System.Drawing.Point(62, 414);
             this.carStatus.Name = "carStatus";
             this.carStatus.Size = new System.Drawing.Size(100, 32);
-            this.carStatus.TabIndex = 19;
+            this.carStatus.TabIndex = 22;
             this.carStatus.Text = "Статус";
-            // 
-            // panel1
-            // 
-            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.carName);
-            this.panel1.Controls.Add(this.carPrice);
-            this.panel1.Controls.Add(this.photo);
-            this.panel1.Controls.Add(this.closeBtn);
-            this.panel1.Controls.Add(this.carStatus);
-            this.panel1.Controls.Add(this.carYear);
-            this.panel1.Location = new System.Drawing.Point(35, 30);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(564, 661);
-            this.panel1.TabIndex = 20;
             // 
             // carName
             // 
@@ -117,7 +130,7 @@
             this.carPrice.AutoSize = true;
             this.carPrice.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.carPrice.ForeColor = System.Drawing.Color.White;
-            this.carPrice.Location = new System.Drawing.Point(62, 489);
+            this.carPrice.Location = new System.Drawing.Point(63, 498);
             this.carPrice.Name = "carPrice";
             this.carPrice.Size = new System.Drawing.Size(79, 32);
             this.carPrice.TabIndex = 20;
@@ -147,9 +160,10 @@
         private System.Windows.Forms.PictureBox photo;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Label carYear;
-        private System.Windows.Forms.Label carStatus;
+        private System.Windows.Forms.Label carNumber;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label carName;
         private System.Windows.Forms.Label carPrice;
+        private System.Windows.Forms.Label carStatus;
     }
 }
