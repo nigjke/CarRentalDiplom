@@ -179,11 +179,23 @@
     <Compile Include="fullInformation.Designer.cs">
       <DependentUpon>fullInformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="fullInfo\fullInfoCustomers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fullInfo\fullInfoCustomers.Designer.cs">
+      <DependentUpon>fullInfoCustomers.cs</DependentUpon>
+    </Compile>
     <Compile Include="fullInfo\fullInfoEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="fullInfo\fullInfoEmployee.Designer.cs">
       <DependentUpon>fullInfoEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fullInfo\fullInfoRentals.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fullInfo\fullInfoRentals.Designer.cs">
+      <DependentUpon>fullInfoRentals.cs</DependentUpon>
     </Compile>
     <Compile Include="helper.cs" />
     <Compile Include="importForm.cs">
@@ -247,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fullInformation.resx">
       <DependentUpon>fullInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fullInfo\fullInfoCustomers.resx">
+      <DependentUpon>fullInfoCustomers.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fullInfo\fullInfoEmployee.resx">
       <DependentUpon>fullInfoEmployee.cs</DependentUpon>

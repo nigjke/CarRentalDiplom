@@ -76,6 +76,7 @@ namespace CarRental.fullInfo
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     dataGridView1.DataSource = dt;
+                    dataGridView1.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 12);
                     dataGridView1.Columns[0].Visible = false;
 
                     dataGridView1.CellDoubleClick += (s, e) =>
