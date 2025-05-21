@@ -13,6 +13,7 @@ namespace CarRental
         private static string table = string.Empty;
         private DataGridViewRow selectedRow;
         private int selectedCarId = -1;
+        private int selectedCustomerId = -1;
         public managerForm(string labelLog)
         {
             db = new db();
@@ -22,8 +23,8 @@ namespace CarRental
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.MultiSelect = false;
             dataGridView1.CellClick += dataGridView1_CellClick;
-            dataGridView1.ContextMenuStrip = contextMenuStrip1;
             dataGridView1.CellMouseDown += dataGridView1_CellMouseDown;
+            dataGridView1.ContextMenuStrip = null;
         }
 
         private void SetButtonVisibility(bool btn7, bool btn8, bool btn9)
@@ -56,7 +57,7 @@ namespace CarRental
             }
         }
 
-        private void LoadData()
+        private void  LoadData()
         {
             using (MySqlConnection connection = new MySqlConnection(db.connect))
             {
@@ -64,7 +65,7 @@ namespace CarRental
                 string query = string.Empty;
                 if (table == "customers")
                 {
-                    query = "SELECT customer_id, first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт',  total_fines_amount as 'Сумма Штрафа' FROM customers";
+                    query = "SELECT customer_id, first_name AS 'Имя', last_name AS 'Фамилия', CONCAT(LEFT(phone, 2), REPEAT('*', CHAR_LENGTH(phone) - 6), RIGHT(phone, 4)) AS 'Телефон', CONCAT(LEFT(driver_license, 2), REPEAT('*', CHAR_LENGTH(driver_license) - 6), RIGHT(driver_license, 4)) AS 'Вод.Удостоверение', CONCAT(LEFT(passport, 2), REPEAT('*', CHAR_LENGTH(passport) - 6), RIGHT(passport, 4)) AS 'Паспорт' FROM customers;";
                 }
                 else if (table == "cars")
                 {
@@ -260,6 +261,19 @@ namespace CarRental
                     selectedCarId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["car_id"].Value);
                     contextMenuStrip1.Show(Cursor.Position);
                 }
+                else if (table == "customers")
+                {
+                    contextMenuStrip1.Hide();
+                    dataGridView1.Rows[e.RowIndex].Selected = true;
+
+                    selectedCustomerId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["customer_id"].Value);
+                    contextMenuStrip2.Show(Cursor.Position);
+                }
+                else
+                {
+                    contextMenuStrip1.Hide();
+                    contextMenuStrip2.Hide();
+                }
             }
         }
 
@@ -296,6 +310,13 @@ namespace CarRental
                     MessageBox.Show("Ошибка при проверке отзывов: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void fullInfo_Click(object sender, EventArgs e)
+        {
+            var fullCustomer = new fullInfo.fullInfoCustomers(selectedCustomerId);
+            fullCustomer.ShowDialog();
+
         }
     }
 }
