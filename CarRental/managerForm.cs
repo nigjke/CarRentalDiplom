@@ -64,11 +64,11 @@ namespace CarRental
                 string query = string.Empty;
                 if (table == "customers")
                 {
-                    query = "SELECT customer_id, first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers";
+                    query = "SELECT customer_id, first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт',  total_fines_amount as 'Сумма Штрафа' FROM customers";
                 }
                 else if (table == "cars")
                 {
-                    query = "SELECT car_id, make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус', price as 'Цена за сутки' FROM cars";
+                    query = "SELECT car_id, make as 'Марка', model as 'Модель', status as 'Статус', price as 'Цена за сутки' FROM cars";
                 }
                 else if (table == "rentals")
                 {
@@ -251,7 +251,7 @@ namespace CarRental
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
-            {   
+            {
                 if (table == "cars")
                 {
                     dataGridView1.ClearSelection();
@@ -267,6 +267,35 @@ namespace CarRental
         {
             var carInfo = new fullInfoCar.fullInfoCar(selectedCarId);
             carInfo.ShowDialog();
+        }
+
+        private void reviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (MySqlConnection conn = new MySqlConnection(db.connect))
+            {
+                try
+                {
+                    conn.Open();
+
+                    string checkQuery = "SELECT COUNT(*) FROM reviews WHERE car_id = @carId;";
+                    MySqlCommand cmd = new MySqlCommand(checkQuery, conn);
+                    cmd.Parameters.AddWithValue("@carId", selectedCarId);
+
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (count == 0)
+                    {
+                        MessageBox.Show("Для этой машины ещё нет отзывов.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    var carReview = new fullInfo.carReview(selectedCarId);
+                    carReview.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка при проверке отзывов: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
