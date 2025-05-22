@@ -33,7 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(managerForm));
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.rentalBtn = new System.Windows.Forms.Button();
             this.customerBtn = new System.Windows.Forms.Button();
             this.carBtn = new System.Windows.Forms.Button();
@@ -41,13 +40,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.checkBtn = new System.Windows.Forms.Button();
             this.exitBtn = new System.Windows.Forms.Button();
             this.searchBox = new System.Windows.Forms.TextBox();
             this.addBtn = new System.Windows.Forms.Button();
             this.backBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.editBtn = new System.Windows.Forms.Button();
             this.ascendingBtn = new System.Windows.Forms.Button();
             this.descendingBtn = new System.Windows.Forms.Button();
@@ -58,23 +57,15 @@
             this.reviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.fullInfo = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.finesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BackgroundImage = global::CarRental.Properties.Resources.close;
-            this.pictureBox4.Location = new System.Drawing.Point(794, 42);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox4.TabIndex = 33;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
             // rentalBtn
             // 
@@ -161,15 +152,6 @@
             this.label1.Size = new System.Drawing.Size(84, 22);
             this.label1.TabIndex = 17;
             this.label1.Text = "manager";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = global::CarRental.Properties.Resources.user;
-            this.pictureBox1.Location = new System.Drawing.Point(135, 35);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox1.TabIndex = 16;
-            this.pictureBox1.TabStop = false;
             // 
             // checkBtn
             // 
@@ -264,6 +246,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(344, 768);
             this.panel1.TabIndex = 30;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::CarRental.Properties.Resources.user;
+            this.pictureBox1.Location = new System.Drawing.Point(135, 35);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(64, 64);
+            this.pictureBox1.TabIndex = 16;
+            this.pictureBox1.TabStop = false;
             // 
             // editBtn
             // 
@@ -399,16 +390,34 @@
             // contextMenuStrip2
             // 
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fullInfo});
+            this.fullInfo,
+            this.finesToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip1";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(181, 48);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(181, 70);
             // 
             // fullInfo
             // 
             this.fullInfo.Name = "fullInfo";
             this.fullInfo.Size = new System.Drawing.Size(180, 22);
-            this.fullInfo.Text = "Подробно";
+            this.fullInfo.Text = "Подробнее";
             this.fullInfo.Click += new System.EventHandler(this.fullInfo_Click);
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackgroundImage = global::CarRental.Properties.Resources.close;
+            this.pictureBox4.Location = new System.Drawing.Point(794, 42);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox4.TabIndex = 33;
+            this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
+            // 
+            // finesToolStripMenuItem
+            // 
+            this.finesToolStripMenuItem.Name = "finesToolStripMenuItem";
+            this.finesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.finesToolStripMenuItem.Text = "Штрафы";
+            this.finesToolStripMenuItem.Click += new System.EventHandler(this.finesToolStripMenuItem_Click);
             // 
             // managerForm
             // 
@@ -438,13 +447,13 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "managerForm";
             this.Load += new System.EventHandler(this.managerForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.contextMenuStrip2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -477,5 +486,6 @@
         private System.Windows.Forms.ToolStripMenuItem reviewToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.ToolStripMenuItem fullInfo;
+        private System.Windows.Forms.ToolStripMenuItem finesToolStripMenuItem;
     }
 }

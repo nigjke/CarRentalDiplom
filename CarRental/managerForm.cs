@@ -14,6 +14,7 @@ namespace CarRental
         private DataGridViewRow selectedRow;
         private int selectedCarId = -1;
         private int selectedCustomerId = -1;
+        private int selectedRentalId = -1;
         public managerForm(string labelLog)
         {
             db = new db();
@@ -73,8 +74,7 @@ namespace CarRental
                 }
                 else if (table == "rentals")
                 {
-                    query = "SELECT rental_id, make as 'Марка', model as 'Модель', first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', rental_date as 'Дата взятия', return_date as 'Дата возврата', total_amount as 'Сумма' FROM carrentaldb.rentals " +
-                            "INNER JOIN customers ON rentals.customer_id = customers.customer_id " +
+                    query = "SELECT rental_id, make as 'Марка', model as 'Модель', rental_date as 'Дата взятия', return_date as 'Дата возврата', total_amount as 'Сумма' FROM carrentaldb.rentals " +
                             "INNER JOIN cars ON cars.car_id = rentals.car_id;";
                 }
                 MySqlCommand command = new MySqlCommand(query, connection);
@@ -269,6 +269,14 @@ namespace CarRental
                     selectedCustomerId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["customer_id"].Value);
                     contextMenuStrip2.Show(Cursor.Position);
                 }
+                else if(table == "rentals")
+                {
+                    contextMenuStrip1.Hide();
+                    dataGridView1.Rows[e.RowIndex].Selected = true;
+
+                    selectedRentalId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["rental_id"].Value);
+                    contextMenuStrip2.Show(Cursor.Position);
+                }
                 else
                 {
                     contextMenuStrip1.Hide();
@@ -314,9 +322,30 @@ namespace CarRental
 
         private void fullInfo_Click(object sender, EventArgs e)
         {
-            var fullCustomer = new fullInfo.fullInfoCustomers(selectedCustomerId);
-            fullCustomer.ShowDialog();
+            if (table == "customers")
+            {
+                var fullCustomer = new fullInfo.fullInfoCustomers(selectedCustomerId);
+                fullCustomer.ShowDialog();
+            }
+            else
+            {
+                var fullRental = new fullInfo.fullInfoRentals(selectedRentalId);
+                fullRental.ShowDialog();
+            }
 
+        }
+        private void finesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (table == "customers")
+            {
+                var fullInfoFines = new fullInfo.fullInfoFines(selectedCustomerId);
+                fullInfoFines.ShowDialog();
+            }
+            else if (table == "rentals")
+            {
+                var fullInfoFinesRental = new fullInfo.fullInfoFinesRental(selectedRentalId);
+                fullInfoFinesRental.ShowDialog();
+            }
         }
     }
 }
