@@ -89,7 +89,7 @@
             this.dataGridView1.RowTemplate.Height = 30;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(853, 431);
+            this.dataGridView1.Size = new System.Drawing.Size(853, 104);
             this.dataGridView1.TabIndex = 23;
             // 
             // closeBtn
@@ -99,7 +99,7 @@
             this.closeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.closeBtn.Font = new System.Drawing.Font("Arial", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.closeBtn.ForeColor = System.Drawing.Color.White;
-            this.closeBtn.Location = new System.Drawing.Point(30, 526);
+            this.closeBtn.Location = new System.Drawing.Point(30, 195);
             this.closeBtn.Name = "closeBtn";
             this.closeBtn.Size = new System.Drawing.Size(853, 72);
             this.closeBtn.TabIndex = 22;
@@ -123,7 +123,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(906, 616);
+            this.ClientSize = new System.Drawing.Size(906, 279);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.closeBtn);
             this.Controls.Add(this.label1);

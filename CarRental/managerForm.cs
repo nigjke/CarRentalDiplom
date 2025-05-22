@@ -319,7 +319,6 @@ namespace CarRental
                 }
             }
         }
-
         private void fullInfo_Click(object sender, EventArgs e)
         {
             if (table == "customers")
