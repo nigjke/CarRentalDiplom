@@ -28,7 +28,7 @@ namespace CarRental.fullInfo
             using (MySqlConnection connection = new MySqlConnection(db.connect))
             {
                 connection.Open();
-                string query = "SELECT customer_id, first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Лицензия', passport as 'Паспорт', total_fines_amount AS 'Сумма Штрафа' FROM customers WHERE customer_id=@customerId ";
+                string query = "SELECT customer_id, first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Лицензия', passport as 'Паспорт' FROM customers WHERE customer_id=@customerId ";
                 MySqlCommand command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@customerId", customerId);
                 MySqlDataAdapter adapter = new MySqlDataAdapter(command);
