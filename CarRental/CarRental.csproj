@@ -130,6 +130,12 @@
     <Compile Include="add\addEmployee.Designer.cs">
       <DependentUpon>addEmployee.cs</DependentUpon>
     </Compile>
+    <Compile Include="add\addFine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="add\addFine.Designer.cs">
+      <DependentUpon>addFine.cs</DependentUpon>
+    </Compile>
     <Compile Include="adminForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +184,12 @@
     </Compile>
     <Compile Include="fullInformation.Designer.cs">
       <DependentUpon>fullInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fullInfo\fullInfoCustomerReviews.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fullInfo\fullInfoCustomerReviews.Designer.cs">
+      <DependentUpon>fullInfoCustomerReviews.cs</DependentUpon>
     </Compile>
     <Compile Include="fullInfo\fullInfoCustomers.cs">
       <SubType>Form</SubType>
@@ -248,6 +260,9 @@
     <EmbeddedResource Include="add\addEmployee.resx">
       <DependentUpon>addEmployee.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="add\addFine.resx">
+      <DependentUpon>addFine.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="adminForm.resx">
       <DependentUpon>adminForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -271,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fullInformation.resx">
       <DependentUpon>fullInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fullInfo\fullInfoCustomerReviews.resx">
+      <DependentUpon>fullInfoCustomerReviews.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fullInfo\fullInfoCustomers.resx">
       <DependentUpon>fullInfoCustomers.cs</DependentUpon>

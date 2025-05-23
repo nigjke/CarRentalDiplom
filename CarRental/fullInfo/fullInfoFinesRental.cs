@@ -41,22 +41,25 @@ namespace CarRental.fullInfo
                     ORDER BY f.fine_id DESC;
                     ";
 
-                var cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@rentalId", _rentalId);
+                using (var cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@rentalId", _rentalId);
 
-                var adapter = new MySqlDataAdapter(cmd);
-                var dt = new DataTable();
-                adapter.Fill(dt);
+                    var adapter = new MySqlDataAdapter(cmd);
+                    var dt = new DataTable();
+                    adapter.Fill(dt);
 
-                dataGridView1.DataSource = dt;
-                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-                dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                    dataGridView1.DataSource = dt;
+                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+                    dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
-                if (dataGridView1.Columns.Contains("ID"))
-                    dataGridView1.Columns["ID"].Visible = false;
+                    if (dataGridView1.Columns.Contains("ID"))
+                        dataGridView1.Columns["ID"].Visible = false;
+                }
             }
         }
+
         private void closeBtn_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -64,7 +67,13 @@ namespace CarRental.fullInfo
 
         private void addBtn_Click(object sender, EventArgs e)
         {
-
+            using (var addForm = new add.addFine(_rentalId))
+            {
+                if (addForm.ShowDialog() == DialogResult.OK)
+                {
+                    LoadFines();
+                }
+            }
         }
     }
 }

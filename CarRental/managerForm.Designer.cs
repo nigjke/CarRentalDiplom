@@ -57,8 +57,9 @@
             this.reviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.fullInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.finesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.отзывыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -391,9 +392,10 @@
             // 
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fullInfo,
-            this.finesToolStripMenuItem});
+            this.finesToolStripMenuItem,
+            this.отзывыToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip1";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(181, 92);
             // 
             // fullInfo
             // 
@@ -401,6 +403,13 @@
             this.fullInfo.Size = new System.Drawing.Size(180, 22);
             this.fullInfo.Text = "Подробнее";
             this.fullInfo.Click += new System.EventHandler(this.fullInfo_Click);
+            // 
+            // finesToolStripMenuItem
+            // 
+            this.finesToolStripMenuItem.Name = "finesToolStripMenuItem";
+            this.finesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.finesToolStripMenuItem.Text = "Штрафы";
+            this.finesToolStripMenuItem.Click += new System.EventHandler(this.finesToolStripMenuItem_Click);
             // 
             // pictureBox4
             // 
@@ -412,12 +421,12 @@
             this.pictureBox4.TabStop = false;
             this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
-            // finesToolStripMenuItem
+            // отзывыToolStripMenuItem
             // 
-            this.finesToolStripMenuItem.Name = "finesToolStripMenuItem";
-            this.finesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.finesToolStripMenuItem.Text = "Штрафы";
-            this.finesToolStripMenuItem.Click += new System.EventHandler(this.finesToolStripMenuItem_Click);
+            this.отзывыToolStripMenuItem.Name = "отзывыToolStripMenuItem";
+            this.отзывыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.отзывыToolStripMenuItem.Text = "Отзывы";
+            this.отзывыToolStripMenuItem.Click += new System.EventHandler(this.отзывыToolStripMenuItem_Click);
             // 
             // managerForm
             // 
@@ -487,5 +496,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.ToolStripMenuItem fullInfo;
         private System.Windows.Forms.ToolStripMenuItem finesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отзывыToolStripMenuItem;
     }
 }

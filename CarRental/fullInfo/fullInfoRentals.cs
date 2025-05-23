@@ -36,35 +36,43 @@ namespace CarRental.fullInfo
                 connection.Open();
 
                 string query = @"
-            SELECT 
-                f.fine_id AS 'ID штрафа',
-                f.description AS 'Описание',
-                f.fine_amount AS 'Сумма штрафа',
-                f.fine_date AS 'Дата штрафа',
-                CASE 
-                    WHEN f.is_paid = 1 THEN 'Оплачен'
-                    ELSE 'Не оплачен'
-                END AS 'Статус',
-                c.first_name AS 'Имя клиента',
-                c.last_name AS 'Фамилия клиента'
-            FROM fines f
-            INNER JOIN customers c ON f.customer_id = c.customer_id
-            WHERE f.rental_id = @rentalId
-            ORDER BY f.fine_date DESC;";
+                    SELECT 
+                        f.fine_id AS 'ID штрафа',
+                        ft.name AS 'Описание',
+                        ft.amount AS 'Сумма штрафа',
+                        f.fine_date AS 'Дата штрафа',
+                        CASE 
+                            WHEN f.is_paid = 1 THEN 'Оплачен'
+                            ELSE 'Не оплачен'
+                        END AS 'Статус',
+                        c.first_name AS 'Имя клиента',
+                        c.last_name AS 'Фамилия клиента'
+                    FROM fines f
+                    INNER JOIN finesType ft ON f.fine_type_id = ft.fine_type_id
+                    INNER JOIN customers c ON f.customer_id = c.customer_id
+                    WHERE f.rental_id = @rentalId
+                    ORDER BY f.fine_date DESC;
+                    ";
 
-                MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@rentalId", rentalId);
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@rentalId", rentalId);
 
-                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                DataTable dataTable = new DataTable();
-                adapter.Fill(dataTable);
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
 
-                dataGridView1.DataSource = dataTable;
-                dataGridView1.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 10);
+                    dataGridView1.DataSource = dataTable;
 
-                if (dataGridView1.Columns.Contains("ID штрафа"))
-                    dataGridView1.Columns["ID штрафа"].Visible = false;
+                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+                    dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+                    if (dataGridView1.Columns.Contains("ID штрафа"))
+                        dataGridView1.Columns["ID штрафа"].Visible = false;
+                }
             }
         }
+
     }
 }
