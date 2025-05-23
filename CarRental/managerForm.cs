@@ -293,29 +293,32 @@ namespace CarRental
 
         private void reviewToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection conn = new MySqlConnection(db.connect))
+            if (table == "cars")
             {
-                try
+                using (MySqlConnection conn = new MySqlConnection(db.connect))
                 {
-                    conn.Open();
-
-                    string checkQuery = "SELECT COUNT(*) FROM reviews WHERE car_id = @carId;";
-                    MySqlCommand cmd = new MySqlCommand(checkQuery, conn);
-                    cmd.Parameters.AddWithValue("@carId", selectedCarId);
-
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-
-                    if (count == 0)
+                    try
                     {
-                        MessageBox.Show("Для этой машины ещё нет отзывов.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
+                        conn.Open();
+
+                        string checkQuery = "SELECT COUNT(*) FROM reviews WHERE car_id = @carId;";
+                        MySqlCommand cmd = new MySqlCommand(checkQuery, conn);
+                        cmd.Parameters.AddWithValue("@carId", selectedCarId);
+
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                        if (count == 0)
+                        {
+                            MessageBox.Show("Для этой машины ещё нет отзывов.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                        var carReview = new fullInfo.carReview(selectedCarId);
+                        carReview.ShowDialog();
                     }
-                    var carReview = new fullInfo.carReview(selectedCarId);
-                    carReview.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ошибка при проверке отзывов: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка при проверке отзывов: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -345,6 +348,43 @@ namespace CarRental
                 var fullInfoFinesRental = new fullInfo.fullInfoFinesRental(selectedRentalId);
                 fullInfoFinesRental.ShowDialog();
             }
+        }
+
+        private void отзывыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (selectedCustomerId == -1)
+            {
+                MessageBox.Show("Пожалуйста, выберите клиента.");
+                return;
+            }
+
+            using (MySqlConnection conn = new MySqlConnection(db.connect))
+            {
+                try
+                {
+                    conn.Open();
+
+                    string checkQuery = "SELECT COUNT(*) FROM reviews WHERE customer_id = @customerId;";
+                    MySqlCommand cmd = new MySqlCommand(checkQuery, conn);
+                    cmd.Parameters.AddWithValue("@customerId", selectedCustomerId);
+
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (count == 0)
+                    {
+                        MessageBox.Show("У этого клиента нет отзывов.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    var customerReviewsForm = new fullInfo.fullInfoCustomerReviews(selectedCustomerId);
+                    customerReviewsForm.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка при проверке отзывов: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
         }
     }
 }
