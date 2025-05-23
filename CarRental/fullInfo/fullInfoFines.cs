@@ -13,10 +13,15 @@ namespace CarRental.fullInfo
 {
     public partial class fullInfoFines : Form
     {
+        private int currentCustomerId;
+        private int? selectedFineId = null;
         public fullInfoFines(int customerId)
         {
             InitializeComponent();
+            currentCustomerId = customerId;
             LoadFines(customerId);
+            payBtn.Click -= payBtn_Click;
+            payBtn.Click += payBtn_Click;
         }
 
         private void LoadFines(int customerId)
@@ -25,13 +30,17 @@ namespace CarRental.fullInfo
             {
                 conn.Open();
                 string query = @"
-                    SELECT f.description AS 'Описание', f.fine_amount AS 'Сумма', 
-                           f.fine_date AS 'Дата', IF(f.is_paid = 1, 'Да', 'Нет') AS 'Оплачен'
+                    SELECT 
+                        f.fine_id AS 'ID',
+                        ft.name AS 'Описание',
+                        ft.amount AS 'Сумма',
+                        f.fine_date AS 'Дата',
+                        IF(f.is_paid = 1, 'Да', 'Нет') AS 'Оплачен'
                     FROM fines f
-                    JOIN rentals r ON f.rental_id = r.rental_id
-                    WHERE r.customer_id = @customerId
+                    JOIN finesType ft ON f.fine_type_id = ft.fine_type_id
+                    WHERE f.customer_id = @customerId
                     ORDER BY f.fine_date DESC;
-                    ";
+                ";
 
                 using (var cmd = new MySqlCommand(query, conn))
                 {
@@ -44,13 +53,16 @@ namespace CarRental.fullInfo
                     dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 10);
                     dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 14, FontStyle.Bold);
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    if (dataGridView1.Columns.Contains("ID"))
+                        dataGridView1.Columns["ID"].Visible = false;
                 }
+
                 string totalUnpaidQuery = @"
-                    SELECT IFNULL(SUM(f.fine_amount), 0)
+                    SELECT IFNULL(SUM(ft.amount), 0)
                     FROM fines f
-                    JOIN rentals r ON f.rental_id = r.rental_id
-                    WHERE r.customer_id = @customerId AND f.is_paid = 0;
-                    ";
+                    JOIN finesType ft ON f.fine_type_id = ft.fine_type_id
+                    WHERE f.customer_id = @customerId AND f.is_paid = 0;
+                ";
 
                 using (var sumCmd = new MySqlCommand(totalUnpaidQuery, conn))
                 {
@@ -62,19 +74,52 @@ namespace CarRental.fullInfo
             }
         }
 
+
         private void closeBtn_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void payBtn_Click(object sender, EventArgs e)
         {
 
+            PaySelectedFine();
         }
-
-        private void label1_Click(object sender, EventArgs e)
+        private void PaySelectedFine()
         {
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Выберите штраф", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            int fineId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["ID"].Value);
+
+            using (var conn = new MySqlConnection(db.connect))
+            {
+                conn.Open();
+                var cmd = new MySqlCommand("UPDATE fines SET is_paid = 1 WHERE fine_id = @fineId", conn);
+                cmd.Parameters.AddWithValue("@fineId", fineId);
+                int result = cmd.ExecuteNonQuery();
+
+                if (result > 0)
+                {
+                    MessageBox.Show("Штраф успешно оплачен!", "Успешно", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadFines(currentCustomerId);
+                }
+            }
+        }
+        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var hit = dataGridView1.HitTest(e.X, e.Y);
+                if (hit.RowIndex >= 0)
+                {
+                    dataGridView1.ClearSelection();
+                    dataGridView1.Rows[hit.RowIndex].Selected = true;
+                    contextMenuStrip1.Show(dataGridView1, e.Location);
+                }
+            }
         }
     }
 }

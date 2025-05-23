@@ -130,6 +130,12 @@
     <Compile Include="add\addEmployee.Designer.cs">
       <DependentUpon>addEmployee.cs</DependentUpon>
     </Compile>
+    <Compile Include="add\addFine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="add\addFine.Designer.cs">
+      <DependentUpon>addFine.cs</DependentUpon>
+    </Compile>
     <Compile Include="adminForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -247,6 +253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="add\addEmployee.resx">
       <DependentUpon>addEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="add\addFine.resx">
+      <DependentUpon>addFine.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="adminForm.resx">
       <DependentUpon>adminForm.cs</DependentUpon>
