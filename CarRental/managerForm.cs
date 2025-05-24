@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 using Word = Microsoft.Office.Interop.Word;
 
 namespace CarRental
@@ -58,7 +59,7 @@ namespace CarRental
             }
         }
 
-        private void  LoadData()
+        private void LoadData()
         {
             using (MySqlConnection connection = new MySqlConnection(db.connect))
             {
@@ -98,7 +99,7 @@ namespace CarRental
             var result = MessageBox.Show("Вы уверены, что хотите выйти?", "Подтверждение выхода", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                Application.Exit();
+                System.Windows.Forms.Application.Exit();
             }
         }
 
@@ -116,7 +117,7 @@ namespace CarRental
         {
             SetButtonVisibility(false, false, false);
             helper.SetButtonColors(carBtn, rentalBtn, customerBtn);
-            LoadTable("cars", "Машины", new string[] { "По Марке", "По Модели", "По Году выпуска", "По Гос.Номеру", "По Статусу", "По Цене" });
+            LoadTable("cars", "Машины", new string[] { "По Марке", "По Модели", "По Статусу", "По Цене" });
         }
         private void dataGridView1_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
@@ -128,9 +129,9 @@ namespace CarRental
 
         private void rentalBtn_Click(object sender, EventArgs e)
         {
-            SetButtonVisibility(true, true, true);
+            SetButtonVisibility(true, false, true);
             helper.SetButtonColors(rentalBtn, customerBtn, carBtn);
-            LoadTable("rentals", "Аренды", new string[] { "По Марке", "По Модели", "По Имени", "По Фамилии", "По Телефону", "По дате взятия", "По дате возврата", "По сумме" });
+            LoadTable("rentals", "Аренды", new string[] { "По Марке", "По Модели", "По дате взятия", "По дате возврата", "По сумме" });
         }
 
         private void customerBtn_Click(object sender, EventArgs e)
@@ -144,29 +145,97 @@ namespace CarRental
         {
             SetButtonVisibility(false, false, false);
             helper.SetButtonColors(carBtn, rentalBtn, customerBtn);
-            LoadTable("cars", "Машины", new string[] { "По Марке", "По Модели", "По Году выпуска", "По Гос.Номеру", "По Статусу", "По Цене" });
+            LoadTable("cars", "Машины", new string[] { "По Марке", "По Модели", "По Статусу", "По Цене" });
         }
 
         private void searchBox_TextChanged(object sender, EventArgs e)
         {
+            string query = "";
             string txt = searchBox.Text;
-            string query = string.Empty;
-            if (table == "cars")
+            using (MySqlConnection connection = new MySqlConnection(db.connect))
             {
-                query = $"SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус', price as 'Цена за сутки' FROM cars WHERE make LIKE '%{txt}%' OR model LIKE '%{txt}%' OR license_plate LIKE '%{txt}%' OR status LIKE '%{txt}%' OR year LIKE '%{txt}%' OR price LIKE '%{txt}%'";
+                MySqlCommand command = connection.CreateCommand();
+
+                if (table == "cars")
+                {
+                    query = @"
+                SELECT 
+                    make AS 'Марка', 
+                    model AS 'Модель', 
+                    year AS 'Год выпуска', 
+                    license_plate AS 'Гос.Номер', 
+                    status AS 'Статус', 
+                    price AS 'Цена за сутки' 
+                FROM cars 
+                WHERE 
+                    make LIKE @txt OR 
+                    model LIKE @txt OR 
+                    license_plate LIKE @txt OR 
+                    status LIKE @txt OR 
+                    CAST(year AS CHAR) LIKE @txt OR 
+                    CAST(price AS CHAR) LIKE @txt";
+                }
+                else if (table == "customers")
+                {
+                    query = @"
+                SELECT 
+                    first_name AS 'Имя', 
+                    last_name AS 'Фамилия', 
+                    CONCAT(LEFT(phone, 2), REPEAT('*', CHAR_LENGTH(phone) - 6), RIGHT(phone, 4)) AS 'Телефон', 
+                    CONCAT(LEFT(driver_license, 2), REPEAT('*', CHAR_LENGTH(driver_license) - 6), RIGHT(driver_license, 4)) AS 'Вод.Удостоверение', 
+                    CONCAT(LEFT(passport, 2), REPEAT('*', CHAR_LENGTH(passport) - 6), RIGHT(passport, 4)) AS 'Паспорт' 
+                FROM customers 
+                WHERE 
+                    first_name LIKE @txt OR 
+                    last_name LIKE @txt OR 
+                    phone LIKE @txt OR 
+                    driver_license LIKE @txt OR 
+                    passport LIKE @txt";
+                }
+                else if (table == "rentals")
+                {
+                    query = @"
+                        SELECT 
+                            rentals.rental_id, 
+                            cars.make AS 'Марка', 
+                            cars.model AS 'Модель', 
+                            rentals.rental_date AS 'Дата взятия', 
+                            rentals.return_date AS 'Дата возврата', 
+                            rentals.total_amount AS 'Сумма' 
+                        FROM carrentaldb.rentals 
+                        INNER JOIN carrentaldb.cars ON cars.car_id = rentals.car_id 
+                        WHERE 
+                            cars.make LIKE @txt OR 
+                            cars.model LIKE @txt OR 
+                            rentals.rental_date LIKE @txt OR 
+                            rentals.return_date LIKE @txt OR 
+                            rentals.total_amount LIKE @txt";
+                }
+                else
+                {
+                    return;
+                }
+
+                command.CommandText = query;
+                command.Parameters.AddWithValue("@txt", "%" + txt + "%");
+
+                DataTable dt = new DataTable();
+
+                try
+                {
+                    connection.Open();
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        adapter.Fill(dt);
+                    }
+
+                    dataGridView1.DataSource = dt;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка при поиске: " + ex.Message);
+                }
             }
-            else if (table == "customers")
-            {
-                query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers WHERE first_name LIKE '%{txt}%' OR last_name LIKE '%{txt}%' OR phone LIKE '%{txt}%' OR driver_license LIKE '%{txt}%' OR passport LIKE '%{txt}%'";
-            }
-            else if (table == "rentals")
-            {
-                query = $"SELECT customers.passport as 'Клиент', cars.license_plate as 'Машина', rentals.rental_date as 'Дата взятия', employee.employeeLogin as 'Менеджер', rentals.return_date as 'Дата возвращения', rentals.total_amount as 'Сумма' FROM rentals " +
-                        $"JOIN customers ON rentals.customer_id = customers.customer_id " +
-                        $"JOIN cars ON rentals.car_id = cars.car_id " +
-                        $"JOIN employee ON rentals.employee_id = employee.employee_id;";
-            }
-            db.MySqlReturnData(query, dataGridView1);
         }
 
         private void ascendingBtn_Click(object sender, EventArgs e)
@@ -217,15 +286,6 @@ namespace CarRental
                 {
                     var editCustomer = new editCustomer(selectedRow);
                     if (editCustomer.ShowDialog() == DialogResult.OK)
-                    {
-                        LoadData();
-                    }
-                }
-                else
-                {
-                    var selectedRows = ((DataRowView)dataGridView1.SelectedRows[0].DataBoundItem).Row;
-                    var editRental = new editRental(selectedRows);
-                    if (editRental.ShowDialog() == DialogResult.OK)
                     {
                         LoadData();
                     }
@@ -283,7 +343,7 @@ namespace CarRental
                     bool hasReview = CheckReviewExists(selectedRentalId);
 
                     reviewToolStripMenuItem.Visible = isCompleted && !hasReview;
-                    reviewToolStripMenuItem.Text = "Добавить отзыв";
+                    отзывыToolStripMenuItem.Text = "Добавить отзыв";
 
                     contextMenuStrip2.Show(Cursor.Position);
                 }

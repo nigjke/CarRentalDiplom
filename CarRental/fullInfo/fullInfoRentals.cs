@@ -36,23 +36,19 @@ namespace CarRental.fullInfo
                 connection.Open();
 
                 string query = @"
-                    SELECT 
-                        f.fine_id AS 'ID штрафа',
-                        ft.name AS 'Описание',
-                        ft.amount AS 'Сумма штрафа',
-                        f.fine_date AS 'Дата штрафа',
-                        CASE 
-                            WHEN f.is_paid = 1 THEN 'Оплачен'
-                            ELSE 'Не оплачен'
-                        END AS 'Статус',
-                        c.first_name AS 'Имя клиента',
-                        c.last_name AS 'Фамилия клиента'
-                    FROM fines f
-                    INNER JOIN finesType ft ON f.fine_type_id = ft.fine_type_id
-                    INNER JOIN customers c ON f.customer_id = c.customer_id
-                    WHERE f.rental_id = @rentalId
-                    ORDER BY f.fine_date DESC;
-                    ";
+                SELECT 
+                    cars.make AS 'Марка', 
+                    cars.model AS 'Модель', 
+                    rentals.rental_date AS 'Дата взятия', 
+                    rentals.return_date AS 'Дата возврата', 
+                    rentals.total_amount AS 'Сумма',
+                    CONCAT(customers.first_name, ' ', customers.last_name) AS 'Клиент',
+                    customers.passport AS 'Паспорт'
+                FROM carrentaldb.rentals 
+                INNER JOIN carrentaldb.cars ON cars.car_id = rentals.car_id 
+                INNER JOIN carrentaldb.customers ON customers.customer_id = rentals.customer_id
+                WHERE rentals.rental_id = @rentalId
+                ORDER BY rentals.rental_date DESC;";
 
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
