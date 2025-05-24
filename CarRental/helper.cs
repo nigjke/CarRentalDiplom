@@ -29,9 +29,9 @@ namespace CarRental
         {
             Dictionary<string, string[]> sortingColumns = new Dictionary<string, string[]>
     {
-        { "cars", new string[] { "Марка", "Модель", "Год выпуска", "Гос.Номер", "Статус", "Цена" } },
+        { "cars", new string[] { "Марка", "Модель", "Статус", "Цена" } },
         { "customers", new string[] { "Имя", "Фамилия", "Телефон", "Вод.Удостоверение", "Паспорт" } },
-        { "rentals", new string[] { "Марка", "Модель", "Имя", "Фамилия", "Телефон", "Дата взятия", "Дата возврата", "Сумма" } }
+        { "rentals", new string[] { "Марка", "Модель", "Дата взятия", "Дата возврата", "Сумма" } }
     };
 
             if (sortingColumns.ContainsKey(tableName) && selectedIndex >= 0 && selectedIndex < sortingColumns[tableName].Length)
@@ -44,9 +44,9 @@ namespace CarRental
         {
             Dictionary<string, string[]> sortingColumns = new Dictionary<string, string[]>
     {
-        { "cars", new string[] { "Марка", "Модель", "Год выпуска", "Гос.Номер", "Статус", "Цена" } },
+        { "cars", new string[] { "Марка", "Модель", "Статус", "Цена" } },
         { "customers", new string[] { "Имя", "Фамилия", "Телефон", "Вод.Удостоверение", "Паспорт" } },
-        { "rentals", new string[] { "Марка", "Модель", "Имя", "Фамилия", "Телефон", "Дата взятия", "Дата возврата", "Сумма" } }
+        { "rentals", new string[] { "Марка", "Модель", "Дата взятия", "Дата возврата", "Сумма" } }
     };
 
             if (sortingColumns.ContainsKey(tableName) && selectedIndex >= 0 && selectedIndex < sortingColumns[tableName].Length)
