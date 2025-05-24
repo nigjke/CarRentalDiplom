@@ -264,17 +264,27 @@ namespace CarRental
                 else if (table == "customers")
                 {
                     contextMenuStrip1.Hide();
+                    dataGridView1.ClearSelection();
                     dataGridView1.Rows[e.RowIndex].Selected = true;
 
                     selectedCustomerId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["customer_id"].Value);
                     contextMenuStrip2.Show(Cursor.Position);
                 }
-                else if(table == "rentals")
+                else if (table == "rentals")
                 {
-                    contextMenuStrip1.Hide();
+                    dataGridView1.ClearSelection();
                     dataGridView1.Rows[e.RowIndex].Selected = true;
 
                     selectedRentalId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["rental_id"].Value);
+                    selectedCarId = GetCarIdFromRental(selectedRentalId);
+                    object returnDateObj = dataGridView1.Rows[e.RowIndex].Cells["Дата возврата"].Value;
+                    bool isCompleted = returnDateObj != DBNull.Value && returnDateObj != null;
+
+                    bool hasReview = CheckReviewExists(selectedRentalId);
+
+                    reviewToolStripMenuItem.Visible = isCompleted && !hasReview;
+                    reviewToolStripMenuItem.Text = "Добавить отзыв";
+
                     contextMenuStrip2.Show(Cursor.Position);
                 }
                 else
@@ -345,46 +355,131 @@ namespace CarRental
             }
             else if (table == "rentals")
             {
-                var fullInfoFinesRental = new fullInfo.fullInfoFinesRental(selectedRentalId);
-                fullInfoFinesRental.ShowDialog();
+                using (MySqlConnection conn = new MySqlConnection(db.connect))
+                {
+                    conn.Open();
+                    string dateQuery = "SELECT return_date FROM rentals WHERE rental_id = @rentalId;";
+                    MySqlCommand dateCmd = new MySqlCommand(dateQuery, conn);
+                    dateCmd.Parameters.AddWithValue("@rentalId", selectedRentalId);
+                    object endDateObj = dateCmd.ExecuteScalar();
+                    DateTime endDate = Convert.ToDateTime(endDateObj);
+                    if (endDate > DateTime.Now)
+                    {
+                        MessageBox.Show("Штраф можно оставить только после окончания аренды.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    var fullInfoFinesRental = new fullInfo.fullInfoFinesRental(selectedRentalId);
+                    fullInfoFinesRental.ShowDialog();
+                }
             }
         }
 
         private void отзывыToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (selectedCustomerId == -1)
+            if (table == "customers")
             {
-                MessageBox.Show("Пожалуйста, выберите клиента.");
-                return;
-            }
-
-            using (MySqlConnection conn = new MySqlConnection(db.connect))
-            {
-                try
+                if (selectedCustomerId == -1)
                 {
-                    conn.Open();
-
-                    string checkQuery = "SELECT COUNT(*) FROM reviews WHERE customer_id = @customerId;";
-                    MySqlCommand cmd = new MySqlCommand(checkQuery, conn);
-                    cmd.Parameters.AddWithValue("@customerId", selectedCustomerId);
-
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-
-                    if (count == 0)
+                    MessageBox.Show("Пожалуйста, выберите клиента.");
+                    return;
+                }
+                using (MySqlConnection conn = new MySqlConnection(db.connect))
+                {
+                    try
                     {
-                        MessageBox.Show("У этого клиента нет отзывов.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
+                        conn.Open();
 
-                    var customerReviewsForm = new fullInfo.fullInfoCustomerReviews(selectedCustomerId);
-                    customerReviewsForm.ShowDialog();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ошибка при проверке отзывов: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        string checkQuery = "SELECT COUNT(*) FROM reviews WHERE customer_id = @customerId;";
+                        MySqlCommand cmd = new MySqlCommand(checkQuery, conn);
+                        cmd.Parameters.AddWithValue("@customerId", selectedCustomerId);
+
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                        if (count == 0)
+                        {
+                            MessageBox.Show("У этого клиента нет отзывов.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+
+                        var customerReviewsForm = new fullInfo.fullInfoCustomerReviews(selectedCustomerId);
+                        customerReviewsForm.ShowDialog();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка при проверке отзывов: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
+            else if (table == "rentals")
+            {
+                if (selectedRentalId == -1)
+                {
+                    MessageBox.Show("Пожалуйста, выберите аренду.");
+                    return;
+                }
 
+                using (MySqlConnection conn = new MySqlConnection(db.connect))
+                {
+                    try
+                    {
+                        conn.Open();
+                        string dateQuery = "SELECT return_date FROM rentals WHERE rental_id = @rentalId;";
+                        MySqlCommand dateCmd = new MySqlCommand(dateQuery, conn);
+                        dateCmd.Parameters.AddWithValue("@rentalId", selectedRentalId);
+                        object endDateObj = dateCmd.ExecuteScalar();
+
+                        if (endDateObj == null)
+                        {
+                            MessageBox.Show("Аренда не найдена.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        DateTime endDate = Convert.ToDateTime(endDateObj);
+                        if (endDate > DateTime.Now)
+                        {
+                            MessageBox.Show("Отзыв можно оставить только после окончания аренды.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                        string reviewCheckQuery = "SELECT COUNT(*) FROM reviews WHERE rental_id = @rentalId;";
+                        MySqlCommand reviewCheckCmd = new MySqlCommand(reviewCheckQuery, conn);
+                        reviewCheckCmd.Parameters.AddWithValue("@rentalId", selectedRentalId);
+                        int reviewCount = Convert.ToInt32(reviewCheckCmd.ExecuteScalar());
+
+                        if (reviewCount > 0)
+                        {
+                            MessageBox.Show("Отзыв на эту аренду уже оставлен.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                        var addReview = new add.addReview(selectedRentalId, selectedCarId);
+                        addReview.ShowDialog();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка при проверке аренды или отзывов: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        private bool CheckReviewExists(int rentalId)
+        {
+            using (var conn = new MySqlConnection(db.connect))
+            {
+                conn.Open();
+                var cmd = new MySqlCommand("SELECT COUNT(*) FROM reviews WHERE rental_id = @rentalId", conn);
+                cmd.Parameters.AddWithValue("@rentalId", rentalId);
+                return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+            }
+        }
+        private int GetCarIdFromRental(int rentalId)
+        {
+            using (var conn = new MySqlConnection(db.connect))
+            {
+                conn.Open();
+                var cmd = new MySqlCommand("SELECT car_id FROM rentals WHERE rental_id = @rentalId", conn);
+                cmd.Parameters.AddWithValue("@rentalId", rentalId);
+                object result = cmd.ExecuteScalar();
+                return result != null ? Convert.ToInt32(result) : -1;
+            }
         }
     }
 }

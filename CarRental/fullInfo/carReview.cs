@@ -27,89 +27,83 @@ namespace CarRental.fullInfo
         }
         public void LoadReviews(int carId)
         {
-            using (MySqlConnection conn = new MySqlConnection(db.connect))
+            try
             {
-                try
+                using (MySqlConnection conn = new MySqlConnection(db.connect))
                 {
                     conn.Open();
-
                     string getCarNameQuery = "SELECT make, model FROM cars WHERE car_id = @carId;";
-                    MySqlCommand carCmd = new MySqlCommand(getCarNameQuery, conn);
-                    carCmd.Parameters.AddWithValue("@carId", carId);
-
-                    using (MySqlDataReader reader = carCmd.ExecuteReader())
+                    using (MySqlCommand carCmd = new MySqlCommand(getCarNameQuery, conn))
                     {
-                        if (reader.Read())
+                        carCmd.Parameters.AddWithValue("@carId", carId);
+
+                        using (MySqlDataReader reader = carCmd.ExecuteReader())
                         {
-                            string make = reader["make"].ToString();
-                            string model = reader["model"].ToString();
-                            label1.Text = $"Отзывы о машине: {make} {model}";
-                        }
-                        else
-                        {
-                            label1.Text = "Машина не найдена";
+                            if (reader.Read())
+                            {
+                                string make = reader["make"].ToString();
+                                string model = reader["model"].ToString();
+                                label1.Text = $"Отзывы о машине: {make} {model}";
+                            }
+                            else
+                            {
+                                label1.Text = "Машина не найдена";
+                            }
                         }
                     }
                     string query = @"
-                        SELECT
-                            r.review_id,
-                            cust.first_name as 'Пользователь',
-                            r.rating as 'Рейтинг',
-                            r.comment as 'Комментарий',
-                            r.review_date 'Дата'
-                        FROM
-                            reviews r
-                        JOIN
-                            cars c ON r.car_id = c.car_id
-                        JOIN
-                            customers cust ON r.customer_id = cust.customer_id
-                        WHERE
-                            r.car_id = @carId
-                        ORDER BY
-                            r.review_date DESC;
-                        ";
+                SELECT
+                    r.review_id,
+                    cust.first_name as 'Пользователь',
+                    r.rating as 'Рейтинг',
+                    r.comment as 'Комментарий',
+                    r.review_date as 'Дата'
+                FROM
+                    reviews r
+                JOIN
+                    customers cust ON r.customer_id = cust.customer_id
+                WHERE
+                    r.car_id = @carId
+                ORDER BY
+                    r.review_date DESC;
+            ";
 
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@carId", carId);
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    dataGridView1.DataSource = dt;
-                    dataGridView1.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 12);
-                    dataGridView1.Columns[0].Visible = false;
-
-                    dataGridView1.CellDoubleClick += (s, e) =>
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
-                        if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex].Name == "Комментарий")
-                        {
-                            string fullComment = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
-                            MessageBox.Show(fullComment, "Полный комментарий", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    };
+                        cmd.Parameters.AddWithValue("@carId", carId);
+                        MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
 
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                        dataGridView1.DefaultCellStyle.Font = new Font("Microsoft Sans Serif", 12);
+                        if (dataGridView1.Columns.Count > 0)
+                            dataGridView1.Columns[0].Visible = false;
 
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ошибка при загрузке отзывов: " + ex.Message);
+                        dataGridView1.CellDoubleClick -= dataGridView1_CellDoubleClick; 
+                        dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при загрузке отзывов: " + ex.Message);
+            }
         }
+
         private void closeBtn_Click(object sender, EventArgs e)
         {
             _isClosing = true;
             this.Close();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex].Name == "Комментарий")
+            {
+                string fullComment = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
+                MessageBox.Show(fullComment, "Полный комментарий", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
