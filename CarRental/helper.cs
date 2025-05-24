@@ -29,7 +29,7 @@ namespace CarRental
         {
             Dictionary<string, string[]> sortingColumns = new Dictionary<string, string[]>
     {
-        { "cars", new string[] { "Марка", "Модель", "Статус", "Цена" } },
+        { "cars", new string[] { "Марка", "Модель", "Статус", "Цена за сутки" } },
         { "customers", new string[] { "Имя", "Фамилия", "Телефон", "Вод.Удостоверение", "Паспорт" } },
         { "rentals", new string[] { "Марка", "Модель", "Дата взятия", "Дата возврата", "Сумма" } }
     };
@@ -44,7 +44,7 @@ namespace CarRental
         {
             Dictionary<string, string[]> sortingColumns = new Dictionary<string, string[]>
     {
-        { "cars", new string[] { "Марка", "Модель", "Статус", "Цена" } },
+        { "cars", new string[] { "Марка", "Модель", "Статус", "Цена за сутки" } },
         { "customers", new string[] { "Имя", "Фамилия", "Телефон", "Вод.Удостоверение", "Паспорт" } },
         { "rentals", new string[] { "Марка", "Модель", "Дата взятия", "Дата возврата", "Сумма" } }
     };

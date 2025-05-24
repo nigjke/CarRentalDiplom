@@ -195,22 +195,21 @@ namespace CarRental
                 else if (table == "rentals")
                 {
                     query = @"
-                SELECT 
-                    customers.passport AS 'Клиент', 
-                    cars.license_plate AS 'Машина', 
-                    rentals.rental_date AS 'Дата взятия', 
-                    employee.employeeLogin AS 'Менеджер', 
-                    rentals.return_date AS 'Дата возвращения', 
-                    rentals.total_amount AS 'Сумма' 
-                FROM rentals 
-                JOIN customers ON rentals.customer_id = customers.customer_id 
-                JOIN cars ON rentals.car_id = cars.car_id 
-                JOIN employee ON rentals.employee_id = employee.employee_id
-                WHERE 
-                    customers.passport LIKE @txt OR
-                    cars.license_plate LIKE @txt OR
-                    employee.employeeLogin LIKE @txt OR
-                    CAST(rentals.total_amount AS CHAR) LIKE @txt";
+                        SELECT 
+                            rentals.rental_id, 
+                            cars.make AS 'Марка', 
+                            cars.model AS 'Модель', 
+                            rentals.rental_date AS 'Дата взятия', 
+                            rentals.return_date AS 'Дата возврата', 
+                            rentals.total_amount AS 'Сумма' 
+                        FROM carrentaldb.rentals 
+                        INNER JOIN carrentaldb.cars ON cars.car_id = rentals.car_id 
+                        WHERE 
+                            cars.make LIKE @txt OR 
+                            cars.model LIKE @txt OR 
+                            rentals.rental_date LIKE @txt OR 
+                            rentals.return_date LIKE @txt OR 
+                            rentals.total_amount LIKE @txt";
                 }
                 else
                 {
