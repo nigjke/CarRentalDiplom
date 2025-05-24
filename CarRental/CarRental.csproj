@@ -136,6 +136,12 @@
     <Compile Include="add\addFine.Designer.cs">
       <DependentUpon>addFine.cs</DependentUpon>
     </Compile>
+    <Compile Include="add\addReview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="add\addReview.Designer.cs">
+      <DependentUpon>addReview.cs</DependentUpon>
+    </Compile>
     <Compile Include="adminForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -262,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="add\addFine.resx">
       <DependentUpon>addFine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="add\addReview.resx">
+      <DependentUpon>addReview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="adminForm.resx">
       <DependentUpon>adminForm.cs</DependentUpon>
