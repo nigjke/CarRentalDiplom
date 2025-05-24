@@ -30,6 +30,7 @@ namespace CarRental
             rentalCheckTimer.Interval = 60000;
             rentalCheckTimer.Tick += new EventHandler(CheckRentals);
             rentalCheckTimer.Start();
+            button1.Enabled = false;
         }
         string connectionString = db.connect;
         private void LoadComboBoxes()
@@ -205,6 +206,7 @@ namespace CarRental
             }
 
             CalculateTotalAmount();
+            button1.Enabled = true;
         }
 
         private void comboBoxCustomer_SelectedIndexChanged(object sender, EventArgs e)
