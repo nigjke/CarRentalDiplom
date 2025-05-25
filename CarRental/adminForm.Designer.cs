@@ -75,31 +75,29 @@ namespace CarRental
             // 
             // comboBox1
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.comboBox1.BackColor = System.Drawing.Color.White;
             this.comboBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(1026, 34);
+            this.comboBox1.Location = new System.Drawing.Point(953, 29);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(277, 30);
             this.comboBox1.TabIndex = 2;
             // 
             // carBtn
             // 
-            this.carBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.carBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.carBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.carBtn.FlatAppearance.BorderSize = 0;
             this.carBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.carBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.carBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.carBtn.Location = new System.Drawing.Point(0, 205);
+            this.carBtn.Location = new System.Drawing.Point(3, 217);
             this.carBtn.Name = "carBtn";
-            this.carBtn.Size = new System.Drawing.Size(341, 92);
+            this.carBtn.Size = new System.Drawing.Size(327, 80);
             this.carBtn.TabIndex = 3;
             this.carBtn.Text = "Машины";
             this.carBtn.UseVisualStyleBackColor = true;
@@ -107,15 +105,15 @@ namespace CarRental
             // 
             // employeeBtn
             // 
-            this.employeeBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.employeeBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.employeeBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.employeeBtn.FlatAppearance.BorderSize = 0;
             this.employeeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.employeeBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.employeeBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.employeeBtn.Location = new System.Drawing.Point(0, 389);
+            this.employeeBtn.Location = new System.Drawing.Point(3, 389);
             this.employeeBtn.Name = "employeeBtn";
-            this.employeeBtn.Size = new System.Drawing.Size(341, 87);
+            this.employeeBtn.Size = new System.Drawing.Size(327, 80);
             this.employeeBtn.TabIndex = 5;
             this.employeeBtn.Text = "Сотрудники";
             this.employeeBtn.UseVisualStyleBackColor = true;
@@ -123,15 +121,15 @@ namespace CarRental
             // 
             // rentalBtn
             // 
-            this.rentalBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.rentalBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rentalBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.rentalBtn.FlatAppearance.BorderSize = 0;
             this.rentalBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rentalBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rentalBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.rentalBtn.Location = new System.Drawing.Point(0, 482);
+            this.rentalBtn.Location = new System.Drawing.Point(3, 475);
             this.rentalBtn.Name = "rentalBtn";
-            this.rentalBtn.Size = new System.Drawing.Size(341, 92);
+            this.rentalBtn.Size = new System.Drawing.Size(330, 80);
             this.rentalBtn.TabIndex = 6;
             this.rentalBtn.Text = "Аренды";
             this.rentalBtn.UseVisualStyleBackColor = true;
@@ -139,13 +137,13 @@ namespace CarRental
             // 
             // descendingBtn
             // 
-            this.descendingBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.descendingBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.descendingBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             this.descendingBtn.FlatAppearance.BorderSize = 0;
             this.descendingBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.descendingBtn.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.descendingBtn.ForeColor = System.Drawing.Color.White;
-            this.descendingBtn.Location = new System.Drawing.Point(1190, 83);
+            this.descendingBtn.Location = new System.Drawing.Point(1117, 65);
             this.descendingBtn.Name = "descendingBtn";
             this.descendingBtn.Size = new System.Drawing.Size(113, 38);
             this.descendingBtn.TabIndex = 7;
@@ -155,13 +153,13 @@ namespace CarRental
             // 
             // ascendingBtn
             // 
-            this.ascendingBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ascendingBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ascendingBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             this.ascendingBtn.FlatAppearance.BorderSize = 0;
             this.ascendingBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ascendingBtn.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ascendingBtn.ForeColor = System.Drawing.Color.White;
-            this.ascendingBtn.Location = new System.Drawing.Point(1026, 83);
+            this.ascendingBtn.Location = new System.Drawing.Point(953, 65);
             this.ascendingBtn.Name = "ascendingBtn";
             this.ascendingBtn.Size = new System.Drawing.Size(113, 38);
             this.ascendingBtn.TabIndex = 8;
@@ -171,15 +169,15 @@ namespace CarRental
             // 
             // backBtn
             // 
-            this.backBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.backBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.backBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
             this.backBtn.FlatAppearance.BorderSize = 0;
             this.backBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.backBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.backBtn.Location = new System.Drawing.Point(3, 770);
+            this.backBtn.Location = new System.Drawing.Point(3, 576);
             this.backBtn.Name = "backBtn";
-            this.backBtn.Size = new System.Drawing.Size(341, 85);
+            this.backBtn.Size = new System.Drawing.Size(330, 80);
             this.backBtn.TabIndex = 10;
             this.backBtn.Text = "Сменить пользователя";
             this.backBtn.UseVisualStyleBackColor = false;
@@ -187,13 +185,13 @@ namespace CarRental
             // 
             // reportBtn
             // 
-            this.reportBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.reportBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.reportBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             this.reportBtn.FlatAppearance.BorderSize = 0;
             this.reportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.reportBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.reportBtn.ForeColor = System.Drawing.Color.White;
-            this.reportBtn.Location = new System.Drawing.Point(366, 876);
+            this.reportBtn.Location = new System.Drawing.Point(354, 609);
             this.reportBtn.Name = "reportBtn";
             this.reportBtn.Size = new System.Drawing.Size(204, 61);
             this.reportBtn.TabIndex = 11;
@@ -203,15 +201,15 @@ namespace CarRental
             // 
             // exitBtn
             // 
-            this.exitBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.exitBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.exitBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
             this.exitBtn.FlatAppearance.BorderSize = 0;
             this.exitBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.exitBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.exitBtn.Location = new System.Drawing.Point(3, 861);
+            this.exitBtn.Location = new System.Drawing.Point(3, 662);
             this.exitBtn.Name = "exitBtn";
-            this.exitBtn.Size = new System.Drawing.Size(341, 85);
+            this.exitBtn.Size = new System.Drawing.Size(327, 80);
             this.exitBtn.TabIndex = 15;
             this.exitBtn.Text = "Выход";
             this.exitBtn.UseVisualStyleBackColor = false;
@@ -219,13 +217,13 @@ namespace CarRental
             // 
             // addBtn
             // 
-            this.addBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.addBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.addBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             this.addBtn.FlatAppearance.BorderSize = 0;
             this.addBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.addBtn.ForeColor = System.Drawing.Color.White;
-            this.addBtn.Location = new System.Drawing.Point(611, 876);
+            this.addBtn.Location = new System.Drawing.Point(580, 610);
             this.addBtn.Name = "addBtn";
             this.addBtn.Size = new System.Drawing.Size(204, 60);
             this.addBtn.TabIndex = 12;
@@ -235,13 +233,13 @@ namespace CarRental
             // 
             // editBtn
             // 
-            this.editBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.editBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.editBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             this.editBtn.FlatAppearance.BorderSize = 0;
             this.editBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.editBtn.ForeColor = System.Drawing.Color.White;
-            this.editBtn.Location = new System.Drawing.Point(852, 875);
+            this.editBtn.Location = new System.Drawing.Point(809, 609);
             this.editBtn.Name = "editBtn";
             this.editBtn.Size = new System.Drawing.Size(204, 61);
             this.editBtn.TabIndex = 13;
@@ -251,13 +249,13 @@ namespace CarRental
             // 
             // delBtn
             // 
-            this.delBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.delBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.delBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             this.delBtn.FlatAppearance.BorderSize = 0;
             this.delBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.delBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.delBtn.ForeColor = System.Drawing.Color.White;
-            this.delBtn.Location = new System.Drawing.Point(1099, 876);
+            this.delBtn.Location = new System.Drawing.Point(1033, 609);
             this.delBtn.Name = "delBtn";
             this.delBtn.Size = new System.Drawing.Size(204, 61);
             this.delBtn.TabIndex = 14;
@@ -267,6 +265,7 @@ namespace CarRental
             // 
             // panel1
             // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label1);
@@ -277,19 +276,18 @@ namespace CarRental
             this.panel1.Controls.Add(this.carBtn);
             this.panel1.Controls.Add(this.exitBtn);
             this.panel1.Controls.Add(this.backBtn);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(-1, -64);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(344, 949);
+            this.panel1.Size = new System.Drawing.Size(333, 745);
             this.panel1.TabIndex = 16;
             // 
             // label4
             // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(65, 164);
+            this.label4.Location = new System.Drawing.Point(58, 192);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(217, 22);
             this.label4.TabIndex = 18;
@@ -297,11 +295,11 @@ namespace CarRental
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.label1.Location = new System.Drawing.Point(137, 123);
+            this.label1.Location = new System.Drawing.Point(130, 160);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 22);
             this.label1.TabIndex = 17;
@@ -309,8 +307,9 @@ namespace CarRental
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.BackgroundImage = global::CarRental.Properties.Resources.user;
-            this.pictureBox1.Location = new System.Drawing.Point(135, 35);
+            this.pictureBox1.Location = new System.Drawing.Point(127, 90);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(64, 64);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -319,15 +318,15 @@ namespace CarRental
             // 
             // customerBtn
             // 
-            this.customerBtn.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.customerBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.customerBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.customerBtn.FlatAppearance.BorderSize = 0;
             this.customerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.customerBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.customerBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.customerBtn.Location = new System.Drawing.Point(0, 296);
+            this.customerBtn.Location = new System.Drawing.Point(3, 303);
             this.customerBtn.Name = "customerBtn";
-            this.customerBtn.Size = new System.Drawing.Size(341, 93);
+            this.customerBtn.Size = new System.Drawing.Size(327, 80);
             this.customerBtn.TabIndex = 4;
             this.customerBtn.Text = "Клиенты";
             this.customerBtn.UseVisualStyleBackColor = true;
@@ -335,10 +334,11 @@ namespace CarRental
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(360, 109);
+            this.label2.Location = new System.Drawing.Point(348, 96);
             this.label2.Margin = new System.Windows.Forms.Padding(30, 20, 0, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(144, 36);
@@ -347,26 +347,25 @@ namespace CarRental
             // 
             // panel2
             // 
+            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Location = new System.Drawing.Point(366, 63);
+            this.panel2.Location = new System.Drawing.Point(354, 56);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(450, 1);
+            this.panel2.Size = new System.Drawing.Size(360, 1);
             this.panel2.TabIndex = 19;
             // 
             // searchBox
             // 
-            this.searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.searchBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.searchBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.searchBox.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.searchBox.ForeColor = System.Drawing.Color.White;
             this.searchBox.HideSelection = false;
-            this.searchBox.Location = new System.Drawing.Point(366, 35);
+            this.searchBox.Location = new System.Drawing.Point(354, 29);
             this.searchBox.Margin = new System.Windows.Forms.Padding(2);
             this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(450, 25);
+            this.searchBox.Size = new System.Drawing.Size(360, 25);
             this.searchBox.TabIndex = 1;
             this.searchBox.TabStop = false;
             this.searchBox.Text = "Поиск";
@@ -379,9 +378,7 @@ namespace CarRental
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -406,7 +403,7 @@ namespace CarRental
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.Location = new System.Drawing.Point(366, 148);
+            this.dataGridView1.Location = new System.Drawing.Point(354, 153);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(30, 80, 30, 100);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
@@ -425,7 +422,7 @@ namespace CarRental
             this.dataGridView1.RowTemplate.Height = 30;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(937, 407);
+            this.dataGridView1.Size = new System.Drawing.Size(883, 347);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             this.dataGridView1.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
@@ -433,10 +430,11 @@ namespace CarRental
             // 
             // labelInfo
             // 
+            this.labelInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelInfo.AutoSize = true;
             this.labelInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelInfo.ForeColor = System.Drawing.Color.Transparent;
-            this.labelInfo.Location = new System.Drawing.Point(362, 749);
+            this.labelInfo.Location = new System.Drawing.Point(350, 512);
             this.labelInfo.Name = "labelInfo";
             this.labelInfo.Size = new System.Drawing.Size(51, 20);
             this.labelInfo.TabIndex = 21;
@@ -458,22 +456,22 @@ namespace CarRental
             // 
             // pictureBox5
             // 
-            this.pictureBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox5.Image = global::CarRental.Properties.Resources.png_transparent_computer_icons_avatar_expand_icon_angle_text_rectangle_thumbnail;
-            this.pictureBox5.Location = new System.Drawing.Point(1291, 0);
+            this.pictureBox5.Location = new System.Drawing.Point(1238, 0);
             this.pictureBox5.Name = "pictureBox5";
             this.pictureBox5.Size = new System.Drawing.Size(30, 28);
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox5.TabIndex = 24;
             this.pictureBox5.TabStop = false;
-            this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
             // 
             // pictureBox3
             // 
+            this.pictureBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox3.Image = global::CarRental.Properties.Resources._109448181;
-            this.pictureBox3.Location = new System.Drawing.Point(366, 787);
+            this.pictureBox3.Location = new System.Drawing.Point(354, 543);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(96, 68);
+            this.pictureBox3.Size = new System.Drawing.Size(80, 60);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 23;
             this.pictureBox3.TabStop = false;
@@ -481,11 +479,11 @@ namespace CarRental
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox2.Image = global::CarRental.Properties.Resources._10944818;
-            this.pictureBox2.Location = new System.Drawing.Point(1207, 787);
+            this.pictureBox2.Location = new System.Drawing.Point(1157, 543);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(96, 68);
+            this.pictureBox2.Size = new System.Drawing.Size(80, 60);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 22;
             this.pictureBox2.TabStop = false;
@@ -493,8 +491,9 @@ namespace CarRental
             // 
             // pictureBox4
             // 
+            this.pictureBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox4.BackgroundImage = global::CarRental.Properties.Resources.close;
-            this.pictureBox4.Location = new System.Drawing.Point(799, 42);
+            this.pictureBox4.Location = new System.Drawing.Point(698, 34);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(16, 16);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -508,7 +507,7 @@ namespace CarRental
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(1322, 949);
+            this.ClientSize = new System.Drawing.Size(1267, 682);
             this.ControlBox = false;
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.pictureBox3);
