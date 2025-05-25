@@ -27,7 +27,7 @@ namespace CarRental
         private helper helper;
 
         private static string table = string.Empty;
-        int pageSize = 20;
+        int pageSize = 10;
         private DataTable customersTable;
         private DataGridViewRow selectedRow;
         private Timer inactivityTimer;
@@ -35,14 +35,6 @@ namespace CarRental
         private DateTime lastActivityTime;
         private int selectedCarId = -1;
         private int selectedEmployeeId = -1;
-        private bool isFullScreen = false;
-        private FormWindowState previousWindowState;
-        private Rectangle previousBounds;
-        private float originalWidth;
-        private float originalHeight;
-        private Size originalFormSize;
-        private Size referenceSize = new Size(1322, 949);
-        private Dictionary<Control, Rectangle> controlRatios = new Dictionary<Control, Rectangle>();
 
         public adminForm(string labelLog)
         {
@@ -56,9 +48,6 @@ namespace CarRental
             dataGridView1.CellClick += dataGridView1_CellClick;
             dataGridView1.ContextMenuStrip = contextMenuStrip1;
             dataGridView1.CellMouseDown += dataGridView1_CellMouseDown;
-            originalWidth = this.Width;
-            originalHeight = this.Height;
-            InitControlRatios();
         }
 
         // Timer 
@@ -146,62 +135,96 @@ namespace CarRental
             {
                 connection.Open();
                 string query = "";
-                int pageSize = 20;
-                int offset = 0;
+                int offset = (currentPage - 1) * pageSize;
+
+                MySqlCommand counter;
+
                 if (table == "customers")
                 {
-                    offset = (currentPage - 1) * pageSize;
-                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM customers", connection);
+                    counter = new MySqlCommand("SELECT COUNT(*) FROM customers", connection);
                     totalRecords = Convert.ToInt32(counter.ExecuteScalar());
-                    query = $"SELECT customer_id, first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers LIMIT {pageSize} OFFSET {offset}";
+
+                    query = $@"
+                SELECT 
+                    customer_id, 
+                    first_name AS 'Имя', 
+                    last_name AS 'Фамилия', 
+                    CONCAT(LEFT(phone, 2), REPEAT('*', CHAR_LENGTH(phone) - 6), RIGHT(phone, 4)) AS 'Телефон',
+                    CONCAT(LEFT(driver_license, 2), REPEAT('*', CHAR_LENGTH(driver_license) - 6), RIGHT(driver_license, 4)) AS 'Вод.Удостоверение',
+                    CONCAT(LEFT(passport, 2), REPEAT('*', CHAR_LENGTH(passport) - 6), RIGHT(passport, 4)) AS 'Паспорт'
+                FROM customers
+                LIMIT {pageSize} OFFSET {offset}";
                 }
                 else if (table == "cars")
                 {
-                    offset = (currentPage - 1) * pageSize;
-                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM cars", connection);
+                    counter = new MySqlCommand("SELECT COUNT(*) FROM cars", connection);
                     totalRecords = Convert.ToInt32(counter.ExecuteScalar());
-                    query = $"SELECT car_id, make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус' , price 'Цена за сутки' FROM cars LIMIT {pageSize} OFFSET {offset}";
+
+                    query = $@"
+                SELECT 
+                    car_id, 
+                    make AS 'Марка', 
+                    model AS 'Модель', 
+                    status AS 'Статус', 
+                    price AS 'Цена за сутки'
+                FROM cars
+                LIMIT {pageSize} OFFSET {offset}";
                 }
                 else if (table == "employee")
                 {
-                    offset = (currentPage - 1) * pageSize;
-                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM employee", connection);
+                    counter = new MySqlCommand("SELECT COUNT(*) FROM employee", connection);
                     totalRecords = Convert.ToInt32(counter.ExecuteScalar());
-                    query = $"SELECT employee_id, employee.first_name as 'Имя', employee.last_name as 'Фамилия', employee.phone as 'Телефон', role.name as 'Роль', employee.employeeLogin as 'Логин', employee.employeePass as 'Пароль' FROM carrentaldb.employee JOIN role ON employee.Role_id=role.Role_id LIMIT {pageSize} OFFSET {offset}";
-                }
-                else
-                {
-                    offset = (currentPage - 1) * pageSize;
-                    MySqlCommand counter = new MySqlCommand("SELECT COUNT(*) FROM rentals", connection);
-                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+
                     query = $@"
                 SELECT 
-                    r.car_id, 
-                    c.make as 'Марка', 
-                    c.model as 'Модель', 
-                    cust.first_name as 'Имя', 
-                    cust.last_name as 'Фамилия', 
-                    cust.phone as 'Телефон', 
-                    r.rental_date as 'Дата взятия', 
-                    r.return_date as 'Дата возврата', 
-                    r.total_amount as 'Сумма' 
-                FROM 
-                    carrentaldb.rentals r
-                    INNER JOIN customers cust ON r.customer_id = cust.customer_id
-                    INNER JOIN cars c ON c.car_id = r.car_id 
+                    employee_id, 
+                    e.first_name AS 'Имя', 
+                    e.last_name AS 'Фамилия', 
+                    e.phone AS 'Телефон', 
+                    r.name AS 'Роль', 
+                    e.employeeLogin AS 'Логин', 
+                    e.employeePass AS 'Пароль' 
+                FROM employee e
+                JOIN role r ON e.Role_id = r.Role_id
                 LIMIT {pageSize} OFFSET {offset}";
                 }
+                else if (table == "rentals")
+                {
+                    counter = new MySqlCommand("SELECT COUNT(*) FROM rentals", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+
+                    query = $@"
+                SELECT 
+                    r.rental_id, 
+                    c.make AS 'Марка', 
+                    c.model AS 'Модель', 
+                    r.rental_date AS 'Дата взятия', 
+                    r.return_date AS 'Дата возврата', 
+                    r.total_amount AS 'Сумма' 
+                FROM rentals r
+                INNER JOIN cars c ON c.car_id = r.car_id
+                LIMIT {pageSize} OFFSET {offset}";
+                }
+
                 MySqlCommand command = new MySqlCommand(query, connection);
                 MySqlDataAdapter adapter = new MySqlDataAdapter(command);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
                 dataGridView1.DataSource = dataTable;
-                labelInfo.Text = $"{currentPage} - {offset + dataTable.Rows.Count} из {totalRecords}";
-                pictureBox2.Enabled = currentPage > 1;
-                pictureBox3.Enabled = currentPage * pageSize < totalRecords;
+
+                int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+                labelInfo.Text = $"Страница {currentPage} из {totalPages} | Записи: {offset + 1} - {offset + dataTable.Rows.Count} из {totalRecords}";
+
+
+                pictureBox3.Enabled = currentPage > 1;
+                pictureBox2.Enabled = currentPage * pageSize < totalRecords;
+
                 dataGridView1.Columns[0].Visible = false;
             }
+
+         //   ResetContextMenu();
         }
+
         private void LoadTable(string tableName, string labelText, string[] comboBoxItems)
         {
             label2.Text = labelText;
@@ -595,125 +618,6 @@ namespace CarRental
                 }
                     contextMenuStrip1.Show(Cursor.Position);
             }
-        }
-
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-            ToggleFullScreen();
-        }
-        private void ToggleFullScreen()
-        {
-            if (isFullScreen)
-            {
-                this.FormBorderStyle = FormBorderStyle.Sizable;
-                this.WindowState = previousWindowState;
-                this.Bounds = previousBounds;
-
-                referenceSize = this.ClientSize;
-            }
-            else
-            {
-                previousWindowState = this.WindowState;
-                previousBounds = this.Bounds;
-
-                this.FormBorderStyle = FormBorderStyle.None;
-                this.WindowState = FormWindowState.Normal;
-                this.Bounds = Screen.PrimaryScreen.Bounds;
-
-                referenceSize = this.ClientSize;
-            }
-            isFullScreen = !isFullScreen;
-            ScaleControls();
-        }
-        private void InitControlRatios()
-        {
-            foreach (Control control in GetAllControls(this))
-            {
-                controlRatios[control] = new Rectangle(
-                    control.Left, control.Top,
-                    control.Width, control.Height
-                );
-            }
-        }
-
-        // Получение всех контролов
-        private IEnumerable<Control> GetAllControls(Control container)
-        {
-            foreach (Control control in container.Controls)
-            {
-                yield return control;
-                foreach (var child in GetAllControls(control))
-                {
-                    yield return child;
-                }
-            }
-        }
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            ScaleControls();
-            UpdateMargins();
-            if (originalWidth == 0 || originalHeight == 0) return;
-
-            float widthRatio = this.Width / originalWidth;
-            float heightRatio = this.Height / originalHeight;
-
-            foreach (var entry in controlRatios)
-            {
-                Control control = entry.Key;
-                Rectangle ratio = entry.Value;
-
-                if (control is DataGridView) continue;
-
-                int newX = (int)(ratio.X * widthRatio);
-                int newY = (int)(ratio.Y * heightRatio);
-                int newWidth = (int)(ratio.Width * widthRatio);
-                int newHeight = (int)(ratio.Height * heightRatio);
-
-                control.Location = new Point(newX, newY);
-                control.Size = new Size(newWidth, newHeight);
-            }
-
-            // Особые настройки для DataGridView
-            dataGridView1.Width = (int)(this.Width * 0.7f);
-            dataGridView1.Height = (int)(this.Height * 0.6f);
-        }
-        private void UpdateMargins()
-        {
-            int baseMargin = (int)(20 * (this.Width / (float)originalFormSize.Width));
-            label2.Margin = new Padding(baseMargin * 2, baseMargin, 0, 0);
-            dataGridView1.Margin = new Padding(baseMargin, baseMargin * 4, baseMargin, baseMargin * 3);
-        }
-
-
-        private void ScaleControls()
-        {
-            float scaleX = (float)ClientSize.Width / referenceSize.Width;
-            float scaleY = (float)ClientSize.Height / referenceSize.Height;
-
-            ScaleControl(comboBox1, scaleX, scaleY);
-            ScaleControl(ascendingBtn, scaleX, scaleY);
-            ScaleControl(descendingBtn, scaleX, scaleY);
-            ScaleControl(label2, scaleX, scaleY);
-            ScaleControl(dataGridView1, scaleX, scaleY);
-        }
-
-        private void ScaleControl(Control control, float scaleX, float scaleY)
-        {
-            // Позиция
-            int newX = (int)(control.Location.X * scaleX);
-            int newY = (int)(control.Location.Y * scaleY);
-
-            // Размер
-            int newWidth = (int)(control.Width * scaleX);
-            int newHeight = (int)(control.Height * scaleY);
-
-            // Шрифт
-            float fontSize = control.Font.Size * Math.Min(scaleX, scaleY);
-
-            control.Location = new Point(newX, newY);
-            control.Size = new Size(newWidth, newHeight);
-            control.Font = new Font(control.Font.FontFamily, fontSize);
         }
     }
 }

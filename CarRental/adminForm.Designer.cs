@@ -95,9 +95,9 @@ namespace CarRental
             this.carBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.carBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.carBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.carBtn.Location = new System.Drawing.Point(0, 217);
+            this.carBtn.Location = new System.Drawing.Point(3, 217);
             this.carBtn.Name = "carBtn";
-            this.carBtn.Size = new System.Drawing.Size(330, 80);
+            this.carBtn.Size = new System.Drawing.Size(327, 80);
             this.carBtn.TabIndex = 3;
             this.carBtn.Text = "Машины";
             this.carBtn.UseVisualStyleBackColor = true;
@@ -111,9 +111,9 @@ namespace CarRental
             this.employeeBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.employeeBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.employeeBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.employeeBtn.Location = new System.Drawing.Point(0, 389);
+            this.employeeBtn.Location = new System.Drawing.Point(3, 389);
             this.employeeBtn.Name = "employeeBtn";
-            this.employeeBtn.Size = new System.Drawing.Size(330, 80);
+            this.employeeBtn.Size = new System.Drawing.Size(327, 80);
             this.employeeBtn.TabIndex = 5;
             this.employeeBtn.Text = "Сотрудники";
             this.employeeBtn.UseVisualStyleBackColor = true;
@@ -127,7 +127,7 @@ namespace CarRental
             this.rentalBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rentalBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rentalBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.rentalBtn.Location = new System.Drawing.Point(0, 475);
+            this.rentalBtn.Location = new System.Drawing.Point(3, 475);
             this.rentalBtn.Name = "rentalBtn";
             this.rentalBtn.Size = new System.Drawing.Size(330, 80);
             this.rentalBtn.TabIndex = 6;
@@ -207,9 +207,9 @@ namespace CarRental
             this.exitBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.exitBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.exitBtn.Location = new System.Drawing.Point(0, 662);
+            this.exitBtn.Location = new System.Drawing.Point(3, 662);
             this.exitBtn.Name = "exitBtn";
-            this.exitBtn.Size = new System.Drawing.Size(330, 80);
+            this.exitBtn.Size = new System.Drawing.Size(327, 80);
             this.exitBtn.TabIndex = 15;
             this.exitBtn.Text = "Выход";
             this.exitBtn.UseVisualStyleBackColor = false;
@@ -324,9 +324,9 @@ namespace CarRental
             this.customerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.customerBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.customerBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.customerBtn.Location = new System.Drawing.Point(0, 303);
+            this.customerBtn.Location = new System.Drawing.Point(3, 303);
             this.customerBtn.Name = "customerBtn";
-            this.customerBtn.Size = new System.Drawing.Size(330, 80);
+            this.customerBtn.Size = new System.Drawing.Size(327, 80);
             this.customerBtn.TabIndex = 4;
             this.customerBtn.Text = "Клиенты";
             this.customerBtn.UseVisualStyleBackColor = true;
@@ -464,7 +464,6 @@ namespace CarRental
             this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox5.TabIndex = 24;
             this.pictureBox5.TabStop = false;
-            this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
             // 
             // pictureBox3
             // 
