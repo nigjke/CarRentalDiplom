@@ -63,6 +63,7 @@
             this.labelInfo = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -71,6 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.SuspendLayout();
             // 
             // rentalBtn
@@ -78,11 +80,11 @@
             this.rentalBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.rentalBtn.FlatAppearance.BorderSize = 0;
             this.rentalBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rentalBtn.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.rentalBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rentalBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.rentalBtn.Location = new System.Drawing.Point(0, 312);
+            this.rentalBtn.Location = new System.Drawing.Point(3, 368);
             this.rentalBtn.Name = "rentalBtn";
-            this.rentalBtn.Size = new System.Drawing.Size(341, 74);
+            this.rentalBtn.Size = new System.Drawing.Size(341, 90);
             this.rentalBtn.TabIndex = 6;
             this.rentalBtn.Text = "Аренды";
             this.rentalBtn.UseVisualStyleBackColor = true;
@@ -93,11 +95,11 @@
             this.customerBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.customerBtn.FlatAppearance.BorderSize = 0;
             this.customerBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customerBtn.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.customerBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.customerBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.customerBtn.Location = new System.Drawing.Point(0, 232);
+            this.customerBtn.Location = new System.Drawing.Point(0, 272);
             this.customerBtn.Name = "customerBtn";
-            this.customerBtn.Size = new System.Drawing.Size(341, 74);
+            this.customerBtn.Size = new System.Drawing.Size(341, 90);
             this.customerBtn.TabIndex = 4;
             this.customerBtn.Text = "Клиенты";
             this.customerBtn.UseVisualStyleBackColor = true;
@@ -108,11 +110,11 @@
             this.carBtn.Cursor = System.Windows.Forms.Cursors.Hand;
             this.carBtn.FlatAppearance.BorderSize = 0;
             this.carBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.carBtn.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.carBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.carBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.carBtn.Location = new System.Drawing.Point(0, 152);
+            this.carBtn.Location = new System.Drawing.Point(0, 176);
             this.carBtn.Name = "carBtn";
-            this.carBtn.Size = new System.Drawing.Size(341, 74);
+            this.carBtn.Size = new System.Drawing.Size(341, 90);
             this.carBtn.TabIndex = 3;
             this.carBtn.Text = "Машины";
             this.carBtn.UseVisualStyleBackColor = true;
@@ -121,7 +123,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Location = new System.Drawing.Point(361, 41);
+            this.panel2.Location = new System.Drawing.Point(361, 59);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(360, 1);
             this.panel2.TabIndex = 32;
@@ -131,7 +133,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(355, 57);
+            this.label2.Location = new System.Drawing.Point(355, 93);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(144, 36);
             this.label2.TabIndex = 31;
@@ -142,7 +144,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(81, 127);
+            this.label4.Location = new System.Drawing.Point(82, 138);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(176, 22);
             this.label4.TabIndex = 18;
@@ -153,7 +155,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.label1.Location = new System.Drawing.Point(126, 93);
+            this.label1.Location = new System.Drawing.Point(123, 104);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 22);
             this.label1.TabIndex = 17;
@@ -179,7 +181,7 @@
             this.exitBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
             this.exitBtn.FlatAppearance.BorderSize = 0;
             this.exitBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.exitBtn.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.exitBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.exitBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             this.exitBtn.Location = new System.Drawing.Point(0, 597);
             this.exitBtn.Name = "exitBtn";
@@ -196,7 +198,7 @@
             this.searchBox.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.searchBox.ForeColor = System.Drawing.Color.White;
             this.searchBox.HideSelection = false;
-            this.searchBox.Location = new System.Drawing.Point(361, 12);
+            this.searchBox.Location = new System.Drawing.Point(361, 30);
             this.searchBox.Margin = new System.Windows.Forms.Padding(2);
             this.searchBox.Name = "searchBox";
             this.searchBox.Size = new System.Drawing.Size(360, 25);
@@ -226,7 +228,7 @@
             this.backBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
             this.backBtn.FlatAppearance.BorderSize = 0;
             this.backBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.backBtn.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.backBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.backBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             this.backBtn.Location = new System.Drawing.Point(0, 507);
             this.backBtn.Name = "backBtn";
@@ -256,7 +258,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = global::CarRental.Properties.Resources.user;
-            this.pictureBox1.Location = new System.Drawing.Point(133, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(133, 30);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(64, 64);
             this.pictureBox1.TabIndex = 16;
@@ -284,7 +286,7 @@
             this.ascendingBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ascendingBtn.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ascendingBtn.ForeColor = System.Drawing.Color.White;
-            this.ascendingBtn.Location = new System.Drawing.Point(967, 62);
+            this.ascendingBtn.Location = new System.Drawing.Point(967, 73);
             this.ascendingBtn.Name = "ascendingBtn";
             this.ascendingBtn.Size = new System.Drawing.Size(113, 38);
             this.ascendingBtn.TabIndex = 25;
@@ -299,7 +301,7 @@
             this.descendingBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.descendingBtn.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.descendingBtn.ForeColor = System.Drawing.Color.White;
-            this.descendingBtn.Location = new System.Drawing.Point(1131, 62);
+            this.descendingBtn.Location = new System.Drawing.Point(1131, 73);
             this.descendingBtn.Name = "descendingBtn";
             this.descendingBtn.Size = new System.Drawing.Size(113, 38);
             this.descendingBtn.TabIndex = 24;
@@ -315,7 +317,7 @@
             this.comboBox1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(967, 21);
+            this.comboBox1.Location = new System.Drawing.Point(967, 30);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(277, 30);
             this.comboBox1.TabIndex = 23;
@@ -350,7 +352,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.Location = new System.Drawing.Point(361, 115);
+            this.dataGridView1.Location = new System.Drawing.Point(361, 148);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -367,7 +369,7 @@
             this.dataGridView1.RowTemplate.DividerHeight = 1;
             this.dataGridView1.RowTemplate.Height = 30;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(883, 380);
+            this.dataGridView1.Size = new System.Drawing.Size(883, 347);
             this.dataGridView1.TabIndex = 34;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick_1);
             // 
@@ -426,7 +428,7 @@
             // pictureBox4
             // 
             this.pictureBox4.BackgroundImage = global::CarRental.Properties.Resources.close;
-            this.pictureBox4.Location = new System.Drawing.Point(705, 19);
+            this.pictureBox4.Location = new System.Drawing.Point(705, 37);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(16, 16);
             this.pictureBox4.TabIndex = 33;
@@ -458,12 +460,23 @@
             // 
             this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.pictureBox2.Image = global::CarRental.Properties.Resources._10944818;
-            this.pictureBox2.Location = new System.Drawing.Point(1164, 501);
+            this.pictureBox2.Location = new System.Drawing.Point(1164, 530);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(80, 60);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 37;
             this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pictureBox5.Image = global::CarRental.Properties.Resources.png_transparent_computer_icons_avatar_expand_icon_angle_text_rectangle_thumbnail;
+            this.pictureBox5.Location = new System.Drawing.Point(1238, -1);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(30, 28);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox5.TabIndex = 25;
+            this.pictureBox5.TabStop = false;
             // 
             // managerForm
             // 
@@ -473,6 +486,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(1267, 682);
             this.ControlBox = false;
+            this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.labelInfo);
@@ -505,6 +519,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -542,5 +557,6 @@
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox5;
     }
 }
