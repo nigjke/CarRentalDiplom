@@ -28,7 +28,6 @@ namespace CarRental.fullInfo
             _isClosing = true;
             this.Close();
         }
-
         private void LoadData(int rentalId)
         {
             using (MySqlConnection connection = new MySqlConnection(db.connect))

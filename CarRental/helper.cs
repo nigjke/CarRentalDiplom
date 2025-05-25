@@ -10,6 +10,9 @@ namespace CarRental
 {
     public class helper
     {
+        public int selectedCarId = -1;
+        public int selectedCustomerId = -1;
+        public int selectedRentalId = -1;
         public void SetButtonColors(Button activeButton, Button other1, Button other2, Button other3 = null)
         {
             activeButton.BackColor = Color.FromArgb(92, 96, 255);

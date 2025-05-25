@@ -214,20 +214,38 @@ namespace CarRental
         // Utils Functions
         private void ShowFullInfo(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            if (table == "customers")
             {
-                using (MySqlConnection connection = new MySqlConnection(db.connect))
+                if (helper.selectedCustomerId == -1)
                 {
-                    int selectedIndex = dataGridView1.SelectedRows[0].Index;
-                    DataRow selectedRow = customersTable.Rows[selectedIndex];
-                    string first_name = selectedRow["Имя"].ToString();
-                    string last_name = selectedRow["Фамилия"].ToString();
-                    string query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers WHERE first_name = '{first_name}' AND last_name = '{last_name}'";
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
-                    DataTable fullInfoTable = new DataTable();
-                    adapter.Fill(fullInfoTable);
-                    fullInformation fullInfoForm = new fullInformation(fullInfoTable);
-                    fullInfoForm.Show();
+                    MessageBox.Show("Пожалуйста, выберите клиента.");
+                    return;
+                }
+                using (MySqlConnection conn = new MySqlConnection(db.connect))
+                {
+                    try
+                    {
+                        conn.Open();
+
+                        string checkQuery = "SELECT COUNT(*) FROM reviews WHERE customer_id = @customerId;";
+                        MySqlCommand cmd = new MySqlCommand(checkQuery, conn);
+                        cmd.Parameters.AddWithValue("@customerId", helper.selectedCustomerId);
+
+                        int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                        if (count == 0)
+                        {
+                            MessageBox.Show("У этого клиента нет отзывов.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+
+                        var customerReviewsForm = new fullInfo.fullInfoCustomerReviews(helper.selectedCustomerId);
+                        customerReviewsForm.ShowDialog();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка при проверке отзывов: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
