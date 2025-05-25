@@ -58,14 +58,19 @@
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.fullInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.finesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.отзывыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.labelInfo = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // rentalBtn
@@ -116,9 +121,9 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Location = new System.Drawing.Point(361, 63);
+            this.panel2.Location = new System.Drawing.Point(361, 62);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(450, 1);
+            this.panel2.Size = new System.Drawing.Size(360, 1);
             this.panel2.TabIndex = 32;
             // 
             // label2
@@ -161,7 +166,7 @@
             this.checkBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.checkBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.checkBtn.ForeColor = System.Drawing.Color.White;
-            this.checkBtn.Location = new System.Drawing.Point(1094, 681);
+            this.checkBtn.Location = new System.Drawing.Point(1040, 667);
             this.checkBtn.Name = "checkBtn";
             this.checkBtn.Size = new System.Drawing.Size(204, 61);
             this.checkBtn.TabIndex = 29;
@@ -176,7 +181,7 @@
             this.exitBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.exitBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.exitBtn.Location = new System.Drawing.Point(0, 687);
+            this.exitBtn.Location = new System.Drawing.Point(3, 655);
             this.exitBtn.Name = "exitBtn";
             this.exitBtn.Size = new System.Drawing.Size(341, 85);
             this.exitBtn.TabIndex = 15;
@@ -191,10 +196,10 @@
             this.searchBox.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.searchBox.ForeColor = System.Drawing.Color.White;
             this.searchBox.HideSelection = false;
-            this.searchBox.Location = new System.Drawing.Point(361, 35);
+            this.searchBox.Location = new System.Drawing.Point(361, 32);
             this.searchBox.Margin = new System.Windows.Forms.Padding(2);
             this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(450, 25);
+            this.searchBox.Size = new System.Drawing.Size(360, 25);
             this.searchBox.TabIndex = 21;
             this.searchBox.TabStop = false;
             this.searchBox.Text = "Поиск";
@@ -208,7 +213,7 @@
             this.addBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.addBtn.ForeColor = System.Drawing.Color.White;
-            this.addBtn.Location = new System.Drawing.Point(361, 682);
+            this.addBtn.Location = new System.Drawing.Point(361, 668);
             this.addBtn.Name = "addBtn";
             this.addBtn.Size = new System.Drawing.Size(204, 60);
             this.addBtn.TabIndex = 27;
@@ -223,7 +228,7 @@
             this.backBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.backBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.backBtn.Location = new System.Drawing.Point(0, 604);
+            this.backBtn.Location = new System.Drawing.Point(0, 564);
             this.backBtn.Name = "backBtn";
             this.backBtn.Size = new System.Drawing.Size(341, 85);
             this.backBtn.TabIndex = 10;
@@ -245,7 +250,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(344, 768);
+            this.panel1.Size = new System.Drawing.Size(344, 741);
             this.panel1.TabIndex = 30;
             // 
             // pictureBox1
@@ -264,7 +269,7 @@
             this.editBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.editBtn.ForeColor = System.Drawing.Color.White;
-            this.editBtn.Location = new System.Drawing.Point(717, 681);
+            this.editBtn.Location = new System.Drawing.Point(705, 667);
             this.editBtn.Name = "editBtn";
             this.editBtn.Size = new System.Drawing.Size(204, 61);
             this.editBtn.TabIndex = 28;
@@ -279,7 +284,7 @@
             this.ascendingBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ascendingBtn.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ascendingBtn.ForeColor = System.Drawing.Color.White;
-            this.ascendingBtn.Location = new System.Drawing.Point(1021, 81);
+            this.ascendingBtn.Location = new System.Drawing.Point(967, 81);
             this.ascendingBtn.Name = "ascendingBtn";
             this.ascendingBtn.Size = new System.Drawing.Size(113, 38);
             this.ascendingBtn.TabIndex = 25;
@@ -294,7 +299,7 @@
             this.descendingBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.descendingBtn.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.descendingBtn.ForeColor = System.Drawing.Color.White;
-            this.descendingBtn.Location = new System.Drawing.Point(1185, 81);
+            this.descendingBtn.Location = new System.Drawing.Point(1131, 81);
             this.descendingBtn.Name = "descendingBtn";
             this.descendingBtn.Size = new System.Drawing.Size(113, 38);
             this.descendingBtn.TabIndex = 24;
@@ -310,7 +315,7 @@
             this.comboBox1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(1021, 33);
+            this.comboBox1.Location = new System.Drawing.Point(967, 35);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(277, 30);
             this.comboBox1.TabIndex = 23;
@@ -362,7 +367,7 @@
             this.dataGridView1.RowTemplate.DividerHeight = 1;
             this.dataGridView1.RowTemplate.Height = 30;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(937, 521);
+            this.dataGridView1.Size = new System.Drawing.Size(883, 418);
             this.dataGridView1.TabIndex = 34;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick_1);
             // 
@@ -395,38 +400,70 @@
             this.finesToolStripMenuItem,
             this.отзывыToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip1";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(137, 70);
             // 
             // fullInfo
             // 
             this.fullInfo.Name = "fullInfo";
-            this.fullInfo.Size = new System.Drawing.Size(180, 22);
+            this.fullInfo.Size = new System.Drawing.Size(136, 22);
             this.fullInfo.Text = "Подробнее";
             this.fullInfo.Click += new System.EventHandler(this.fullInfo_Click);
             // 
             // finesToolStripMenuItem
             // 
             this.finesToolStripMenuItem.Name = "finesToolStripMenuItem";
-            this.finesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.finesToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.finesToolStripMenuItem.Text = "Штрафы";
             this.finesToolStripMenuItem.Click += new System.EventHandler(this.finesToolStripMenuItem_Click);
+            // 
+            // отзывыToolStripMenuItem
+            // 
+            this.отзывыToolStripMenuItem.Name = "отзывыToolStripMenuItem";
+            this.отзывыToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.отзывыToolStripMenuItem.Text = "Отзывы";
+            this.отзывыToolStripMenuItem.Click += new System.EventHandler(this.отзывыToolStripMenuItem_Click);
             // 
             // pictureBox4
             // 
             this.pictureBox4.BackgroundImage = global::CarRental.Properties.Resources.close;
-            this.pictureBox4.Location = new System.Drawing.Point(794, 42);
+            this.pictureBox4.Location = new System.Drawing.Point(705, 41);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(16, 16);
             this.pictureBox4.TabIndex = 33;
             this.pictureBox4.TabStop = false;
             this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
             // 
-            // отзывыToolStripMenuItem
+            // labelInfo
             // 
-            this.отзывыToolStripMenuItem.Name = "отзывыToolStripMenuItem";
-            this.отзывыToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.отзывыToolStripMenuItem.Text = "Отзывы";
-            this.отзывыToolStripMenuItem.Click += new System.EventHandler(this.отзывыToolStripMenuItem_Click);
+            this.labelInfo.AutoSize = true;
+            this.labelInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelInfo.ForeColor = System.Drawing.Color.Transparent;
+            this.labelInfo.Location = new System.Drawing.Point(357, 571);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(51, 20);
+            this.labelInfo.TabIndex = 35;
+            this.labelInfo.Text = "label3";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::CarRental.Properties.Resources._109448181;
+            this.pictureBox3.Location = new System.Drawing.Point(361, 594);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(96, 68);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 36;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.pictureBox2.Image = global::CarRental.Properties.Resources._10944818;
+            this.pictureBox2.Location = new System.Drawing.Point(1148, 593);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(96, 68);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 37;
+            this.pictureBox2.TabStop = false;
             // 
             // managerForm
             // 
@@ -434,8 +471,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(1322, 768);
+            this.ClientSize = new System.Drawing.Size(1267, 741);
             this.ControlBox = false;
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.panel2);
@@ -463,6 +503,8 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.contextMenuStrip2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -497,5 +539,8 @@
         private System.Windows.Forms.ToolStripMenuItem fullInfo;
         private System.Windows.Forms.ToolStripMenuItem finesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отзывыToolStripMenuItem;
+        private System.Windows.Forms.Label labelInfo;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

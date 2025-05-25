@@ -13,9 +13,6 @@ namespace CarRental
         private helper helper;
         private static string table = string.Empty;
         private DataGridViewRow selectedRow;
-        private int selectedCarId = -1;
-        private int selectedCustomerId = -1;
-        private int selectedRentalId = -1;
         public managerForm(string labelLog)
         {
             db = new db();
@@ -318,7 +315,7 @@ namespace CarRental
                     dataGridView1.ClearSelection();
                     dataGridView1.Rows[e.RowIndex].Selected = true;
 
-                    selectedCarId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["car_id"].Value);
+                    helper.selectedCarId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["car_id"].Value);
                     contextMenuStrip1.Show(Cursor.Position);
                 }
                 else if (table == "customers")
@@ -327,7 +324,7 @@ namespace CarRental
                     dataGridView1.ClearSelection();
                     dataGridView1.Rows[e.RowIndex].Selected = true;
 
-                    selectedCustomerId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["customer_id"].Value);
+                    helper.selectedCustomerId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["customer_id"].Value);
                     contextMenuStrip2.Show(Cursor.Position);
                 }
                 else if (table == "rentals")
@@ -335,12 +332,12 @@ namespace CarRental
                     dataGridView1.ClearSelection();
                     dataGridView1.Rows[e.RowIndex].Selected = true;
 
-                    selectedRentalId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["rental_id"].Value);
-                    selectedCarId = GetCarIdFromRental(selectedRentalId);
+                    helper.selectedRentalId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["rental_id"].Value);
+                    helper.selectedCarId = GetCarIdFromRental(helper.selectedRentalId);
                     object returnDateObj = dataGridView1.Rows[e.RowIndex].Cells["Дата возврата"].Value;
                     bool isCompleted = returnDateObj != DBNull.Value && returnDateObj != null;
 
-                    bool hasReview = CheckReviewExists(selectedRentalId);
+                    bool hasReview = CheckReviewExists(helper.selectedRentalId);
 
                     reviewToolStripMenuItem.Visible = isCompleted && !hasReview;
                     отзывыToolStripMenuItem.Text = "Добавить отзыв";
@@ -357,7 +354,7 @@ namespace CarRental
 
         private void viewCarMenuItem_Click(object sender, EventArgs e)
         {
-            var carInfo = new fullInfoCar.fullInfoCar(selectedCarId);
+            var carInfo = new fullInfoCar.fullInfoCar(helper.selectedCarId);
             carInfo.ShowDialog();
         }
 
@@ -373,7 +370,7 @@ namespace CarRental
 
                         string checkQuery = "SELECT COUNT(*) FROM reviews WHERE car_id = @carId;";
                         MySqlCommand cmd = new MySqlCommand(checkQuery, conn);
-                        cmd.Parameters.AddWithValue("@carId", selectedCarId);
+                        cmd.Parameters.AddWithValue("@carId", helper.selectedCarId);
 
                         int count = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -382,7 +379,7 @@ namespace CarRental
                             MessageBox.Show("Для этой машины ещё нет отзывов.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             return;
                         }
-                        var carReview = new fullInfo.carReview(selectedCarId);
+                        var carReview = new fullInfo.carReview(helper.selectedCarId);
                         carReview.ShowDialog();
                     }
                     catch (Exception ex)
@@ -396,12 +393,12 @@ namespace CarRental
         {
             if (table == "customers")
             {
-                var fullCustomer = new fullInfo.fullInfoCustomers(selectedCustomerId);
+                var fullCustomer = new fullInfo.fullInfoCustomers(helper.selectedCustomerId);
                 fullCustomer.ShowDialog();
             }
             else
             {
-                var fullRental = new fullInfo.fullInfoRentals(selectedRentalId);
+                var fullRental = new fullInfo.fullInfoRentals(helper.selectedRentalId);
                 fullRental.ShowDialog();
             }
 
@@ -410,7 +407,7 @@ namespace CarRental
         {
             if (table == "customers")
             {
-                var fullInfoFines = new fullInfo.fullInfoFines(selectedCustomerId);
+                var fullInfoFines = new fullInfo.fullInfoFines(helper.selectedCustomerId);
                 fullInfoFines.ShowDialog();
             }
             else if (table == "rentals")
@@ -420,7 +417,7 @@ namespace CarRental
                     conn.Open();
                     string dateQuery = "SELECT return_date FROM rentals WHERE rental_id = @rentalId;";
                     MySqlCommand dateCmd = new MySqlCommand(dateQuery, conn);
-                    dateCmd.Parameters.AddWithValue("@rentalId", selectedRentalId);
+                    dateCmd.Parameters.AddWithValue("@rentalId", helper.selectedRentalId);
                     object endDateObj = dateCmd.ExecuteScalar();
                     DateTime endDate = Convert.ToDateTime(endDateObj);
                     if (endDate > DateTime.Now)
@@ -428,7 +425,7 @@ namespace CarRental
                         MessageBox.Show("Штраф можно оставить только после окончания аренды.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
-                    var fullInfoFinesRental = new fullInfo.fullInfoFinesRental(selectedRentalId);
+                    var fullInfoFinesRental = new fullInfo.fullInfoFinesRental(helper.selectedRentalId);
                     fullInfoFinesRental.ShowDialog();
                 }
             }
@@ -438,7 +435,7 @@ namespace CarRental
         {
             if (table == "customers")
             {
-                if (selectedCustomerId == -1)
+                if (helper.selectedCustomerId == -1)
                 {
                     MessageBox.Show("Пожалуйста, выберите клиента.");
                     return;
@@ -451,7 +448,7 @@ namespace CarRental
 
                         string checkQuery = "SELECT COUNT(*) FROM reviews WHERE customer_id = @customerId;";
                         MySqlCommand cmd = new MySqlCommand(checkQuery, conn);
-                        cmd.Parameters.AddWithValue("@customerId", selectedCustomerId);
+                        cmd.Parameters.AddWithValue("@customerId", helper.selectedCustomerId);
 
                         int count = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -461,7 +458,7 @@ namespace CarRental
                             return;
                         }
 
-                        var customerReviewsForm = new fullInfo.fullInfoCustomerReviews(selectedCustomerId);
+                        var customerReviewsForm = new fullInfo.fullInfoCustomerReviews(helper.selectedCustomerId);
                         customerReviewsForm.ShowDialog();
                     }
                     catch (Exception ex)
@@ -472,7 +469,7 @@ namespace CarRental
             }
             else if (table == "rentals")
             {
-                if (selectedRentalId == -1)
+                if (helper.selectedRentalId == -1)
                 {
                     MessageBox.Show("Пожалуйста, выберите аренду.");
                     return;
@@ -485,7 +482,7 @@ namespace CarRental
                         conn.Open();
                         string dateQuery = "SELECT return_date FROM rentals WHERE rental_id = @rentalId;";
                         MySqlCommand dateCmd = new MySqlCommand(dateQuery, conn);
-                        dateCmd.Parameters.AddWithValue("@rentalId", selectedRentalId);
+                        dateCmd.Parameters.AddWithValue("@rentalId", helper.selectedRentalId);
                         object endDateObj = dateCmd.ExecuteScalar();
 
                         if (endDateObj == null)
@@ -502,7 +499,7 @@ namespace CarRental
                         }
                         string reviewCheckQuery = "SELECT COUNT(*) FROM reviews WHERE rental_id = @rentalId;";
                         MySqlCommand reviewCheckCmd = new MySqlCommand(reviewCheckQuery, conn);
-                        reviewCheckCmd.Parameters.AddWithValue("@rentalId", selectedRentalId);
+                        reviewCheckCmd.Parameters.AddWithValue("@rentalId", helper.selectedRentalId);
                         int reviewCount = Convert.ToInt32(reviewCheckCmd.ExecuteScalar());
 
                         if (reviewCount > 0)
@@ -510,7 +507,7 @@ namespace CarRental
                             MessageBox.Show("Отзыв на эту аренду уже оставлен.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             return;
                         }
-                        var addReview = new add.addReview(selectedRentalId, selectedCarId);
+                        var addReview = new add.addReview(helper.selectedRentalId, helper.selectedCarId);
                         addReview.ShowDialog();
                     }
                     catch (Exception ex)
