@@ -209,6 +209,12 @@
     <Compile Include="fullInfo\fullInfoFinesRental.Designer.cs">
       <DependentUpon>fullInfoFinesRental.cs</DependentUpon>
     </Compile>
+    <Compile Include="fullInfo\fullInfoReference.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fullInfo\fullInfoReference.Designer.cs">
+      <DependentUpon>fullInfoReference.cs</DependentUpon>
+    </Compile>
     <Compile Include="fullInfo\fullInfoRentals.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -292,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fullInfo\fullInfoFinesRental.resx">
       <DependentUpon>fullInfoFinesRental.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fullInfo\fullInfoReference.resx">
+      <DependentUpon>fullInfoReference.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="fullInfo\fullInfoRentals.resx">
       <DependentUpon>fullInfoRentals.cs</DependentUpon>

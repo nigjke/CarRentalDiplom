@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using CarRental.fullInfo;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace CarRental
         private int currentPage = 1;
         private int totalRecords = 0;
         int pageSize = 10;
+        private bool isHighlightEnabled = true; 
         private db db;
         private helper helper;
 
@@ -91,8 +93,8 @@ namespace CarRental
         private void adminForm_Load(object sender, EventArgs e)
         {
             SetButtonVisibility(true, true, true);
-            helper.SetButtonColors(rentalBtn, customerBtn, carBtn, employeeBtn);
-            LoadTable("rentals", "Аренды", new string[] { "По Марке", "По Модели", "По Имени", "По Фамилии", "По Телефону", "По дате взятия", "По дате возврата", "По сумме" });
+            helper.SetButtonColors(carBtn, customerBtn, rentalBtn, employeeBtn);
+            LoadTable("cars", "Машины", new string[] { "По Марке", "По Модели", "По Статусу", "По Цене" });
         }
 
         private void LoadData()
@@ -186,7 +188,12 @@ namespace CarRental
                     pictureBox2.Enabled = currentPage * pageSize < totalRecords;
 
                     dataGridView1.Columns[0].Visible = false;
-                }
+
+
+
+                if (isHighlightEnabled)
+                    ApplyHighlighting();
+            }
 
              //   ResetContextMenu();
             }
@@ -198,6 +205,16 @@ namespace CarRental
             table = tableName;
             UpdateComboBox(comboBoxItems);
             LoadData();
+            if(table == "rentals")
+            {
+                addBtn.Text = "Справка";
+                editBtn.Text = "Отключить подсветку";
+            }
+            else
+            {
+                addBtn.Text = "Добавить";
+                editBtn.Text = "Редактировать";
+            }
         }
 
         // Utils Functions
@@ -277,6 +294,7 @@ namespace CarRental
         }
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (!isHighlightEnabled) return;
             if (table == "rentals")
             {
                 if (dataGridView1.Columns[e.ColumnIndex].Name == "Дата возврата" && e.Value != null)
@@ -332,7 +350,7 @@ namespace CarRental
         {
             SetButtonVisibility(true, true, true);
             helper.SetButtonColors(carBtn, rentalBtn, customerBtn, employeeBtn);
-            LoadTable("cars", "Машины", new string[] { "По Марке", "По Модели", "По Году выпуска", "По Гос.Номеру", "По Статусу", "По Цене" });
+            LoadTable("cars", "Машины", new string[] { "По Марке", "По Модели", "По Статусу", "По Цене" });
         }
 
         private void employeeBtn_Click(object sender, EventArgs e)
@@ -351,9 +369,10 @@ namespace CarRental
 
         private void rentalBtn_Click(object sender, EventArgs e)
         {
-            SetButtonVisibility(false, false, false);
+            SetButtonVisibility(true, true, false);
             helper.SetButtonColors(rentalBtn, customerBtn, carBtn, employeeBtn);
-            LoadTable("rentals", "Аренды", new string[] { "По Марке", "По Модели", "По Имени", "По Фамилии", "По Телефону", "По дате взятия", "По дате возврата", "По сумме" });
+            LoadTable("rentals", "Аренды", new string[] { "По Марке", "По Модели", "По дате взятия", "По дате возврата", "По сумме" });
+            
         }
         private void backBtn_Click(object sender, EventArgs e)
         {
@@ -384,6 +403,15 @@ namespace CarRental
         // Event Buttons
         private void addBtn_Click(object sender, EventArgs e)
         {
+            if (table == "rentals")
+            {
+                addBtn.Text = "Справка";
+            }
+            else
+            {
+                addBtn.Text = "Добавить";
+            }
+
             if (table == "customers")
             {
                 addCustomer addCustomer = new addCustomer();
@@ -401,9 +429,10 @@ namespace CarRental
             }
             else if (table == "rentals")
             {
-                MessageBox.Show("Нет прав доступа!");
+                fullInfoReference fullInfoReference = new fullInfoReference();
+                fullInfoReference.ShowDialog();
             }
-            LoadData();
+                LoadData();
         }
 
         private void editBtn_Click(object sender, EventArgs e)
@@ -436,11 +465,7 @@ namespace CarRental
                 }
                 else if (table == "cars")
                 {
-                    editCar editCar = new editCar(selectedRow);
-                    if (editCar.ShowDialog() == DialogResult.OK)
-                    {
-                        LoadData();
-                    }
+
                 }
                 else if (table == "employee")
                 {
@@ -448,6 +473,21 @@ namespace CarRental
                     if (editEmployee.ShowDialog() == DialogResult.OK)
                     {
                         LoadData();
+                    }
+                }
+                else if (table == "rentals")
+                {
+                    isHighlightEnabled = !isHighlightEnabled;
+
+                    if (isHighlightEnabled)
+                    {
+                        editBtn.Text = "Отключить подсветку";
+                        ApplyHighlighting();
+                    }
+                    else
+                    {
+                        editBtn.Text = "Включить подсветку";
+                        ClearHighlighting();
                     }
                 }
             }
@@ -569,6 +609,36 @@ namespace CarRental
                     selectedEmployeeId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["employee_id"].Value);
                 }
                     contextMenuStrip1.Show(Cursor.Position);
+            }
+        }
+        private void ApplyHighlighting()
+        {
+            if (table != "rentals") return;
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                DateTime now = DateTime.Now;
+                if (row.Cells["Дата возврата"].Value != null && row.Cells["Дата взятия"].Value != null)
+                {
+                    DateTime endDate = Convert.ToDateTime(row.Cells["Дата возврата"].Value);
+                    DateTime startDate = Convert.ToDateTime(row.Cells["Дата взятия"].Value);
+
+                    if (endDate < now)
+                        row.DefaultCellStyle.BackColor = Color.Red;
+                    else if (startDate > now)
+                        row.DefaultCellStyle.BackColor = Color.Green;
+                    else
+                        row.DefaultCellStyle.BackColor = Color.Yellow;
+                }
+            }
+        }
+        private void ClearHighlighting()
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                row.DefaultCellStyle.BackColor = Color.White;
             }
         }
     }
