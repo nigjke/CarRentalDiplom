@@ -11,10 +11,10 @@ namespace CarRental
     {
         private int currentPage = 1;
         private int totalRecords = 0;
+        int pageSize = 10;
         private helper helper;
         private db db;
         private static string table = string.Empty;
-        int pageSize = 10;
         private DataGridViewRow selectedRow;
         public managerForm(string labelLog)
         {
@@ -98,24 +98,6 @@ namespace CarRental
                     status AS 'Статус', 
                     price AS 'Цена за сутки'
                 FROM cars
-                LIMIT {pageSize} OFFSET {offset}";
-                }
-                else if (table == "employee")
-                {
-                    counter = new MySqlCommand("SELECT COUNT(*) FROM employee", connection);
-                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
-
-                    query = $@"
-                SELECT 
-                    employee_id, 
-                    e.first_name AS 'Имя', 
-                    e.last_name AS 'Фамилия', 
-                    e.phone AS 'Телефон', 
-                    r.name AS 'Роль', 
-                    e.employeeLogin AS 'Логин', 
-                    e.employeePass AS 'Пароль' 
-                FROM employee e
-                JOIN role r ON e.Role_id = r.Role_id
                 LIMIT {pageSize} OFFSET {offset}";
                 }
                 else if (table == "rentals")
