@@ -11,6 +11,10 @@ namespace CarRental
 {
     public partial class managerForm : Form
     {
+        private FormBorderStyle _previousFormBorderStyle;
+        private FormWindowState _previousWindowState;
+        private bool _isFullscreen = false;
+
         private int currentPage = 1;
         private int totalRecords = 0;
         int pageSize = 10;
@@ -686,6 +690,27 @@ namespace CarRental
             {
                 ReferenceOnOffBtn.Text = "Включить подсветку";
                 ClearHighlighting();
+            }
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            if (!_isFullscreen)
+            {
+                _previousFormBorderStyle = this.FormBorderStyle;
+                _previousWindowState = this.WindowState;
+
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.WindowState = FormWindowState.Maximized;
+
+                _isFullscreen = true;
+            }
+            else
+            {
+                this.FormBorderStyle = _previousFormBorderStyle;
+                this.WindowState = _previousWindowState;
+
+                _isFullscreen = false;
             }
         }
     }
