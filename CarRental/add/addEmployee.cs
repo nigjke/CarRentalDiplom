@@ -110,21 +110,7 @@ namespace CarRental
                 MessageBox.Show("Заполните все поля");
             }
         }
-
-        private bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -149,6 +135,9 @@ namespace CarRental
 
             return hashPasswd;
         }
+
+        // Utils Func()
+
         public string CreatePassword(int length)
         {
             const string valid = "abcdefghijklmnopqrstuvwxyz_-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -160,10 +149,20 @@ namespace CarRental
             }
             return res.ToString();
         }
-        private void button2_Click(object sender, EventArgs e)
+        private bool IsValidEmail(string email)
         {
-            this.Close();
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
+
+        // Validation keyPress
 
         private void textBox1_KeyPress_1(object sender, KeyPressEventArgs e)
         {

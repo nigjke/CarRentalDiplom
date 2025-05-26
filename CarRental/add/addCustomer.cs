@@ -22,37 +22,22 @@ namespace CarRental
             db = new db();
             InitializeComponent();
         }
-        private void textBox2_KeyPress_1(object sender, KeyPressEventArgs e)
-        {
-            if (!db.CharCorrectRus(e.KeyChar) && !char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textBox1_KeyPress_1(object sender, KeyPressEventArgs e)
-        {
-            if (!db.CharCorrectRus(e.KeyChar) && !char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (textBox1.Text != "" && textBox2.Text != "" && maskedTextBox1.Text != "" && maskedTextBox2.Text != "" && maskedTextBox3.Text != "")
+            if (IsFormValid())
             {
-                MySqlConnection con = new MySqlConnection(connect);
-                con.Open();
-                MySqlCommand cmd = new MySqlCommand($@"Insert Into customers(first_name,last_name,phone,driver_license,passport)Values ('{textBox1.Text}','{textBox2.Text}','{maskedTextBox1.Text}','{maskedTextBox2.Text}','{maskedTextBox3.Text}')", con);
-                cmd.ExecuteNonQuery();
-                con.Close();
+                AddCustomerToDatabase(
+                    textBox1.Text,
+                    textBox2.Text,
+                    maskedTextBox1.Text,
+                    maskedTextBox2.Text,
+                    maskedTextBox3.Text
+                );
+
                 MessageBox.Show("Клиент добавлен");
-                textBox1.Text = "";
-                textBox2.Text = "";
-                maskedTextBox1.Text = "";
-                maskedTextBox2.Text = "";
-                maskedTextBox3.Text = "";
+
+                ClearForm();
+
                 DialogResult = DialogResult.OK;
             }
             else
@@ -66,18 +51,49 @@ namespace CarRental
             this.Close();
         }
 
-        private void textBox1_Leave(object sender, EventArgs e)
+        // Utils Func()
+
+        private void AddCustomerToDatabase(string firstName, string lastName, string phone, string driverLicense, string passport)
         {
-            if (!string.IsNullOrEmpty(textBox2.Text))
-                textBox1.Text = char.ToUpper(textBox1.Text[0]) + textBox1.Text.Substring(1);
+            using (MySqlConnection con = new MySqlConnection(connect))
+            {
+                con.Open();
+
+                string sql = @"INSERT INTO customers (first_name, last_name, phone, driver_license, passport)
+                               VALUES (@firstName, @lastName, @phone, @driverLicense, @passport)";
+
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@firstName", firstName);
+                    cmd.Parameters.AddWithValue("@lastName", lastName);
+                    cmd.Parameters.AddWithValue("@phone", phone);
+                    cmd.Parameters.AddWithValue("@driverLicense", driverLicense);
+                    cmd.Parameters.AddWithValue("@passport", passport);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
-        private void textBox2_Leave(object sender, EventArgs e)
+        private void ClearForm()
         {
-            if (!string.IsNullOrEmpty(textBox2.Text))
-                textBox2.Text = char.ToUpper(textBox2.Text[0]) + textBox2.Text.Substring(1);
+            textBox1.Clear();
+            textBox2.Clear();
+            maskedTextBox1.Clear();
+            maskedTextBox2.Clear();
+            maskedTextBox3.Clear();
         }
 
+        private bool IsFormValid()
+        {
+            return !string.IsNullOrWhiteSpace(textBox1.Text)
+                && !string.IsNullOrWhiteSpace(textBox2.Text)
+                && !string.IsNullOrWhiteSpace(maskedTextBox1.Text)
+                && !string.IsNullOrWhiteSpace(maskedTextBox2.Text)
+                && !string.IsNullOrWhiteSpace(maskedTextBox3.Text);
+        }
+
+        // Validation KeyPress
         private void textBox1_KeyPress_2(object sender, KeyPressEventArgs e)
         {
             if (!db.CharCorrectRus(e.KeyChar) && !char.IsControl(e.KeyChar))
@@ -92,6 +108,18 @@ namespace CarRental
             {
                 e.Handled = true;
             }
+        }
+
+        private void textBox1_Leave_1(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox1.Text))
+                textBox1.Text = char.ToUpper(textBox1.Text[0]) + textBox1.Text.Substring(1);
+        }
+
+        private void textBox2_Leave_1(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox2.Text))
+                textBox2.Text = char.ToUpper(textBox2.Text[0]) + textBox2.Text.Substring(1);
         }
     }
 }

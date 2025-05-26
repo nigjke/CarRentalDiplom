@@ -148,6 +148,7 @@
             this.textBox2.Size = new System.Drawing.Size(188, 32);
             this.textBox2.TabIndex = 2;
             this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress_2);
+            this.textBox2.Leave += new System.EventHandler(this.textBox2_Leave_1);
             // 
             // label2
             // 
@@ -182,6 +183,7 @@
             this.textBox1.Size = new System.Drawing.Size(188, 32);
             this.textBox1.TabIndex = 1;
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress_2);
+            this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave_1);
             // 
             // addCustomer
             // 

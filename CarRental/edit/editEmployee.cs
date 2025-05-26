@@ -28,6 +28,46 @@ namespace CarRental
             InitializeComponent();
             LoadData();
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (textBox1.Text != "" && textBox2.Text != "" && textBox4.Text != "" && maskedTextBox1.Text != "" && comboBox1.Text != "" && textBoxEmail.Text != "")
+            {
+                if (!IsValidEmail(textBoxEmail.Text))
+                {
+                    MessageBox.Show("Некорректный email");
+                    return;
+                }
+
+                string password = GetHashPass(textBox4.Text);
+                UpdateDatabase(
+                    comboBox1.Text,
+                    textBox1.Text,
+                    textBox2.Text,
+                    maskedTextBox1.Text,
+                    textBoxEmail.Text,
+                    textBox3.Text,
+                    password
+                );
+
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Заполните все поля");
+            }
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox4.Text = CreatePassword(15);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        // Utils Func()
         private void LoadData()
         {
             employeeId = Convert.ToInt32(selectedRow.Cells["employee_id"].Value);
@@ -134,40 +174,33 @@ namespace CarRental
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+        public string CreatePassword(int length)
         {
-            if (textBox1.Text != "" && textBox2.Text != "" && textBox4.Text != "" && maskedTextBox1.Text != "" && comboBox1.Text != "" && textBoxEmail.Text != "")
+            const string valid = "abcdefghijklmnopqrstuvwxyz_-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
             {
-                if (!IsValidEmail(textBoxEmail.Text))
-                {
-                    MessageBox.Show("Некорректный email");
-                    return;
-                }
-
-                string password = GetHashPass(textBox4.Text);
-                UpdateDatabase(
-                    comboBox1.Text,
-                    textBox1.Text,
-                    textBox2.Text,
-                    maskedTextBox1.Text,
-                    textBoxEmail.Text,
-                    textBox3.Text,
-                    password
-                );
-
-                DialogResult = DialogResult.OK;
-                Close();
+                res.Append(valid[rnd.Next(valid.Length)]);
             }
-            else
+            return res.ToString();
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
             {
-                MessageBox.Show("Заполните все поля");
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        // Validation keyPress
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -203,35 +236,6 @@ namespace CarRental
         {
             if (!string.IsNullOrEmpty(textBox2.Text))
                 textBox2.Text = char.ToUpper(textBox2.Text[0]) + textBox2.Text.Substring(1);
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            textBox4.Text = CreatePassword(15);
-        }
-        public string CreatePassword(int length)
-        {
-            const string valid = "abcdefghijklmnopqrstuvwxyz_-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-            StringBuilder res = new StringBuilder();
-            Random rnd = new Random();
-            while (0 < length--)
-            {
-                res.Append(valid[rnd.Next(valid.Length)]);
-            }
-            return res.ToString();
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }
