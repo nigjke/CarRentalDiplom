@@ -23,7 +23,6 @@ namespace CarRental
         {
             db = new db();
             InitializeComponent();
-            db = new db();
         }
         private void addEmployee_Load(object sender, EventArgs e)
         {

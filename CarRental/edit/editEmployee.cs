@@ -19,6 +19,8 @@ namespace CarRental
         public int des1;
         string connect = db.connect;
         private db db;
+        private int employeeId;
+
         public editEmployee(DataGridViewRow row)
         {
             db = new db();
@@ -28,13 +30,43 @@ namespace CarRental
         }
         private void LoadData()
         {
-            textBox1.Text = selectedRow.Cells["Имя"].Value.ToString();
-            textBox2.Text = selectedRow.Cells["Фамилия"].Value.ToString();
-            maskedTextBox1.Text = selectedRow.Cells["Телефон"].Value.ToString();
-            comboBox1.SelectedItem = selectedRow.Cells["Роль"].Value.ToString();
-            textBox3.Text = selectedRow.Cells["Логин"].Value.ToString();
-            textBox4.Text = selectedRow.Cells["Пароль"].Value.ToString();
+            employeeId = Convert.ToInt32(selectedRow.Cells["employee_id"].Value);
+
+            using (MySqlConnection conn = new MySqlConnection(connect))
+            {
+                conn.Open();
+
+                string query = @"SELECT e.first_name, e.last_name, e.phone, e.email, e.employeeLogin, e.employeePass, r.name as roleName
+                         FROM employee e
+                         JOIN role r ON e.Role_id = r.Role_id
+                         WHERE e.employee_id = @id";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", employeeId);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            textBox1.Text = reader["first_name"].ToString();
+                            textBox2.Text = reader["last_name"].ToString();
+                            maskedTextBox1.Text = reader["phone"].ToString();
+                            textBoxEmail.Text = reader["email"].ToString();
+                            textBox3.Text = reader["employeeLogin"].ToString();
+                            textBox4.Text = reader["employeePass"].ToString();
+                            comboBox1.Text = reader["roleName"].ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Сотрудник не найден.");
+                            this.Close();
+                        }
+                    }
+                }
+            }
         }
+
         public static string GetHashPass(string password)
         {
 
@@ -56,43 +88,73 @@ namespace CarRental
 
             return hashPasswd;
         }
-        private void UpdateDatabase(object role, string first_name, string last_name, string phone, string employeeLogin, string employeePass)
+        private void UpdateDatabase(string roleName, string first_name, string last_name, string phone, string email, string employeeLogin, string employeePass)
         {
+            using (MySqlConnection conn = new MySqlConnection(connect))
+            {
+                conn.Open();
 
-                DataTable Rooms = new DataTable();
-                using (MySqlConnection coon = new MySqlConnection(connect))
+                MySqlCommand getRoleCmd = new MySqlCommand("SELECT Role_id FROM role WHERE name = @roleName", conn);
+                getRoleCmd.Parameters.AddWithValue("@roleName", roleName);
+                object roleResult = getRoleCmd.ExecuteScalar();
+
+                if (roleResult == null)
                 {
-                    MySqlCommand cmd = new MySqlCommand();
-                    cmd.Connection = coon;
-                    cmd.CommandText = $@"select Role_id from `role` where name = '{role}'";
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                    adapter.Fill(Rooms);
-                }
-                for (int i = 0; i < Rooms.Rows.Count; i++)
-                {
-                    des1 = Convert.ToInt32(Rooms.Rows[i]["Role_id"]);
+                    MessageBox.Show("Роль не найдена.");
+                    return;
                 }
 
-                using (MySqlConnection connection = new MySqlConnection(db.connect))
-                {
-                    connection.Open();
-                    MySqlCommand command = new MySqlCommand($"UPDATE employee SET Role_id = {des1}, first_name = @first_name, last_name = @last_name, phone = @phone, employeeLogin = @employeeLogin, employeePass = @employeePass WHERE employeePass = @employeePass", connection);
-                    command.Parameters.AddWithValue(Convert.ToString(des1), role);
-                    command.Parameters.AddWithValue("@first_name", first_name);
-                    command.Parameters.AddWithValue("@last_name", last_name);
-                    command.Parameters.AddWithValue("@phone", phone);
-                    command.Parameters.AddWithValue("@employeeLogin", employeeLogin);
-                    command.Parameters.AddWithValue("@employeePass", employeePass);
-                    command.ExecuteNonQuery();
-                }
-          
+                des1 = Convert.ToInt32(roleResult);
+
+                MySqlCommand cmd = new MySqlCommand(@"
+                    UPDATE employee
+                    SET Role_id = @roleId,
+                        first_name = @firstName,
+                        last_name = @lastName,
+                        phone = @phone,
+                        email = @email,
+                        employeeLogin = @login,
+                        employeePass = @pass
+                    WHERE employee_id = @id", conn);
+
+                cmd.Parameters.AddWithValue("@roleId", des1);
+                cmd.Parameters.AddWithValue("@firstName", first_name);
+                cmd.Parameters.AddWithValue("@lastName", last_name);
+                cmd.Parameters.AddWithValue("@phone", phone);
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@login", employeeLogin);
+                cmd.Parameters.AddWithValue("@pass", employeePass);
+                cmd.Parameters.AddWithValue("@id", employeeId);
+
+                int result = cmd.ExecuteNonQuery();
+                if (result == 1)
+                    MessageBox.Show("Данные успешно обновлены.");
+                else
+                    MessageBox.Show("Ошибка при обновлении.");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != "" && textBox2.Text != "" && textBox4.Text != "" && textBox4.Text != "" && maskedTextBox1.Text != "" && comboBox1.Text != "")
+            if (textBox1.Text != "" && textBox2.Text != "" && textBox4.Text != "" && maskedTextBox1.Text != "" && comboBox1.Text != "" && textBoxEmail.Text != "")
             {
-                UpdateDatabase(comboBox1.SelectedItem, textBox1.Text, textBox2.Text, maskedTextBox1.Text, textBox3.Text, textBox4.Text);
+                if (!IsValidEmail(textBoxEmail.Text))
+                {
+                    MessageBox.Show("Некорректный email");
+                    return;
+                }
+
+                string password = GetHashPass(textBox4.Text);
+                UpdateDatabase(
+                    comboBox1.Text,
+                    textBox1.Text,
+                    textBox2.Text,
+                    maskedTextBox1.Text,
+                    textBoxEmail.Text,
+                    textBox3.Text,
+                    password
+                );
+
                 DialogResult = DialogResult.OK;
                 Close();
             }
@@ -141,6 +203,35 @@ namespace CarRental
         {
             if (!string.IsNullOrEmpty(textBox2.Text))
                 textBox2.Text = char.ToUpper(textBox2.Text[0]) + textBox2.Text.Substring(1);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox4.Text = CreatePassword(15);
+        }
+        public string CreatePassword(int length)
+        {
+            const string valid = "abcdefghijklmnopqrstuvwxyz_-ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
+            {
+                res.Append(valid[rnd.Next(valid.Length)]);
+            }
+            return res.ToString();
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

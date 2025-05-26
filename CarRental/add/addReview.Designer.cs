@@ -104,6 +104,7 @@
             this.textBoxComment.Size = new System.Drawing.Size(242, 255);
             this.textBoxComment.TabIndex = 188;
             this.textBoxComment.Text = "";
+            this.textBoxComment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxComment_KeyPress);
             // 
             // addReview
             // 
