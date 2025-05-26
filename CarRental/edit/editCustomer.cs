@@ -18,6 +18,7 @@ namespace CarRental
         private db db;
         string connect = db.connect;
         private DataGridViewRow selectedRow;
+        private int customerId;
         public editCustomer(DataGridViewRow row)
         {
             db = new db();
@@ -25,55 +26,98 @@ namespace CarRental
             InitializeComponent();
             LoadData();
         }
-        private void LoadData()
-        {
-            textBox1.Text = selectedRow.Cells["Имя"].Value.ToString();
-            textBox2.Text = selectedRow.Cells["Фамилия"].Value.ToString();
-            maskedTextBox1.Text = selectedRow.Cells["Телефон"].Value.ToString();
-            maskedTextBox2.Text = selectedRow.Cells["Вод.Удостоверение"].Value.ToString();
-            maskedTextBox3.Text = selectedRow.Cells["Паспорт"].Value.ToString();
-        }
-        private void editCustomer_Load(object sender, EventArgs e)
-        {
-        }
-        private void UpdateDatabase(string first_name, string last_name, string phone, string driverLicense, string passport)
-        {
-
-            using (MySqlConnection connection = new MySqlConnection(db.connect))
-            {
-                connection.Open();
-                MySqlCommand command = new MySqlCommand("UPDATE customers SET first_name = @first_name, last_name = @last_name, phone = @phone, driver_license = @driverLicense WHERE passport = @passport", connection);
-                command.Parameters.AddWithValue("@first_name", first_name);
-                command.Parameters.AddWithValue("@last_name", last_name);
-                command.Parameters.AddWithValue("@phone", phone);
-                command.Parameters.AddWithValue("@driverLicense", driverLicense);
-                command.Parameters.AddWithValue("@passport", passport);
-                command.ExecuteNonQuery();
-            }
-        }
+   
         private void button1_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != "" && textBox2.Text != "" && maskedTextBox1.Text != "" && maskedTextBox2.Text != "" && maskedTextBox3.Text != "")
+            if (IsFormValid())
             {
-                UpdateDatabase(textBox1.Text, textBox2.Text, maskedTextBox1.Text, maskedTextBox2.Text, maskedTextBox3.Text);
+                UpdateDatabase(
+                    textBox1.Text,
+                    textBox2.Text,
+                    maskedTextBox1.Text,
+                    maskedTextBox2.Text,
+                    maskedTextBox3.Text
+                );
+
                 DialogResult = DialogResult.OK;
                 Close();
-                textBox1.Text = "";
-                textBox2.Text = "";
-                maskedTextBox1.Text = "";
-                maskedTextBox2.Text = "";
-                maskedTextBox3.Text = "";
             }
             else
             {
                 MessageBox.Show("Заполните все поля");
             }
-            }
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        // Utils Func
+
+        private void LoadData()
+        {
+            customerId = Convert.ToInt32(selectedRow.Cells["customer_id"].Value);
+            using (MySqlConnection con = new MySqlConnection(connect))
+            {
+                con.Open();
+                string sql = "SELECT first_name, last_name, phone, driver_license, passport FROM customers WHERE customer_id = @id";
+                using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                {
+                    cmd.Parameters.AddWithValue("@id", customerId);
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            textBox1.Text = reader["first_name"].ToString();
+                            textBox2.Text = reader["last_name"].ToString();
+                            maskedTextBox1.Text = reader["phone"].ToString();
+                            maskedTextBox2.Text = reader["driver_license"].ToString();
+                            maskedTextBox3.Text = reader["passport"].ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Клиент не найден");
+                            this.Close();
+                        }
+                    }
+                }
+            }
+        }
+        private void UpdateDatabase(string first_name, string last_name, string phone, string driverLicense, string passport)
+        {
+            using (MySqlConnection connection = new MySqlConnection(connect))
+            {
+                connection.Open();
+
+                string sql = @"UPDATE customers 
+                               SET first_name = @first_name, last_name = @last_name, phone = @phone, driver_license = @driverLicense, passport = @passport 
+                               WHERE customer_id = @customerId";
+
+                using (MySqlCommand command = new MySqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@first_name", first_name);
+                    command.Parameters.AddWithValue("@last_name", last_name);
+                    command.Parameters.AddWithValue("@phone", phone);
+                    command.Parameters.AddWithValue("@driverLicense", driverLicense);
+                    command.Parameters.AddWithValue("@passport", passport);
+                    command.Parameters.AddWithValue("@customerId", customerId);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private bool IsFormValid()
+        {
+            return !string.IsNullOrWhiteSpace(textBox1.Text) &&
+                   !string.IsNullOrWhiteSpace(textBox2.Text) &&
+                   !string.IsNullOrWhiteSpace(maskedTextBox1.Text) &&
+                   !string.IsNullOrWhiteSpace(maskedTextBox2.Text) &&
+                   !string.IsNullOrWhiteSpace(maskedTextBox3.Text);
+        }
+
+        // Validation keyPress
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {

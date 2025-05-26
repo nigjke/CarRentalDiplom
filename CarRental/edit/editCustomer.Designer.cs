@@ -210,7 +210,6 @@ namespace CarRental
             this.Name = "editCustomer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "editCustomer";
-            this.Load += new System.EventHandler(this.editCustomer_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
