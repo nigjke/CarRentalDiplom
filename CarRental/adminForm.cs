@@ -147,11 +147,8 @@ namespace CarRental
                     SELECT 
                         employee_id, 
                         e.first_name AS 'Имя', 
-                        e.last_name AS 'Фамилия', 
-                        e.phone AS 'Телефон', 
-                        r.name AS 'Роль', 
-                        e.employeeLogin AS 'Логин', 
-                        e.employeePass AS 'Пароль' 
+                        e.last_name AS 'Фамилия',  
+                        r.name AS 'Роль'
                     FROM employee e
                     JOIN role r ON e.Role_id = r.Role_id
                     LIMIT {pageSize} OFFSET {offset}";
@@ -587,28 +584,28 @@ namespace CarRental
                 employeeForm.FormClosed += (s, args) => employeeForm.Dispose();
                 employeeForm.ShowDialog();
             }
-            if (table == "customers")
-            {
-                var carInfo = new fullInfoCar.fullInfoCar(selectedCarId);
-                carInfo.ShowDialog();
-            }
         }
 
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
             {
-                    dataGridView1.ClearSelection();
-                    dataGridView1.Rows[e.RowIndex].Selected = true;
+                dataGridView1.ClearSelection();
+                dataGridView1.Rows[e.RowIndex].Selected = true;
                 if (table == "cars")
                 {
                     selectedCarId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["car_id"].Value);
+                    contextMenuStrip1.Show(Cursor.Position);
                 }
                 if (table == "employee")
                 {
                     selectedEmployeeId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["employee_id"].Value);
-                }
                     contextMenuStrip1.Show(Cursor.Position);
+                }
+                else
+                {
+                    contextMenuStrip1.Hide();
+                }
             }
         }
         private void ApplyHighlighting()
