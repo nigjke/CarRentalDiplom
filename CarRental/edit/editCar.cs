@@ -25,6 +25,21 @@ namespace CarRental
             selectedRow = row;
             LoadData();
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            UpdateCar();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void uploadBtn_Click(object sender, EventArgs e)
+        {
+            UploadImage();
+        }
+
+        // Utils Func()
 
         private void LoadData()
         {
@@ -266,19 +281,9 @@ namespace CarRental
                 }
             }
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            UpdateCar();
-        }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-        private void uploadBtn_Click(object sender, EventArgs e)
-        {
-            UploadImage();
-        }
+        // Validation keyPress
+
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!db.CharCorrectEng(e.KeyChar) && !char.IsControl(e.KeyChar))
