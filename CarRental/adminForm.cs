@@ -542,13 +542,106 @@ namespace CarRental
         // Search
         private void searchBox_TextChanged(object sender, EventArgs e)
         {
-            string txt = searchBox.Text;
             string query = "";
-            if (table == "cars") { query = $"SELECT make as 'Марка', model as 'Модель', year as 'Год выпуска', license_plate as 'Гос.Номер', status as 'Статус', price 'Цена за сутки' FROM cars WHERE make LIKE '%{txt}%' OR model LIKE '%{txt}%' OR license_plate LIKE '%{txt}%' OR status LIKE '%{txt}%' OR year LIKE '%{txt}%' OR price LIKE '%{txt}%'"; }
-            else if (table == "customers") { query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', driver_license as 'Вод.Удостоверение', passport as 'Паспорт' FROM customers WHERE first_name LIKE '%{txt}%' OR last_name LIKE '%{txt}%' OR phone LIKE '%{txt}%' OR driver_license LIKE '%{txt}%' OR passport LIKE '%{txt}%'"; }
-            else if (table == "employee") { query = $"SELECT first_name as 'Имя', last_name as 'Фамилия', phone as 'Телефон', Role_id as 'Роль', employeeLogin as 'Логин', employeePass as 'Пароль' FROM employee WHERE first_name LIKE '%{txt}%' OR LIKE '%{txt}%' OR phone LIKE '%{txt}%' OR employeeLogin LIKE '%{txt}%' OR employeePass LIKE '%{txt}%' OR Role_id LIKE '%{txt}%'"; }
-            else if (table == "rentals") { query = $"SELECT customers.passport as 'Клиент', cars.license_plate as 'Машина', rentals.rental_date as 'Дата взятия', employee.employeeLogin as 'Менеджер',rentals.return_date as 'Дата возвращения', rentals.total_amount as 'Сумма' FROM rentals JOIN customers ON rentals.customer_id = customers.customer_id JOIN cars ON rentals.car_id = cars.car_id JOIN employee ON rentals.employee_id = employee.employee_id;"; }
-            db.MySqlReturnData(query, dataGridView1);
+            string txt = searchBox.Text;
+            using (MySqlConnection connection = new MySqlConnection(db.connect))
+            {
+                MySqlCommand command = connection.CreateCommand();
+
+                if (table == "cars")
+                {
+                    query = @"
+                SELECT 
+                    make AS 'Марка', 
+                    model AS 'Модель', 
+                    year AS 'Год выпуска', 
+                    license_plate AS 'Гос.Номер', 
+                    status AS 'Статус', 
+                    price AS 'Цена за сутки' 
+                FROM cars 
+                WHERE 
+                    make LIKE @txt OR 
+                    model LIKE @txt OR 
+                    license_plate LIKE @txt OR 
+                    status LIKE @txt OR 
+                    CAST(year AS CHAR) LIKE @txt OR 
+                    CAST(price AS CHAR) LIKE @txt";
+                }
+                else if (table == "customers")
+                {
+                    query = @"
+                SELECT 
+                    first_name AS 'Имя', 
+                    last_name AS 'Фамилия', 
+                    CONCAT(LEFT(phone, 2), REPEAT('*', CHAR_LENGTH(phone) - 6), RIGHT(phone, 4)) AS 'Телефон', 
+                    CONCAT(LEFT(driver_license, 2), REPEAT('*', CHAR_LENGTH(driver_license) - 6), RIGHT(driver_license, 4)) AS 'Вод.Удостоверение', 
+                    CONCAT(LEFT(passport, 2), REPEAT('*', CHAR_LENGTH(passport) - 6), RIGHT(passport, 4)) AS 'Паспорт' 
+                FROM customers 
+                WHERE 
+                    first_name LIKE @txt OR 
+                    last_name LIKE @txt OR 
+                    phone LIKE @txt OR 
+                    driver_license LIKE @txt OR 
+                    passport LIKE @txt";
+                }
+                else if (table == "employee")
+                {
+                    query = @"
+                SELECT 
+                    e.first_name AS 'Имя', 
+                    e.last_name AS 'Фамилия', 
+                    r.name AS 'Роль', 
+                FROM employee e
+                JOIN role r ON e.Role_id = r.Role_id
+                WHERE 
+                    e.first_name LIKE @txt OR 
+                    e.last_name LIKE @txt OR 
+                    r.name LIKE @txt OR";
+                }
+                else if (table == "rentals")
+                {
+                    query = @"
+                        SELECT 
+                            rentals.rental_id, 
+                            cars.make AS 'Марка', 
+                            cars.model AS 'Модель', 
+                            rentals.rental_date AS 'Дата взятия', 
+                            rentals.return_date AS 'Дата возврата', 
+                            rentals.total_amount AS 'Сумма' 
+                        FROM carrentaldb.rentals 
+                        INNER JOIN carrentaldb.cars ON cars.car_id = rentals.car_id 
+                        WHERE 
+                            cars.make LIKE @txt OR 
+                            cars.model LIKE @txt OR 
+                            rentals.rental_date LIKE @txt OR 
+                            rentals.return_date LIKE @txt OR 
+                            rentals.total_amount LIKE @txt";
+                }
+                else
+                {
+                    return;
+                }
+
+                command.CommandText = query;
+                command.Parameters.AddWithValue("@txt", "%" + txt + "%");
+
+                DataTable dt = new DataTable();
+
+                try
+                {
+                    connection.Open();
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
+                    {
+                        adapter.Fill(dt);
+                    }
+
+                    dataGridView1.DataSource = dt;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка при поиске: " + ex.Message);
+                }
+            }
         }
         private void pictureBox4_Click(object sender, EventArgs e)
         {
