@@ -48,6 +48,11 @@ namespace CarRental
             string password = GetHashPass(textBox4.Text.ToString());
             if (textBox1.Text != "" && textBox2.Text != "" && textBox4.Text != "" && textBox4.Text != "" && maskedTextBox1.Text != "" && comboBox1.Text != "")
             {
+                if (!IsValidEmail(textBoxEmail.Text))
+                {
+                    MessageBox.Show("Некорректный email");
+                    return;
+                }
                 string role = comboBox1.Text;
                 DataTable Rooms = new DataTable();
                 using (MySqlConnection coon = new MySqlConnection(connect))
@@ -64,40 +69,59 @@ namespace CarRental
                     des1 = Convert.ToInt32(Rooms.Rows[i]["Role_id"]);
                 }
 
-                string sqlQuery = $@"Insert Into employee(Role_id,first_name,
+                string sqlQuery = @"INSERT INTO employee (Role_id, first_name, last_name, phone, email, employeeLogin, employeePass) 
+                    VALUES (@role, @firstName, @lastName, @phone, @email, @login, @pass)";
 
-
-
-,phone,employeeLogin,employeePass) Values ('{des1}','{textBox1.Text}','{textBox2.Text}','{maskedTextBox1.Text}','{textBox3.Text}','{password}')";
-                using (MySqlConnection con = new MySqlConnection())
+                using (MySqlConnection con = new MySqlConnection(connect))
                 {
-                    con.ConnectionString = connect;
                     con.Open();
                     MySqlCommand cmd = new MySqlCommand(sqlQuery, con);
+                    cmd.Parameters.AddWithValue("@role", des1);
+                    cmd.Parameters.AddWithValue("@firstName", textBox1.Text);
+                    cmd.Parameters.AddWithValue("@lastName", textBox2.Text);
+                    cmd.Parameters.AddWithValue("@phone", maskedTextBox1.Text);
+                    cmd.Parameters.AddWithValue("@email", textBox3.Text);
+                    cmd.Parameters.AddWithValue("@login", textBox4.Text);
+                    cmd.Parameters.AddWithValue("@pass", password);
+
                     int res = cmd.ExecuteNonQuery();
 
                     if (res == 1)
                     {
                         MessageBox.Show("Пользователь добавлен");
-
                     }
                     else
                     {
                         MessageBox.Show("Пользователь не добавлен");
                     }
+
                     textBox2.Text = null;
                     comboBox1.Text = null;
                     textBox3.Text = null;
                     textBox1.Text = null;
                     textBox4.Text = null;
                     maskedTextBox1.Text = null;
+                    textBoxEmail.Text = null; 
                     DialogResult = DialogResult.OK;
 
-                }
             }
+        }
             else
             {
                 MessageBox.Show("Заполните все поля");
+            }
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
             }
         }
 
@@ -137,20 +161,12 @@ namespace CarRental
             }
             return res.ToString();
         }
-        private void button3_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            textBox4.Text = CreatePassword(15);
+            this.Close();
         }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!db.CharCorrectRus(e.KeyChar) && !char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBox1_KeyPress_1(object sender, KeyPressEventArgs e)
         {
             if (!db.CharCorrectRus(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
@@ -158,7 +174,15 @@ namespace CarRental
             }
         }
 
-        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBox2_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (!db.CharCorrectRus(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox3_KeyPress_1(object sender, KeyPressEventArgs e)
         {
             if (!db.CharCorrectEng(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
@@ -166,7 +190,7 @@ namespace CarRental
             }
         }
 
-        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBox4_KeyPress_1(object sender, KeyPressEventArgs e)
         {
             if (!db.CharCorrectEng(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
@@ -174,16 +198,21 @@ namespace CarRental
             }
         }
 
-        private void textBox1_Leave(object sender, EventArgs e)
+        private void textBox2_Leave_1(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox2.Text))
+                textBox2.Text = char.ToUpper(textBox2.Text[0]) + textBox2.Text.Substring(1);
+        }
+
+        private void textBox1_Leave_1(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(textBox1.Text))
                 textBox1.Text = char.ToUpper(textBox1.Text[0]) + textBox1.Text.Substring(1);
         }
 
-        private void textBox2_Leave(object sender, EventArgs e)
+        private void button3_Click_1(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(textBox2.Text))
-                textBox2.Text = char.ToUpper(textBox2.Text[0]) + textBox2.Text.Substring(1);
+            textBox4.Text = CreatePassword(15);
         }
     }
 }

@@ -78,7 +78,7 @@ namespace CarRental
                 textBox2.Text = char.ToUpper(textBox2.Text[0]) + textBox2.Text.Substring(1);
         }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBox1_KeyPress_2(object sender, KeyPressEventArgs e)
         {
             if (!db.CharCorrectRus(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
@@ -86,7 +86,7 @@ namespace CarRental
             }
         }
 
-        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBox2_KeyPress_2(object sender, KeyPressEventArgs e)
         {
             if (!db.CharCorrectRus(e.KeyChar) && !char.IsControl(e.KeyChar))
             {

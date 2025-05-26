@@ -64,6 +64,8 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.referenceBtn = new System.Windows.Forms.Button();
+            this.ReferenceOnOffBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -481,6 +483,36 @@
             this.pictureBox5.TabIndex = 25;
             this.pictureBox5.TabStop = false;
             // 
+            // referenceBtn
+            // 
+            this.referenceBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.referenceBtn.FlatAppearance.BorderSize = 0;
+            this.referenceBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.referenceBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.referenceBtn.ForeColor = System.Drawing.Color.White;
+            this.referenceBtn.Location = new System.Drawing.Point(587, 605);
+            this.referenceBtn.Name = "referenceBtn";
+            this.referenceBtn.Size = new System.Drawing.Size(204, 60);
+            this.referenceBtn.TabIndex = 38;
+            this.referenceBtn.Text = "Справка";
+            this.referenceBtn.UseVisualStyleBackColor = false;
+            this.referenceBtn.Click += new System.EventHandler(this.referenceBtn_Click);
+            // 
+            // ReferenceOnOffBtn
+            // 
+            this.ReferenceOnOffBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
+            this.ReferenceOnOffBtn.FlatAppearance.BorderSize = 0;
+            this.ReferenceOnOffBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ReferenceOnOffBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ReferenceOnOffBtn.ForeColor = System.Drawing.Color.White;
+            this.ReferenceOnOffBtn.Location = new System.Drawing.Point(814, 605);
+            this.ReferenceOnOffBtn.Name = "ReferenceOnOffBtn";
+            this.ReferenceOnOffBtn.Size = new System.Drawing.Size(204, 60);
+            this.ReferenceOnOffBtn.TabIndex = 39;
+            this.ReferenceOnOffBtn.Text = "Отключить подсветку";
+            this.ReferenceOnOffBtn.UseVisualStyleBackColor = false;
+            this.ReferenceOnOffBtn.Click += new System.EventHandler(this.ReferenceOnOffBtn_Click);
+            // 
             // managerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -489,6 +521,8 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(1267, 682);
             this.ControlBox = false;
+            this.Controls.Add(this.ReferenceOnOffBtn);
+            this.Controls.Add(this.referenceBtn);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox3);
@@ -561,5 +595,7 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.Button referenceBtn;
+        private System.Windows.Forms.Button ReferenceOnOffBtn;
     }
 }
