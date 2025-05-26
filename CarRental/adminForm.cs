@@ -354,7 +354,7 @@ namespace CarRental
         {
             SetButtonVisibility(true, true, true);
             helper.SetButtonColors(employeeBtn, rentalBtn, carBtn, customerBtn);
-            LoadTable("employee", "Сотрудники", new string[] { "По Имени", "По Фамилии", "По Телефону", "По Вод.Удостоверению", "По Паспорту" });
+            LoadTable("employee", "Сотрудники", new string[] { "По Имени", "По Фамилии", "По Роли" });
         }
 
         private void customerBtn_Click(object sender, EventArgs e)
@@ -368,7 +368,7 @@ namespace CarRental
         {
             SetButtonVisibility(true, true, false);
             helper.SetButtonColors(rentalBtn, customerBtn, carBtn, employeeBtn);
-            LoadTable("rentals", "Аренды", new string[] { "По Марке", "По Модели", "По дате взятия", "По дате возврата", "По сумме" });
+            LoadTable("rentals", "Аренды", new string[] { "По Марке", "По Модели", "По Дате взятия", "По Дате возврата", "По Сумме" });
             
         }
         private void backBtn_Click(object sender, EventArgs e)
