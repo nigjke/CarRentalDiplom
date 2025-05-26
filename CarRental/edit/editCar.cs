@@ -25,25 +25,61 @@ namespace CarRental
             selectedRow = row;
             LoadData();
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            UpdateCar();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        private void uploadBtn_Click(object sender, EventArgs e)
+        {
+            UploadImage();
+        }
+
+        // Utils Func()
 
         private void LoadData()
         {
             try
             {
-                textBox1.Text = GetCellValue("Марка");
-                textBox2.Text = GetCellValue("Модель");
-                textBox3.Text = GetCellValue("Год выпуска");
-                maskedTextBox1.Text = GetCellValue("Гос.Номер");
-                comboBox1.SelectedItem = GetCellValue("Статус");
-                textBox4.Text = GetCellValue("Цена за сутки");
                 car_id = Convert.ToInt32(selectedRow.Cells["car_id"].Value);
+
+                using (MySqlConnection con = new MySqlConnection(db.connect))
+                {
+                    con.Open();
+                    string sql = "SELECT make, model, year, license_plate, status, price FROM cars WHERE car_id = @id";
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@id", car_id);
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                textBox1.Text = reader["make"].ToString();
+                                textBox2.Text = reader["model"].ToString();
+                                textBox3.Text = reader["year"].ToString();
+                                maskedTextBox1.Text = reader["license_plate"].ToString();
+                                comboBox1.SelectedItem = reader["status"].ToString();
+                                textBox4.Text = reader["price"].ToString();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Автомобиль не найден");
+                                this.Close();
+                            }
+                        }
+                    }
+                }
 
                 LoadExistingImage();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка загрузки данных: {ex.Message}");
-                Close();
+                this.Close();
             }
         }
 
@@ -266,19 +302,9 @@ namespace CarRental
                 }
             }
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            UpdateCar();
-        }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-        private void uploadBtn_Click(object sender, EventArgs e)
-        {
-            UploadImage();
-        }
+        // Validation keyPress
+
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!db.CharCorrectEng(e.KeyChar) && !char.IsControl(e.KeyChar))
