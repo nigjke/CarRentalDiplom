@@ -1,6 +1,8 @@
-﻿using MySql.Data.MySqlClient;
+﻿using CarRental.fullInfo;
+using MySql.Data.MySqlClient;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using Word = Microsoft.Office.Interop.Word;
@@ -12,6 +14,7 @@ namespace CarRental
         private int currentPage = 1;
         private int totalRecords = 0;
         int pageSize = 10;
+        private bool isHighlightEnabled = true;
         private helper helper;
         private db db;
         private static string table = string.Empty;
@@ -69,6 +72,9 @@ namespace CarRental
 
                 MySqlCommand counter;
 
+                referenceBtn.Visible = false;
+                ReferenceOnOffBtn.Visible = false;
+
                 if (table == "customers")
                 {
                     counter = new MySqlCommand("SELECT COUNT(*) FROM customers", connection);
@@ -116,6 +122,9 @@ namespace CarRental
                 FROM rentals r
                 INNER JOIN cars c ON c.car_id = r.car_id
                 LIMIT {pageSize} OFFSET {offset}";
+
+                referenceBtn.Visible = true;
+                ReferenceOnOffBtn.Visible = true;
                 }
 
                 MySqlCommand command = new MySqlCommand(query, connection);
@@ -133,7 +142,8 @@ namespace CarRental
 
                 dataGridView1.Columns[0].Visible = false;
             }
-
+            if (isHighlightEnabled)
+                ApplyHighlighting();
             ResetContextMenu();
         }
 
@@ -625,6 +635,57 @@ namespace CarRental
             {
                 currentPage--;
                 LoadData();
+            }
+        }
+
+        private void referenceBtn_Click(object sender, EventArgs e)
+        {
+            fullInfoReference fullInfoReference = new fullInfoReference();
+            fullInfoReference.ShowDialog();
+        }
+        private void ApplyHighlighting()
+        {
+            if (table != "rentals") return;
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                DateTime now = DateTime.Now;
+                if (row.Cells["Дата возврата"].Value != null && row.Cells["Дата взятия"].Value != null)
+                {
+                    DateTime endDate = Convert.ToDateTime(row.Cells["Дата возврата"].Value);
+                    DateTime startDate = Convert.ToDateTime(row.Cells["Дата взятия"].Value);
+
+                    if (endDate < now)
+                        row.DefaultCellStyle.BackColor = Color.Red;
+                    else if (startDate > now)
+                        row.DefaultCellStyle.BackColor = Color.Green;
+                    else
+                        row.DefaultCellStyle.BackColor = Color.Yellow;
+                }
+            }
+        }
+        private void ClearHighlighting()
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                row.DefaultCellStyle.BackColor = Color.White;
+            }
+        }
+
+        private void ReferenceOnOffBtn_Click(object sender, EventArgs e)
+        {
+            isHighlightEnabled = !isHighlightEnabled;
+            if (isHighlightEnabled)
+            {
+                ReferenceOnOffBtn.Text = "Отключить подсветку";
+                ApplyHighlighting();
+            }
+            else
+            {
+                ReferenceOnOffBtn.Text = "Включить подсветку";
+                ClearHighlighting();
             }
         }
     }
