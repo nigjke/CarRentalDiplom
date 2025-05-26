@@ -462,7 +462,11 @@ namespace CarRental
                 }
                 else if (table == "cars")
                 {
-
+                    editCar editCar = new editCar(selectedRow);
+                    if (editCar.ShowDialog() == DialogResult.OK)
+                    {
+                        LoadData();
+                    }
                 }
                 else if (table == "employee")
                 {

@@ -45,20 +45,41 @@ namespace CarRental
         {
             try
             {
-                textBox1.Text = GetCellValue("Марка");
-                textBox2.Text = GetCellValue("Модель");
-                textBox3.Text = GetCellValue("Год выпуска");
-                maskedTextBox1.Text = GetCellValue("Гос.Номер");
-                comboBox1.SelectedItem = GetCellValue("Статус");
-                textBox4.Text = GetCellValue("Цена за сутки");
                 car_id = Convert.ToInt32(selectedRow.Cells["car_id"].Value);
+
+                using (MySqlConnection con = new MySqlConnection(db.connect))
+                {
+                    con.Open();
+                    string sql = "SELECT make, model, year, license_plate, status, price FROM cars WHERE car_id = @id";
+                    using (MySqlCommand cmd = new MySqlCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@id", car_id);
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                textBox1.Text = reader["make"].ToString();
+                                textBox2.Text = reader["model"].ToString();
+                                textBox3.Text = reader["year"].ToString();
+                                maskedTextBox1.Text = reader["license_plate"].ToString();
+                                comboBox1.SelectedItem = reader["status"].ToString();
+                                textBox4.Text = reader["price"].ToString();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Автомобиль не найден");
+                                this.Close();
+                            }
+                        }
+                    }
+                }
 
                 LoadExistingImage();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка загрузки данных: {ex.Message}");
-                Close();
+                this.Close();
             }
         }
 
