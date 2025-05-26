@@ -116,9 +116,9 @@ namespace CarRental
             this.label7.ForeColor = System.Drawing.Color.White;
             this.label7.Location = new System.Drawing.Point(10, 126);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(129, 32);
+            this.label7.Size = new System.Drawing.Size(103, 32);
             this.label7.TabIndex = 168;
-            this.label7.Text = "Фамилия";
+            this.label7.Text = "Клиент";
             // 
             // label2
             // 

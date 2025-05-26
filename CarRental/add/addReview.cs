@@ -13,11 +13,13 @@ namespace CarRental.add
 {
     public partial class addReview : Form
     {
+        private db db;
         private int rentalId;
         private int carId;
         public addReview(int rentalId, int carId)
         {
             InitializeComponent();
+            db = new db();
             this.rentalId = rentalId;
             this.carId = carId;
 
@@ -74,6 +76,14 @@ namespace CarRental.add
             MessageBox.Show("Отзыв успешно добавлен!");
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private void textBoxComment_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!db.CharCorrectRus(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
