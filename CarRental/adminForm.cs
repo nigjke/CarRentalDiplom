@@ -51,9 +51,6 @@ namespace CarRental
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             InitializeInactivityTimer();
             dataGridView1.MultiSelect = false;
-            dataGridView1.CellClick += dataGridView1_CellClick;
-            dataGridView1.ContextMenuStrip = contextMenuStrip1;
-            dataGridView1.CellMouseDown += dataGridView1_CellMouseDown;
         }
 
         // Timer 
@@ -219,43 +216,6 @@ namespace CarRental
         }
 
         // Utils Functions
-        private void ShowFullInfo(object sender, EventArgs e)
-        {
-            if (table == "customers")
-            {
-                if (helper.selectedCustomerId == -1)
-                {
-                    MessageBox.Show("Пожалуйста, выберите клиента.");
-                    return;
-                }
-                using (MySqlConnection conn = new MySqlConnection(db.connect))
-                {
-                    try
-                    {
-                        conn.Open();
-
-                        string checkQuery = "SELECT COUNT(*) FROM reviews WHERE customer_id = @customerId;";
-                        MySqlCommand cmd = new MySqlCommand(checkQuery, conn);
-                        cmd.Parameters.AddWithValue("@customerId", helper.selectedCustomerId);
-
-                        int count = Convert.ToInt32(cmd.ExecuteScalar());
-
-                        if (count == 0)
-                        {
-                            MessageBox.Show("У этого клиента нет отзывов.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            return;
-                        }
-
-                        var customerReviewsForm = new fullInfo.fullInfoCustomerReviews(helper.selectedCustomerId);
-                        customerReviewsForm.ShowDialog();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Ошибка при проверке отзывов: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-        }
         private void UpdateComboBox(params string[] items)
         {
             comboBox1.Items.Clear();
@@ -316,16 +276,6 @@ namespace CarRental
                         dataGridView1.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Yellow;
                     }
                 }
-            }
-        }
-
-        private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right && table == "customers")
-            {
-                ContextMenuStrip menu = new ContextMenuStrip();
-                menu.Items.Add("Открыть дополнительную информацию", null, ShowFullInfo);
-                menu.Show(dataGridView1, new System.Drawing.Point(e.X, e.Y));
             }
         }
         // Paginations
@@ -689,6 +639,7 @@ namespace CarRental
 
         private void dataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
+            contextMenuStrip1.Hide();
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
             {
                 dataGridView1.ClearSelection();
@@ -698,14 +649,10 @@ namespace CarRental
                     selectedCarId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["car_id"].Value);
                     contextMenuStrip1.Show(Cursor.Position);
                 }
-                if (table == "employee")
+                else if (table == "employee")
                 {
                     selectedEmployeeId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["employee_id"].Value);
                     contextMenuStrip1.Show(Cursor.Position);
-                }
-                else
-                {
-                    contextMenuStrip1.Hide();
                 }
             }
         }

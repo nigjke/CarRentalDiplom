@@ -378,19 +378,16 @@ namespace CarRental
         {
             if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
             {
+                dataGridView1.ClearSelection();
+                dataGridView1.Rows[e.RowIndex].Selected = true;
                 if (table == "cars")
                 {
-                    dataGridView1.ClearSelection();
-                    dataGridView1.Rows[e.RowIndex].Selected = true;
-
                     helper.selectedCarId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["car_id"].Value);
                     contextMenuStrip1.Show(Cursor.Position);
                 }
                 else if (table == "customers")
                 {
                     contextMenuStrip1.Hide();
-                    dataGridView1.ClearSelection();
-                    dataGridView1.Rows[e.RowIndex].Selected = true;
                     отзывыToolStripMenuItem.Text = "Отзыв";
 
                     helper.selectedCustomerId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["customer_id"].Value);
@@ -398,9 +395,6 @@ namespace CarRental
                 }
                 else if (table == "rentals")
                 {
-                    dataGridView1.ClearSelection();
-                    dataGridView1.Rows[e.RowIndex].Selected = true;
-
                     helper.selectedRentalId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["rental_id"].Value);
                     helper.selectedCarId = GetCarIdFromRental(helper.selectedRentalId);
                     object returnDateObj = dataGridView1.Rows[e.RowIndex].Cells["Дата возврата"].Value;
