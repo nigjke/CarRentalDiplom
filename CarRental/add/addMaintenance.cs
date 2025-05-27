@@ -44,7 +44,6 @@ namespace CarRental.add
                 MessageBox.Show("Дата окончания не может быть раньше даты начала.");
                 return;
             }
-
             using (var con = new MySqlConnection(db.connect))
             {
                 con.Open();
