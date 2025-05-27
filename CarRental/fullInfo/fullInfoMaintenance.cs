@@ -87,7 +87,7 @@ namespace CarRental.fullInfo
 
         private void addBtn_Click(object sender, EventArgs e)
         {
-            addMaintenance addMaintenance = new addMaintenance();
+            addMaintenance addMaintenance = new addMaintenance(carId);
             if (addMaintenance.ShowDialog() == DialogResult.OK)
             {
                 LoadMaintenanceData(); 
