@@ -13,12 +13,67 @@ namespace CarRental.add
 {
     public partial class addMaintenance : Form
     {
-        public addMaintenance()
+        private int carId;
+        public addMaintenance(int carId)
         {
             InitializeComponent();
+            this.carId = carId;
             LoadForm();
         }
 
+        private void addBtn_Click(object sender, EventArgs e)
+        {
+            if (comboBoxType.SelectedItem == null)
+            {
+                MessageBox.Show("Выберите тип обслуживания.");
+                return;
+            }
+
+            if (!decimal.TryParse(textBoxCost.Text, out decimal cost))
+            {
+                MessageBox.Show("Введите корректную стоимость.");
+                return;
+            }
+
+            int typeId = (int)comboBoxType.SelectedValue;
+            DateTime start = dateStart.Value.Date;
+            DateTime end = dateEnd.Value.Date;
+
+            if (end < start)
+            {
+                MessageBox.Show("Дата окончания не может быть раньше даты начала.");
+                return;
+            }
+            using (var con = new MySqlConnection(db.connect))
+            {
+                con.Open();
+                string insertSql = @"
+            INSERT INTO maintenance (car_id, maintenance_type_id, service_start_date, service_end_date, cost)
+            VALUES (@carId, @typeId, @start, @end, @cost)";
+                using (var cmd = new MySqlCommand(insertSql, con))
+                {
+                    cmd.Parameters.AddWithValue("@carId", carId);
+                    cmd.Parameters.AddWithValue("@typeId", typeId);
+                    cmd.Parameters.AddWithValue("@start", start);
+                    cmd.Parameters.AddWithValue("@end", end);
+                    cmd.Parameters.AddWithValue("@cost", cost);
+                    cmd.ExecuteNonQuery();
+                }
+                if (DateTime.Today >= start && DateTime.Today <= end)
+                {
+                    string updateStatus = "UPDATE cars SET status = 'На обслуживании' WHERE car_id = @carId";
+                    using (var cmd = new MySqlCommand(updateStatus, con))
+                    {
+                        cmd.Parameters.AddWithValue("@carId", carId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+
+            MessageBox.Show("Обслуживание добавлено.");
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
         private void closeBtn_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -26,107 +81,34 @@ namespace CarRental.add
 
         private void LoadForm()
         {
-            using (MySqlConnection con = new MySqlConnection(db.connect))
+            using (var con = new MySqlConnection(db.connect))
             {
                 con.Open();
-                string sqlTypes = "SELECT maintenance_type_id, name FROM maintenance_type";
-                using (MySqlCommand cmd = new MySqlCommand(sqlTypes, con))
-                using (var reader = cmd.ExecuteReader())
+                string carSql = "SELECT make, model FROM cars WHERE car_id = @id";
+                using (var cmd = new MySqlCommand(carSql, con))
                 {
-                    Dictionary<int, string> types = new Dictionary<int, string>();
-                    while (reader.Read())
-                        comboBoxType.Items.Add(new ComboBoxItem(reader["name"].ToString(), Convert.ToInt32(reader["maintenance_type_id"])));
-                }
-            }
-        }
-
-        private void comboBoxMake_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void addBtn_Click(object sender, EventArgs e)
-        {
-            string make = comboBoxMake.SelectedItem?.ToString();
-            string model = comboBoxModel.SelectedItem?.ToString();
-            ComboBoxItem selectedType = comboBoxType.SelectedItem as ComboBoxItem;
-
-            if (make == null || model == null || selectedType == null || string.IsNullOrWhiteSpace(textBoxCost.Text))
-            {
-                MessageBox.Show("Пожалуйста, заполните все поля.");
-                return;
-            }
-
-            DateTime start = dateTimePickerStart.Value.Date;
-            DateTime end = dateTimePickerEnd.Value.Date;
-            if (end < start)
-            {
-                MessageBox.Show("Дата окончания не может быть раньше начала.");
-                return;
-            }
-
-            decimal cost;
-            if (!decimal.TryParse(textBoxCost.Text, out cost))
-            {
-                MessageBox.Show("Введите корректную стоимость.");
-                return;
-            }
-
-            using (MySqlConnection con = new MySqlConnection(db.connect))
-            {
-                con.Open();
-                string sqlFindCar = "SELECT car_id FROM cars WHERE make = @make AND model = @model";
-                int carId;
-                using (MySqlCommand cmd = new MySqlCommand(sqlFindCar, con))
-                {
-                    cmd.Parameters.AddWithValue("@make", make);
-                    cmd.Parameters.AddWithValue("@model", model);
-                    object result = cmd.ExecuteScalar();
-                    if (result == null)
+                    cmd.Parameters.AddWithValue("@id", carId);
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        MessageBox.Show("Машина не найдена.");
-                        return;
+                        if (reader.Read())
+                        {
+                            labelCar.Text = $"Машина: {reader["make"]} {reader["model"]}";
+                        }
                     }
-                    carId = Convert.ToInt32(result);
                 }
 
-                string sqlInsert = @"INSERT INTO maintenance (car_id, maintenance_type_id, maintenance_date, return_date, cost)
-                             VALUES (@carId, @typeId, @start, @end, @cost)";
-                using (MySqlCommand cmd = new MySqlCommand(sqlInsert, con))
+                string typeSql = "SELECT maintenance_type_id, name FROM maintenance_type";
+                using (var adapter = new MySqlDataAdapter(typeSql, con))
                 {
-                    cmd.Parameters.AddWithValue("@carId", carId);
-                    cmd.Parameters.AddWithValue("@typeId", selectedType.Value);
-                    cmd.Parameters.AddWithValue("@start", start);
-                    cmd.Parameters.AddWithValue("@end", end);
-                    cmd.Parameters.AddWithValue("@cost", cost);
-                    cmd.ExecuteNonQuery();
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    comboBoxType.DisplayMember = "name";
+                    comboBoxType.ValueMember = "maintenance_type_id";
+                    comboBoxType.DataSource = dt;
                 }
-                string sqlUpdate = "UPDATE cars SET status = 'На обслуживании' WHERE car_id = @carId";
-                using (MySqlCommand cmd = new MySqlCommand(sqlUpdate, con))
-                {
-                    cmd.Parameters.AddWithValue("@carId", carId);
-                    cmd.ExecuteNonQuery();
-                }
-
-                MessageBox.Show("Машина успешно отправлена на обслуживание.");
-                this.Close();
             }
-        }
-    }
-    public class ComboBoxItem
-    {
-        public string Text { get; set; }
-        public int Value { get; set; }
-
-        public ComboBoxItem(string text, int value)
-        {
-            Text = text;
-            Value = value;
-        }
-
-        public override string ToString()
-        {
-            return Text;
+            dateStart.Value = DateTime.Today;
+            dateEnd.Value = DateTime.Today.AddDays(1);
         }
     }
 }

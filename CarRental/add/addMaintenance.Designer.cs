@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.label5 = new System.Windows.Forms.Label();
-            this.dateTimePickerEnd = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
+            this.dateEnd = new System.Windows.Forms.DateTimePicker();
+            this.dateStart = new System.Windows.Forms.DateTimePicker();
             this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.closeBtn = new System.Windows.Forms.Button();
@@ -52,22 +52,22 @@
             this.label5.TabIndex = 198;
             this.label5.Text = "Стоимость";
             // 
-            // dateTimePickerEnd
+            // dateEnd
             // 
-            this.dateTimePickerEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePickerEnd.Location = new System.Drawing.Point(223, 173);
-            this.dateTimePickerEnd.Name = "dateTimePickerEnd";
-            this.dateTimePickerEnd.Size = new System.Drawing.Size(242, 31);
-            this.dateTimePickerEnd.TabIndex = 188;
+            this.dateEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateEnd.Location = new System.Drawing.Point(223, 173);
+            this.dateEnd.Name = "dateEnd";
+            this.dateEnd.Size = new System.Drawing.Size(242, 31);
+            this.dateEnd.TabIndex = 188;
             // 
-            // dateTimePickerStart
+            // dateStart
             // 
-            this.dateTimePickerStart.Enabled = false;
-            this.dateTimePickerStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.dateTimePickerStart.Location = new System.Drawing.Point(224, 122);
-            this.dateTimePickerStart.Name = "dateTimePickerStart";
-            this.dateTimePickerStart.Size = new System.Drawing.Size(242, 31);
-            this.dateTimePickerStart.TabIndex = 187;
+            this.dateStart.Enabled = false;
+            this.dateStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateStart.Location = new System.Drawing.Point(224, 122);
+            this.dateStart.Name = "dateStart";
+            this.dateStart.Size = new System.Drawing.Size(242, 31);
+            this.dateStart.TabIndex = 187;
             // 
             // comboBoxType
             // 
@@ -174,8 +174,8 @@
             this.Controls.Add(this.labelCar);
             this.Controls.Add(this.textBoxCost);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.dateTimePickerEnd);
-            this.Controls.Add(this.dateTimePickerStart);
+            this.Controls.Add(this.dateEnd);
+            this.Controls.Add(this.dateStart);
             this.Controls.Add(this.comboBoxType);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.closeBtn);
@@ -193,8 +193,8 @@
 
         #endregion
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.DateTimePicker dateTimePickerEnd;
-        private System.Windows.Forms.DateTimePicker dateTimePickerStart;
+        private System.Windows.Forms.DateTimePicker dateEnd;
+        private System.Windows.Forms.DateTimePicker dateStart;
         private System.Windows.Forms.ComboBox comboBoxType;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button closeBtn;
