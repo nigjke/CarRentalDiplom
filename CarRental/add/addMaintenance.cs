@@ -29,16 +29,6 @@ namespace CarRental.add
             using (MySqlConnection con = new MySqlConnection(db.connect))
             {
                 con.Open();
-
-                // Марки
-                string sqlMake = "SELECT DISTINCT make FROM cars";
-                using (MySqlCommand cmd = new MySqlCommand(sqlMake, con))
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                        comboBoxMake.Items.Add(reader["make"].ToString());
-                }
-
                 string sqlTypes = "SELECT maintenance_type_id, name FROM maintenance_type";
                 using (MySqlCommand cmd = new MySqlCommand(sqlTypes, con))
                 using (var reader = cmd.ExecuteReader())
@@ -52,23 +42,7 @@ namespace CarRental.add
 
         private void comboBoxMake_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBoxModel.Items.Clear();
-            string selectedMake = comboBoxMake.SelectedItem.ToString();
 
-            using (MySqlConnection con = new MySqlConnection(db.connect))
-            {
-                con.Open();
-                string sql = "SELECT DISTINCT model FROM cars WHERE make = @make";
-                using (MySqlCommand cmd = new MySqlCommand(sql, con))
-                {
-                    cmd.Parameters.AddWithValue("@make", selectedMake);
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                            comboBoxModel.Items.Add(reader["model"].ToString());
-                    }
-                }
-            }
         }
 
         private void addBtn_Click(object sender, EventArgs e)

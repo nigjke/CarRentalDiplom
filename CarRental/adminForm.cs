@@ -707,5 +707,11 @@ namespace CarRental
                 _isFullscreen = false;
             }
         }
+
+        private void MaintencToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fullInfoMaintenance fullInfoMaintenance = new fullInfoMaintenance(selectedCarId);
+            fullInfoMaintenance.ShowDialog();
+        }
     }
 }

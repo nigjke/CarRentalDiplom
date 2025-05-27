@@ -63,6 +63,7 @@ namespace CarRental
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.MaintencToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -435,14 +436,15 @@ namespace CarRental
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewCarMenuItem});
+            this.viewCarMenuItem,
+            this.MaintencToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(142, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
             // 
             // viewCarMenuItem
             // 
             this.viewCarMenuItem.Name = "viewCarMenuItem";
-            this.viewCarMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.viewCarMenuItem.Size = new System.Drawing.Size(180, 22);
             this.viewCarMenuItem.Text = "Посмотреть";
             this.viewCarMenuItem.Click += new System.EventHandler(this.viewCarMenuItem_Click);
             // 
@@ -492,6 +494,13 @@ namespace CarRental
             this.pictureBox4.TabIndex = 20;
             this.pictureBox4.TabStop = false;
             this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
+            // 
+            // MaintencToolStripMenuItem
+            // 
+            this.MaintencToolStripMenuItem.Name = "MaintencToolStripMenuItem";
+            this.MaintencToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.MaintencToolStripMenuItem.Text = "Обслуживание";
+            this.MaintencToolStripMenuItem.Click += new System.EventHandler(this.MaintencToolStripMenuItem_Click);
             // 
             // adminForm
             // 
@@ -569,5 +578,6 @@ namespace CarRental
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem viewCarMenuItem;
         private System.Windows.Forms.PictureBox pictureBox5;
+        private ToolStripMenuItem MaintencToolStripMenuItem;
     }
 }
