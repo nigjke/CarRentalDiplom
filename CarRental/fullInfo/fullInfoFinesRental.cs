@@ -60,11 +60,6 @@ namespace CarRental.fullInfo
             }
         }
 
-        private void closeBtn_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void addBtn_Click(object sender, EventArgs e)
         {
             using (var addForm = new add.addFine(_rentalId))
@@ -74,6 +69,11 @@ namespace CarRental.fullInfo
                     LoadFines();
                 }
             }
+        }
+
+        private void closeBtn_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

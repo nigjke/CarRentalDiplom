@@ -1,6 +1,6 @@
 ﻿namespace CarRental.fullInfo
 {
-    partial class fullInfoFinesRental
+    partial class fullInfoMaintenance
     {
         /// <summary>
         /// Required designer variable.
@@ -32,9 +32,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.addBtn = new System.Windows.Forms.Button();
+            this.labelCar = new System.Windows.Forms.Label();
             this.closeBtn = new System.Windows.Forms.Button();
+            this.addBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,19 +90,33 @@
             this.dataGridView1.RowTemplate.Height = 30;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(853, 215);
+            this.dataGridView1.Size = new System.Drawing.Size(853, 462);
             this.dataGridView1.TabIndex = 26;
             // 
-            // label1
+            // labelCar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(24, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 31);
-            this.label1.TabIndex = 24;
-            this.label1.Text = "Штрафы";
+            this.labelCar.AutoSize = true;
+            this.labelCar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCar.ForeColor = System.Drawing.SystemColors.Control;
+            this.labelCar.Location = new System.Drawing.Point(24, 20);
+            this.labelCar.Name = "labelCar";
+            this.labelCar.Size = new System.Drawing.Size(201, 31);
+            this.labelCar.TabIndex = 24;
+            this.labelCar.Text = "Обслуживание";
+            // 
+            // closeBtn
+            // 
+            this.closeBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
+            this.closeBtn.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.closeBtn.ForeColor = System.Drawing.Color.White;
+            this.closeBtn.Location = new System.Drawing.Point(30, 640);
+            this.closeBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.closeBtn.Name = "closeBtn";
+            this.closeBtn.Size = new System.Drawing.Size(853, 71);
+            this.closeBtn.TabIndex = 29;
+            this.closeBtn.Text = "Выход";
+            this.closeBtn.UseVisualStyleBackColor = false;
+            this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
             // 
             // addBtn
             // 
@@ -111,43 +125,29 @@
             this.addBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addBtn.Font = new System.Drawing.Font("Arial", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.addBtn.ForeColor = System.Drawing.Color.White;
-            this.addBtn.Location = new System.Drawing.Point(30, 303);
+            this.addBtn.Location = new System.Drawing.Point(30, 550);
             this.addBtn.Name = "addBtn";
             this.addBtn.Size = new System.Drawing.Size(853, 72);
-            this.addBtn.TabIndex = 27;
+            this.addBtn.TabIndex = 30;
             this.addBtn.Text = "Добавить";
             this.addBtn.UseVisualStyleBackColor = false;
             this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
             // 
-            // closeBtn
-            // 
-            this.closeBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.closeBtn.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.closeBtn.ForeColor = System.Drawing.Color.White;
-            this.closeBtn.Location = new System.Drawing.Point(30, 389);
-            this.closeBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.closeBtn.Name = "closeBtn";
-            this.closeBtn.Size = new System.Drawing.Size(853, 71);
-            this.closeBtn.TabIndex = 28;
-            this.closeBtn.Text = "Выход";
-            this.closeBtn.UseVisualStyleBackColor = false;
-            this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
-            // 
-            // fullInfoFinesRental
+            // fullInfoMaintenance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(906, 472);
-            this.Controls.Add(this.closeBtn);
+            this.ClientSize = new System.Drawing.Size(906, 719);
             this.Controls.Add(this.addBtn);
+            this.Controls.Add(this.closeBtn);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelCar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "fullInfoFinesRental";
+            this.Name = "fullInfoMaintenance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "fullInfoFinesRental";
+            this.Text = "fullInfoMaintenance";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -157,8 +157,8 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button addBtn;
+        private System.Windows.Forms.Label labelCar;
         private System.Windows.Forms.Button closeBtn;
+        private System.Windows.Forms.Button addBtn;
     }
 }
