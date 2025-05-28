@@ -651,6 +651,7 @@ namespace CarRental
                 }
                 else if (table == "employee")
                 {
+
                     selectedEmployeeId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["employee_id"].Value);
                     contextMenuStrip1.Show(Cursor.Position);
                 }
