@@ -646,11 +646,13 @@ namespace CarRental
                 dataGridView1.Rows[e.RowIndex].Selected = true;
                 if (table == "cars")
                 {
+                    MaintencToolStripMenuItem.Visible = true;
                     selectedCarId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["car_id"].Value);
                     contextMenuStrip1.Show(Cursor.Position);
                 }
                 else if (table == "employee")
                 {
+                    MaintencToolStripMenuItem.Visible = false;
                     selectedEmployeeId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["employee_id"].Value);
                     contextMenuStrip1.Show(Cursor.Position);
                 }

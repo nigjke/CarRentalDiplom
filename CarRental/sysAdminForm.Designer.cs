@@ -29,6 +29,7 @@ namespace CarRental
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(sysAdminForm));
             this.cmbTables = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.btnImportData = new System.Windows.Forms.Button();
@@ -86,7 +87,7 @@ namespace CarRental
             this.label1.TabIndex = 178;
             this.label1.Text = "Импорт";
             // 
-            // btnRestoreDatabases
+            // btnRestoreDatabase
             // 
             this.btnRestoreDatabase.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             this.btnRestoreDatabase.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -113,6 +114,7 @@ namespace CarRental
             this.Controls.Add(this.button2);
             this.Controls.Add(this.cmbTables);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "sysAdminForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "sysAdminForm";

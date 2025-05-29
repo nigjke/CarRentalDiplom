@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(addMaintenance));
             this.label5 = new System.Windows.Forms.Label();
             this.dateEnd = new System.Windows.Forms.DateTimePicker();
             this.dateStart = new System.Windows.Forms.DateTimePicker();
@@ -183,6 +184,7 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "addMaintenance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "addMaintenance";
