@@ -343,12 +343,10 @@ namespace CarRental
         // Sort Buttons
         private void ascendingBtn_Click(object sender, EventArgs e)
         {
-            helper.SortDataGridViewAscending(table, comboBox1.SelectedIndex, dataGridView1);
         }
 
         private void descendingBtn_Click(object sender, EventArgs e)
         {
-            helper.SortDataGridViewDescending(table, comboBox1.SelectedIndex, dataGridView1);
         }
 
         // Event Buttons
@@ -510,25 +508,23 @@ namespace CarRental
                 {
                     query = @"
                 SELECT 
+                    car_id,
                     make AS 'Марка', 
                     model AS 'Модель', 
-                    year AS 'Год выпуска', 
-                    license_plate AS 'Гос.Номер', 
                     status AS 'Статус', 
                     price AS 'Цена за сутки' 
                 FROM cars 
                 WHERE 
                     make LIKE @txt OR 
                     model LIKE @txt OR 
-                    license_plate LIKE @txt OR 
                     status LIKE @txt OR 
-                    CAST(year AS CHAR) LIKE @txt OR 
                     CAST(price AS CHAR) LIKE @txt";
                 }
                 else if (table == "customers")
                 {
                     query = @"
                 SELECT 
+                    customer_id,
                     first_name AS 'Имя', 
                     last_name AS 'Фамилия', 
                     CONCAT(LEFT(phone, 2), REPEAT('*', CHAR_LENGTH(phone) - 6), RIGHT(phone, 4)) AS 'Телефон', 
@@ -546,15 +542,16 @@ namespace CarRental
                 {
                     query = @"
                 SELECT 
+                    employee_id,
                     e.first_name AS 'Имя', 
                     e.last_name AS 'Фамилия', 
-                    r.name AS 'Роль', 
-                FROM employee e
-                JOIN role r ON e.Role_id = r.Role_id
+                    r.name AS 'Роль'
+                FROM carrentaldb.employee e
+                INNER JOIN role r ON e.role_id = r.role_id
                 WHERE 
                     e.first_name LIKE @txt OR 
                     e.last_name LIKE @txt OR 
-                    r.name LIKE @txt OR";
+                    r.name LIKE @txt";
                 }
                 else if (table == "rentals")
                 {

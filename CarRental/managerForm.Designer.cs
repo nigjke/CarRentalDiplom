@@ -66,6 +66,7 @@
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.referenceBtn = new System.Windows.Forms.Button();
             this.ReferenceOnOffBtn = new System.Windows.Forms.Button();
+            this.chkFreeOnly = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -343,9 +344,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -529,6 +530,20 @@
             this.ReferenceOnOffBtn.UseVisualStyleBackColor = false;
             this.ReferenceOnOffBtn.Click += new System.EventHandler(this.ReferenceOnOffBtn_Click);
             // 
+            // chkFreeOnly
+            // 
+            this.chkFreeOnly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkFreeOnly.AutoSize = true;
+            this.chkFreeOnly.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chkFreeOnly.ForeColor = System.Drawing.SystemColors.Control;
+            this.chkFreeOnly.Location = new System.Drawing.Point(814, 29);
+            this.chkFreeOnly.Name = "chkFreeOnly";
+            this.chkFreeOnly.Size = new System.Drawing.Size(137, 28);
+            this.chkFreeOnly.TabIndex = 40;
+            this.chkFreeOnly.Text = "Свободная";
+            this.chkFreeOnly.UseVisualStyleBackColor = true;
+            this.chkFreeOnly.CheckedChanged += new System.EventHandler(this.chkFreeOnly_CheckedChanged);
+            // 
             // managerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -537,6 +552,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(1267, 682);
             this.ControlBox = false;
+            this.Controls.Add(this.chkFreeOnly);
             this.Controls.Add(this.ReferenceOnOffBtn);
             this.Controls.Add(this.referenceBtn);
             this.Controls.Add(this.pictureBox5);
@@ -613,5 +629,6 @@
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Button referenceBtn;
         private System.Windows.Forms.Button ReferenceOnOffBtn;
+        private System.Windows.Forms.CheckBox chkFreeOnly;
     }
 }

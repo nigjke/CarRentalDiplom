@@ -27,38 +27,46 @@ namespace CarRental
                 other3.ForeColor = Color.FromArgb(92, 96, 255);
             }
         }
-
-        public void SortDataGridViewAscending(string tableName, int selectedIndex, DataGridView dataGridview1)
+        public string MapDisplayColumnToDbField(string table, string displayColumn)
         {
-            Dictionary<string, string[]> sortingColumns = new Dictionary<string, string[]>
-    {
-        { "cars", new string[] { "Марка", "Модель", "Статус", "Цена за сутки" } },
-        { "customers", new string[] { "Имя", "Фамилия", "Телефон", "Вод.Удостоверение", "Паспорт" } },
-        { "employee", new string[] { "Имя", "Фамилия", "Роль" } },
-        { "rentals", new string[] { "Марка", "Модель", "Дата взятия", "Дата возврата", "Сумма" } }
-    };
-
-            if (sortingColumns.ContainsKey(tableName) && selectedIndex >= 0 && selectedIndex < sortingColumns[tableName].Length)
+            var map = new Dictionary<string, Dictionary<string, string>>
             {
-                dataGridview1.Sort(dataGridview1.Columns[sortingColumns[tableName][selectedIndex]], System.ComponentModel.ListSortDirection.Ascending);
-            }
+                ["cars"] = new Dictionary<string, string>
+                {
+                    ["Марка"] = "make",
+                    ["Модель"] = "model",
+                    ["Статус"] = "status",
+                    ["Цена за сутки"] = "price"
+                },
+                ["customers"] = new Dictionary<string, string>
+                {
+                    ["Имя"] = "first_name",
+                    ["Фамилия"] = "last_name",
+                    ["Телефон"] = "phone",
+                    ["Вод.Удостоверение"] = "driver_license",
+                    ["Паспорт"] = "passport"
+                },
+                ["employee"] = new Dictionary<string, string>
+                {
+                    ["Имя"] = "e.first_name",
+                    ["Фамилия"] = "e.last_name",
+                    ["Роль"] = "r.name"
+                },
+                ["rentals"] = new Dictionary<string, string>
+                {
+                    ["Марка"] = "c.make",
+                    ["Модель"] = "c.model",
+                    ["Дата взятия"] = "r.rental_date",
+                    ["Дата возврата"] = "r.return_date",
+                    ["Сумма"] = "r.total_amount"
+                }
+            };
+
+            return map.ContainsKey(table) && map[table].ContainsKey(displayColumn)
+                ? map[table][displayColumn]
+                : null;
         }
 
-        public void SortDataGridViewDescending(string tableName, int selectedIndex, DataGridView dataGridview1)
-        {
-            Dictionary<string, string[]> sortingColumns = new Dictionary<string, string[]>
-    {
-        { "cars", new string[] { "Марка", "Модель", "Статус", "Цена за сутки" } },
-        { "customers", new string[] { "Имя", "Фамилия", "Телефон", "Вод.Удостоверение", "Паспорт" } },
-        { "employee", new string[] { "Имя", "Фамилия", "Роль" } },
-        { "rentals", new string[] { "Марка", "Модель", "Дата взятия", "Дата возврата", "Сумма" } }
-    };
-
-            if (sortingColumns.ContainsKey(tableName) && selectedIndex >= 0 && selectedIndex < sortingColumns[tableName].Length)
-            {
-                dataGridview1.Sort(dataGridview1.Columns[sortingColumns[tableName][selectedIndex]], System.ComponentModel.ListSortDirection.Descending);
-            }
-        }
         public void CreateWordReport(DataGridViewRow row)
         {
             string templatePath = System.IO.Directory.GetCurrentDirectory() + @"\template\template.docx";
