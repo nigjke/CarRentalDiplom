@@ -42,6 +42,9 @@ namespace CarRental
         private int selectedCarId = -1;
         private int selectedEmployeeId = -1;
 
+        private string sortColumn = "";
+        private string sortDirection = "";
+
         public adminForm(string labelLog)
         {
             InitializeComponent();
@@ -98,103 +101,140 @@ namespace CarRental
             LoadTable("cars", "Машины", new string[] { "По Марке", "По Модели", "По Статусу", "По Цене" });
         }
 
-        private void LoadData()
+        private Dictionary<string, Dictionary<string, string>> columnMappings = new Dictionary<string, Dictionary<string, string>>
+        {
+            ["cars"] = new Dictionary<string, string>
             {
-                using (MySqlConnection connection = new MySqlConnection(db.connect))
+                ["Марка"] = "make",
+                ["Модель"] = "model",
+                ["Статус"] = "status",
+                ["Цена за сутки"] = "price"
+            },
+            ["customers"] = new Dictionary<string, string>
+            {
+                ["Имя"] = "first_name",
+                ["Фамилия"] = "last_name",
+                ["Телефон"] = "phone",
+                ["Вод.Удостоверение"] = "driver_license",
+                ["Паспорт"] = "passport"
+            },
+            ["employee"] = new Dictionary<string, string>
+            {
+                ["Имя"] = "e.first_name",
+                ["Фамилия"] = "e.last_name",
+                ["Роль"] = "r.name"
+            },
+            ["rentals"] = new Dictionary<string, string>
+            {
+                ["Марка"] = "c.make",
+                ["Модель"] = "c.model",
+                ["Дата взятия"] = "r.rental_date",
+                ["Дата возврата"] = "r.return_date",
+                ["Сумма"] = "r.total_amount"
+            }
+        };
+
+
+        private void LoadData()
+        {
+            using (MySqlConnection connection = new MySqlConnection(db.connect))
+            {
+                connection.Open();
+                string query = "";
+                int offset = (currentPage - 1) * pageSize;
+
+                MySqlCommand counter;
+
+                if (table == "customers")
                 {
-                    connection.Open();
-                    string query = "";
-                    int offset = (currentPage - 1) * pageSize;
+                    counter = new MySqlCommand("SELECT COUNT(*) FROM customers", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
 
-                    MySqlCommand counter;
+                    query = $@"
+                SELECT 
+                    customer_id, 
+                    first_name AS 'Имя', 
+                    last_name AS 'Фамилия', 
+                    CONCAT(LEFT(phone, 2), REPEAT('*', CHAR_LENGTH(phone) - 6), RIGHT(phone, 4)) AS 'Телефон',
+                    CONCAT(LEFT(driver_license, 2), REPEAT('*', CHAR_LENGTH(driver_license) - 6), RIGHT(driver_license, 4)) AS 'Вод.Удостоверение',
+                    CONCAT(LEFT(passport, 2), REPEAT('*', CHAR_LENGTH(passport) - 6), RIGHT(passport, 4)) AS 'Паспорт'
+                FROM customers";
+                }
+                else if (table == "cars")
+                {
+                    counter = new MySqlCommand("SELECT COUNT(*) FROM cars", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
 
-                    if (table == "customers")
-                    {
-                        counter = new MySqlCommand("SELECT COUNT(*) FROM customers", connection);
-                        totalRecords = Convert.ToInt32(counter.ExecuteScalar());
-
-                        query = $@"
-                    SELECT 
-                        customer_id, 
-                        first_name AS 'Имя', 
-                        last_name AS 'Фамилия', 
-                        CONCAT(LEFT(phone, 2), REPEAT('*', CHAR_LENGTH(phone) - 6), RIGHT(phone, 4)) AS 'Телефон',
-                        CONCAT(LEFT(driver_license, 2), REPEAT('*', CHAR_LENGTH(driver_license) - 6), RIGHT(driver_license, 4)) AS 'Вод.Удостоверение',
-                        CONCAT(LEFT(passport, 2), REPEAT('*', CHAR_LENGTH(passport) - 6), RIGHT(passport, 4)) AS 'Паспорт'
-                    FROM customers
-                    LIMIT {pageSize} OFFSET {offset}";
-                    }
-                    else if (table == "cars")
-                    {
-                        counter = new MySqlCommand("SELECT COUNT(*) FROM cars", connection);
-                        totalRecords = Convert.ToInt32(counter.ExecuteScalar());
-
-                        query = $@"
+                    query = $@"
                     SELECT 
                         car_id, 
                         make AS 'Марка', 
                         model AS 'Модель', 
                         status AS 'Статус', 
-                        price AS 'Цена за сутки'
-                    FROM cars
-                    LIMIT {pageSize} OFFSET {offset}";
-                    }
-                    else if (table == "employee")
+                        price AS 'Цена за сутки' 
+                    FROM cars";
+                }
+                else if (table == "employee")
+                {
+                    counter = new MySqlCommand("SELECT COUNT(*) FROM employee", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+
+                    query = $@"
+                SELECT 
+                    e.employee_id,
+                    e.first_name AS 'Имя',
+                    e.last_name AS 'Фамилия',
+                    r.name AS 'Роль'
+                FROM employee e
+                INNER JOIN role r ON r.role_id = e.role_id";
+                }
+                else if (table == "rentals")
+                {
+                    counter = new MySqlCommand("SELECT COUNT(*) FROM rentals", connection);
+                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+
+                    query = $@"
+                SELECT 
+                    r.rental_id, 
+                    c.make AS 'Марка', 
+                    c.model AS 'Модель', 
+                    r.rental_date AS 'Дата взятия', 
+                    r.return_date AS 'Дата возврата', 
+                    r.total_amount AS 'Сумма' 
+                FROM rentals r
+                INNER JOIN cars c ON c.car_id = r.car_id";
+                }
+
+                if (!string.IsNullOrEmpty(sortColumn) && !string.IsNullOrEmpty(sortDirection))
+                {
+                    if (columnMappings.ContainsKey(table) && columnMappings[table].ContainsKey(sortColumn))
                     {
-                        counter = new MySqlCommand("SELECT COUNT(*) FROM employee", connection);
-                        totalRecords = Convert.ToInt32(counter.ExecuteScalar());
-
-                        query = $@"
-                    SELECT 
-                        employee_id, 
-                        e.first_name AS 'Имя', 
-                        e.last_name AS 'Фамилия',  
-                        r.name AS 'Роль'
-                    FROM employee e
-                    JOIN role r ON e.Role_id = r.Role_id
-                    LIMIT {pageSize} OFFSET {offset}";
+                        string dbColumn = columnMappings[table][sortColumn];
+                        query += $" ORDER BY {dbColumn} {sortDirection}";
                     }
-                    else if (table == "rentals")
-                    {
-                        counter = new MySqlCommand("SELECT COUNT(*) FROM rentals", connection);
-                        totalRecords = Convert.ToInt32(counter.ExecuteScalar());
+                }
 
-                        query = $@"
-                    SELECT 
-                        r.rental_id, 
-                        c.make AS 'Марка', 
-                        c.model AS 'Модель', 
-                        r.rental_date AS 'Дата взятия', 
-                        r.return_date AS 'Дата возврата', 
-                        r.total_amount AS 'Сумма' 
-                    FROM rentals r
-                    INNER JOIN cars c ON c.car_id = r.car_id
-                    LIMIT {pageSize} OFFSET {offset}";
-                    }
+                query += $" LIMIT {pageSize} OFFSET {offset}";
 
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-                    dataGridView1.DataSource = dataTable;
+                MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+                dataGridView1.DataSource = dataTable;
 
-                    int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
-                    labelInfo.Text = $"Страница {currentPage} из {totalPages} | Записи: {offset + 1} - {offset + dataTable.Rows.Count} из {totalRecords}";
+                int totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
+                labelInfo.Text = $"Страница {currentPage} из {totalPages} | Записи: {offset + 1} - {offset + dataTable.Rows.Count} из {totalRecords}";
 
+                pictureBox3.Enabled = currentPage > 1;
+                pictureBox2.Enabled = currentPage * pageSize < totalRecords;
 
-                    pictureBox3.Enabled = currentPage > 1;
-                    pictureBox2.Enabled = currentPage * pageSize < totalRecords;
-
+                if (dataGridView1.Columns.Count > 0)
                     dataGridView1.Columns[0].Visible = false;
-
-
 
                 if (isHighlightEnabled)
                     ApplyHighlighting();
             }
-
-             //   ResetContextMenu();
-            }
+        }
 
         private void LoadTable(string tableName, string labelText, string[] comboBoxItems)
         {
@@ -299,6 +339,7 @@ namespace CarRental
         // Menu Buttons
         private void carBtn_Click(object sender, EventArgs e)
         {
+            currentPage = 1;
             SetButtonVisibility(true, true, true);
             helper.SetButtonColors(carBtn, rentalBtn, customerBtn, employeeBtn);
             LoadTable("cars", "Машины", new string[] { "По Марке", "По Модели", "По Статусу", "По Цене" });
@@ -306,6 +347,7 @@ namespace CarRental
 
         private void employeeBtn_Click(object sender, EventArgs e)
         {
+            currentPage = 1;
             SetButtonVisibility(true, true, true);
             helper.SetButtonColors(employeeBtn, rentalBtn, carBtn, customerBtn);
             LoadTable("employee", "Сотрудники", new string[] { "По Имени", "По Фамилии", "По Роли" });
@@ -313,6 +355,7 @@ namespace CarRental
 
         private void customerBtn_Click(object sender, EventArgs e)
         {
+            currentPage = 1;
             SetButtonVisibility(false, false, false);
             helper.SetButtonColors(customerBtn, rentalBtn, carBtn, employeeBtn);
             LoadTable("customers", "Клиенты", new string[] { "По Имени", "По Фамилии", "По Телефону", "По Вод.Удостоверению", "По Паспорту" });
@@ -320,6 +363,7 @@ namespace CarRental
 
         private void rentalBtn_Click(object sender, EventArgs e)
         {
+            currentPage = 1;
             SetButtonVisibility(true, true, false);
             helper.SetButtonColors(rentalBtn, customerBtn, carBtn, employeeBtn);
             LoadTable("rentals", "Аренды", new string[] { "По Марке", "По Модели", "По Дате взятия", "По Дате возврата", "По Сумме" });
@@ -343,12 +387,18 @@ namespace CarRental
         // Sort Buttons
         private void ascendingBtn_Click(object sender, EventArgs e)
         {
-            helper.SortDataGridViewAscending(table, comboBox1.SelectedIndex, dataGridView1);
+            sortColumn = comboBox1.SelectedItem?.ToString();
+            sortDirection = "ASC";
+            currentPage = 1;
+            LoadData();
         }
 
         private void descendingBtn_Click(object sender, EventArgs e)
         {
-            helper.SortDataGridViewDescending(table, comboBox1.SelectedIndex, dataGridView1);
+            sortColumn = comboBox1.SelectedItem?.ToString();
+            sortDirection = "DESC";
+            currentPage = 1;
+            LoadData();
         }
 
         // Event Buttons
@@ -505,30 +555,27 @@ namespace CarRental
             using (MySqlConnection connection = new MySqlConnection(db.connect))
             {
                 MySqlCommand command = connection.CreateCommand();
-
                 if (table == "cars")
                 {
                     query = @"
                 SELECT 
+                    car_id,
                     make AS 'Марка', 
                     model AS 'Модель', 
-                    year AS 'Год выпуска', 
-                    license_plate AS 'Гос.Номер', 
                     status AS 'Статус', 
                     price AS 'Цена за сутки' 
                 FROM cars 
                 WHERE 
                     make LIKE @txt OR 
                     model LIKE @txt OR 
-                    license_plate LIKE @txt OR 
                     status LIKE @txt OR 
-                    CAST(year AS CHAR) LIKE @txt OR 
                     CAST(price AS CHAR) LIKE @txt";
                 }
                 else if (table == "customers")
                 {
                     query = @"
                 SELECT 
+                    customer_id,
                     first_name AS 'Имя', 
                     last_name AS 'Фамилия', 
                     CONCAT(LEFT(phone, 2), REPEAT('*', CHAR_LENGTH(phone) - 6), RIGHT(phone, 4)) AS 'Телефон', 
@@ -546,15 +593,16 @@ namespace CarRental
                 {
                     query = @"
                 SELECT 
+                    employee_id,
                     e.first_name AS 'Имя', 
                     e.last_name AS 'Фамилия', 
-                    r.name AS 'Роль', 
-                FROM employee e
-                JOIN role r ON e.Role_id = r.Role_id
+                    r.name AS 'Роль'
+                FROM carrentaldb.employee e
+                INNER JOIN role r ON e.role_id = r.role_id
                 WHERE 
                     e.first_name LIKE @txt OR 
                     e.last_name LIKE @txt OR 
-                    r.name LIKE @txt OR";
+                    r.name LIKE @txt";
                 }
                 else if (table == "rentals")
                 {

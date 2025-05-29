@@ -59,11 +59,11 @@ namespace CarRental
             this.labelInfo = new System.Windows.Forms.Label();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewCarMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MaintencToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.MaintencToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -375,9 +375,9 @@ namespace CarRental
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(36)))), ((int)(((byte)(49)))));
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -439,14 +439,21 @@ namespace CarRental
             this.viewCarMenuItem,
             this.MaintencToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(158, 48);
             // 
             // viewCarMenuItem
             // 
             this.viewCarMenuItem.Name = "viewCarMenuItem";
-            this.viewCarMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.viewCarMenuItem.Size = new System.Drawing.Size(157, 22);
             this.viewCarMenuItem.Text = "Посмотреть";
             this.viewCarMenuItem.Click += new System.EventHandler(this.viewCarMenuItem_Click);
+            // 
+            // MaintencToolStripMenuItem
+            // 
+            this.MaintencToolStripMenuItem.Name = "MaintencToolStripMenuItem";
+            this.MaintencToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.MaintencToolStripMenuItem.Text = "Обслуживание";
+            this.MaintencToolStripMenuItem.Click += new System.EventHandler(this.MaintencToolStripMenuItem_Click);
             // 
             // pictureBox5
             // 
@@ -494,13 +501,6 @@ namespace CarRental
             this.pictureBox4.TabIndex = 20;
             this.pictureBox4.TabStop = false;
             this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
-            // 
-            // MaintencToolStripMenuItem
-            // 
-            this.MaintencToolStripMenuItem.Name = "MaintencToolStripMenuItem";
-            this.MaintencToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.MaintencToolStripMenuItem.Text = "Обслуживание";
-            this.MaintencToolStripMenuItem.Click += new System.EventHandler(this.MaintencToolStripMenuItem_Click);
             // 
             // adminForm
             // 
