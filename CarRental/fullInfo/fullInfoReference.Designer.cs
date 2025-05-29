@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fullInfoReference));
             this.labelRed = new System.Windows.Forms.Label();
             this.labelYellow = new System.Windows.Forms.Label();
             this.labelGreen = new System.Windows.Forms.Label();
@@ -105,6 +106,7 @@
             this.Controls.Add(this.labelYellow);
             this.Controls.Add(this.labelRed);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "fullInfoReference";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "fullInfoReference";
