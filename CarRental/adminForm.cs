@@ -234,6 +234,7 @@ namespace CarRental
                 if (isHighlightEnabled)
                     ApplyHighlighting();
             }
+            CheckMaintenanceStatus();
         }
 
         private void LoadTable(string tableName, string labelText, string[] comboBoxItems)
@@ -241,9 +242,9 @@ namespace CarRental
             label2.Text = labelText;
             searchBox.Text = "Поиск";
             table = tableName;
-            UpdateComboBox(comboBoxItems);
+            UpdateSortComboBox();
             LoadData();
-            if(table == "rentals")
+            if (table == "rentals")
             {
                 addBtn.Text = "Справка";
                 editBtn.Text = "Отключить подсветку";
@@ -255,11 +256,43 @@ namespace CarRental
             }
         }
 
+        private void CheckMaintenanceStatus()
+        {
+            using (var con = new MySqlConnection(db.connect))
+            {
+                con.Open();
+                string sql = @"
+            UPDATE cars
+            SET status = 'Свободная'
+            WHERE car_id NOT IN (
+                SELECT car_id
+                FROM maintenance
+                WHERE CURDATE() BETWEEN service_start_date AND service_end_date
+            )
+            AND status = 'На обслуживании'";
+                using (var cmd = new MySqlCommand(sql, con))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
         // Utils Functions
-        private void UpdateComboBox(params string[] items)
+        private void UpdateSortComboBox()
         {
             comboBox1.Items.Clear();
-            comboBox1.Items.AddRange(items);
+
+            if (table == "cars")
+                comboBox1.Items.AddRange(new string[] { "Марка", "Модель", "Статус", "Цена за сутки" });
+            else if (table == "customers")
+                comboBox1.Items.AddRange(new string[] { "Имя", "Фамилия", "Телефон", "Вод.Удостоверение", "Паспорт" });
+            else if (table == "employee")
+                comboBox1.Items.AddRange(new string[] { "Имя", "Фамилия", "Роль" });
+            else if (table == "rentals")
+                comboBox1.Items.AddRange(new string[] { "Марка", "Модель", "Дата взятия", "Дата возврата", "Сумма" });
+
+            comboBox1.SelectedIndex = 0;
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {

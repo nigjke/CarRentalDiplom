@@ -71,8 +71,6 @@ namespace CarRental
                 comboBox1.Items.AddRange(new string[] { "Марка", "Модель", "Статус", "Цена за сутки" });
             else if (table == "customers")
                 comboBox1.Items.AddRange(new string[] { "Имя", "Фамилия", "Телефон", "Вод.Удостоверение", "Паспорт" });
-            else if (table == "employee")
-                comboBox1.Items.AddRange(new string[] { "Имя", "Фамилия", "Роль" });
             else if (table == "rentals")
                 comboBox1.Items.AddRange(new string[] { "Марка", "Модель", "Дата взятия", "Дата возврата", "Сумма" });
 
@@ -95,12 +93,6 @@ namespace CarRental
                 ["Телефон"] = "phone",
                 ["Вод.Удостоверение"] = "driver_license",
                 ["Паспорт"] = "passport"
-            },
-            ["employee"] = new Dictionary<string, string>
-            {
-                ["Имя"] = "e.first_name",
-                ["Фамилия"] = "e.last_name",
-                ["Роль"] = "r.name"
             },
             ["rentals"] = new Dictionary<string, string>
             {
@@ -173,20 +165,6 @@ namespace CarRental
                     FROM cars";
                     }
                 }
-                else if (table == "employee")
-                {
-                    counter = new MySqlCommand("SELECT COUNT(*) FROM employee", connection);
-                    totalRecords = Convert.ToInt32(counter.ExecuteScalar());
-
-                    query = $@"
-                SELECT 
-                    e.employee_id,
-                    e.first_name AS 'Имя',
-                    e.last_name AS 'Фамилия',
-                    r.name AS 'Роль'
-                FROM employee e
-                INNER JOIN role r ON r.role_id = e.role_id";
-                }
                 else if (table == "rentals")
                 {
                     counter = new MySqlCommand("SELECT COUNT(*) FROM rentals", connection);
@@ -237,6 +215,28 @@ namespace CarRental
                     ApplyHighlighting();
 
                 ResetContextMenu();
+                CheckMaintenanceStatus();
+            }
+        }
+
+        private void CheckMaintenanceStatus()
+        {
+            using (var con = new MySqlConnection(db.connect))
+            {
+                con.Open();
+                string sql = @"
+            UPDATE cars
+            SET status = 'Свободная'
+            WHERE car_id NOT IN (
+                SELECT car_id
+                FROM maintenance
+                WHERE CURDATE() BETWEEN service_start_date AND service_end_date
+            )
+            AND status = 'На обслуживании'";
+                using (var cmd = new MySqlCommand(sql, con))
+                {
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
