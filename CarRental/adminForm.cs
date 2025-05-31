@@ -234,6 +234,7 @@ namespace CarRental
                 if (isHighlightEnabled)
                     ApplyHighlighting();
             }
+            CheckMaintenanceStatus();
         }
 
         private void LoadTable(string tableName, string labelText, string[] comboBoxItems)
@@ -243,7 +244,7 @@ namespace CarRental
             table = tableName;
             UpdateSortComboBox();
             LoadData();
-            if(table == "rentals")
+            if (table == "rentals")
             {
                 addBtn.Text = "Справка";
                 editBtn.Text = "Отключить подсветку";
@@ -254,6 +255,28 @@ namespace CarRental
                 editBtn.Text = "Редактировать";
             }
         }
+
+        private void CheckMaintenanceStatus()
+        {
+            using (var con = new MySqlConnection(db.connect))
+            {
+                con.Open();
+                string sql = @"
+            UPDATE cars
+            SET status = 'Свободная'
+            WHERE car_id NOT IN (
+                SELECT car_id
+                FROM maintenance
+                WHERE CURDATE() BETWEEN service_start_date AND service_end_date
+            )
+            AND status = 'На обслуживании'";
+                using (var cmd = new MySqlCommand(sql, con))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
 
         // Utils Functions
         private void UpdateSortComboBox()
