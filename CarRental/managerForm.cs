@@ -454,7 +454,7 @@ namespace CarRental
             }
             else if (table == "rentals")
             {
-                var addRental = new addRental();
+                var addRental = new addRental(0);
                 addRental.ShowDialog();
             }
             LoadData();

@@ -133,5 +133,11 @@ namespace CarRental.fullInfo
             _isClosing = true;
             this.Close();
         }
+
+        private void addBtn_Click(object sender, EventArgs e)
+        {
+            var addRental = new addRental(carId);
+            addRental.ShowDialog();
+        }
     }
 }
