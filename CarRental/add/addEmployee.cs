@@ -44,7 +44,7 @@ namespace CarRental
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            string password = GetHashPass(textBox4.Text.ToString());
+            string password = db.GetHashPass(textBox4.Text.Trim());
             if (textBox1.Text != "" && textBox2.Text != "" && textBox4.Text != "" && textBox4.Text != "" && maskedTextBox1.Text != "" && comboBox1.Text != "")
             {
                 if (!IsValidEmail(textBoxEmail.Text))
@@ -113,27 +113,6 @@ namespace CarRental
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-        public static string GetHashPass(string password)
-        {
-
-            byte[] bytesPass = Encoding.UTF8.GetBytes(password);
-
-            SHA256Managed hashstring = new SHA256Managed();
-
-            byte[] hash = hashstring.ComputeHash(bytesPass);
-
-            string hashPasswd = string.Empty;
-
-            foreach (byte x in hash)
-            {
-
-                hashPasswd += String.Format("{0:x2}", x);
-            }
-
-            hashstring.Dispose();
-
-            return hashPasswd;
         }
 
         // Utils Func()

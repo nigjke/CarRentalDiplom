@@ -199,7 +199,7 @@
             this.uploadBtn.Location = new System.Drawing.Point(17, 441);
             this.uploadBtn.Name = "uploadBtn";
             this.uploadBtn.Size = new System.Drawing.Size(238, 64);
-            this.uploadBtn.TabIndex = 163;
+            this.uploadBtn.TabIndex = 6;
             this.uploadBtn.Text = "Загрузить";
             this.uploadBtn.UseVisualStyleBackColor = false;
             this.uploadBtn.Click += new System.EventHandler(this.uploadBtn_Click);
@@ -236,7 +236,7 @@
             this.comboBox1.Location = new System.Drawing.Point(280, 239);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(188, 32);
-            this.comboBox1.TabIndex = 164;
+            this.comboBox1.TabIndex = 5;
             this.comboBox1.Text = "Свободная";
             // 
             // label8

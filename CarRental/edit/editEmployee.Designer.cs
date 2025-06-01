@@ -70,7 +70,7 @@
             this.textBox4.MaxLength = 20;
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(243, 32);
-            this.textBox4.TabIndex = 6;
+            this.textBox4.TabIndex = 7;
             // 
             // label4
             // 
@@ -114,7 +114,7 @@
             this.button2.Location = new System.Drawing.Point(17, 497);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(451, 59);
-            this.button2.TabIndex = 9;
+            this.button2.TabIndex = 11;
             this.button2.Text = "Назад";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -128,7 +128,7 @@
             this.button1.Location = new System.Drawing.Point(17, 423);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(451, 59);
-            this.button1.TabIndex = 8;
+            this.button1.TabIndex = 9;
             this.button1.Text = "Изменить";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -199,7 +199,7 @@
             this.textBox3.MaxLength = 15;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(243, 32);
-            this.textBox3.TabIndex = 5;
+            this.textBox3.TabIndex = 6;
             this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
             // 
             // button3
@@ -211,7 +211,7 @@
             this.button3.Location = new System.Drawing.Point(224, 373);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(243, 34);
-            this.button3.TabIndex = 7;
+            this.button3.TabIndex = 8;
             this.button3.Text = "Сгенерировать пароль";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -249,7 +249,7 @@
             this.textBoxEmail.MaxLength = 15;
             this.textBoxEmail.Name = "textBoxEmail";
             this.textBoxEmail.Size = new System.Drawing.Size(243, 32);
-            this.textBoxEmail.TabIndex = 159;
+            this.textBoxEmail.TabIndex = 5;
             // 
             // editEmployee
             // 

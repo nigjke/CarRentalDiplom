@@ -118,7 +118,7 @@
             this.maskedTextBox1.Mask = "AAA000";
             this.maskedTextBox1.Name = "maskedTextBox1";
             this.maskedTextBox1.Size = new System.Drawing.Size(188, 32);
-            this.maskedTextBox1.TabIndex = 3;
+            this.maskedTextBox1.TabIndex = 4;
             // 
             // button2
             // 
@@ -129,7 +129,7 @@
             this.button2.Location = new System.Drawing.Point(17, 577);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(451, 59);
-            this.button2.TabIndex = 8;
+            this.button2.TabIndex = 9;
             this.button2.Text = "Назад";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
@@ -143,7 +143,7 @@
             this.button1.Location = new System.Drawing.Point(17, 490);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(451, 59);
-            this.button1.TabIndex = 7;
+            this.button1.TabIndex = 8;
             this.button1.Text = "Добавить";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
@@ -246,7 +246,7 @@
             this.uploadBtn.Location = new System.Drawing.Point(20, 408);
             this.uploadBtn.Name = "uploadBtn";
             this.uploadBtn.Size = new System.Drawing.Size(238, 64);
-            this.uploadBtn.TabIndex = 160;
+            this.uploadBtn.TabIndex = 7;
             this.uploadBtn.Text = "Загрузить";
             this.uploadBtn.UseVisualStyleBackColor = false;
             this.uploadBtn.Click += new System.EventHandler(this.uploadBtn_Click);
