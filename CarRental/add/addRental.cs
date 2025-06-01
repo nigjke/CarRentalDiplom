@@ -18,7 +18,7 @@ namespace CarRental
     {
         private db db;
         private System.Windows.Forms.Timer rentalCheckTimer;
-        public addRental()
+        public addRental(int carId)
         {
             db = new db();
             InitializeComponent();
