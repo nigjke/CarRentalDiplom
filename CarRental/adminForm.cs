@@ -377,7 +377,6 @@ namespace CarRental
             helper.SetButtonColors(carBtn, rentalBtn, customerBtn, employeeBtn);
             LoadTable("cars", "Машины", new string[] { "По Марке", "По Модели", "По Статусу", "По Цене" });
         }
-
         private void employeeBtn_Click(object sender, EventArgs e)
         {
             currentPage = 1;
@@ -385,7 +384,6 @@ namespace CarRental
             helper.SetButtonColors(employeeBtn, rentalBtn, carBtn, customerBtn);
             LoadTable("employee", "Сотрудники", new string[] { "По Имени", "По Фамилии", "По Роли" });
         }
-
         private void customerBtn_Click(object sender, EventArgs e)
         {
             currentPage = 1;
@@ -393,7 +391,6 @@ namespace CarRental
             helper.SetButtonColors(customerBtn, rentalBtn, carBtn, employeeBtn);
             LoadTable("customers", "Клиенты", new string[] { "По Имени", "По Фамилии", "По Телефону", "По Вод.Удостоверению", "По Паспорту" });
         }
-
         private void rentalBtn_Click(object sender, EventArgs e)
         {
             currentPage = 1;
@@ -425,7 +422,6 @@ namespace CarRental
             currentPage = 1;
             LoadData();
         }
-
         private void descendingBtn_Click(object sender, EventArgs e)
         {
             sortColumn = comboBox1.SelectedItem?.ToString();
@@ -433,7 +429,6 @@ namespace CarRental
             currentPage = 1;
             LoadData();
         }
-
         // Event Buttons
         private void addBtn_Click(object sender, EventArgs e)
         {
