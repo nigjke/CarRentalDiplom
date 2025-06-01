@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Runtime.Remoting.Contexts;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
@@ -69,18 +70,28 @@ namespace CarRental
 
         public void CreateWordReport(DataGridViewRow row)
         {
-            string templatePath = System.IO.Directory.GetCurrentDirectory() + @"\template\template.docx";
-            var wordApp = new Word.Application();
-            var doc = wordApp.Documents.Add(templatePath);
+            string templatePath = Path.Combine(Application.StartupPath, "template", "template1.docx");
+
+            if (!File.Exists(templatePath))
+            {
+                MessageBox.Show("Файл шаблона не найден:\n" + templatePath);
+                return;
+            }
+
+            Word.Application wordApp = new Word.Application();
+            Word.Document doc = null;
 
             try
             {
+                doc = wordApp.Documents.Add(templatePath);
+
                 foreach (DataGridViewCell cell in row.Cells)
                 {
                     string bookmarkName = cell.OwningColumn.HeaderText.Replace(" ", "_");
+
                     if (doc.Bookmarks.Exists(bookmarkName))
                     {
-                        doc.Bookmarks[bookmarkName].Range.Text = cell.Value.ToString();
+                        doc.Bookmarks[bookmarkName].Range.Text = cell.Value?.ToString() ?? "";
                     }
                 }
 
@@ -88,7 +99,7 @@ namespace CarRental
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ошибка при генерации документа:\n" + ex.Message);
             }
             finally
             {

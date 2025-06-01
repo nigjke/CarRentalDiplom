@@ -11,6 +11,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
@@ -308,6 +309,8 @@ namespace CarRental
         {
             if (e.RowIndex >= 0)
             {
+                dataGridView1.ClearSelection();
+                dataGridView1.Rows[e.RowIndex].Selected = true;
                 selectedRow = dataGridView1.Rows[e.RowIndex];
             }
         }
@@ -581,9 +584,51 @@ namespace CarRental
 
         private void reportBtn_Click(object sender, EventArgs e)
         {
-            importForm importForm = new importForm();
-            importForm.ShowDialog();
+            if (selectedRow != null)
+            {
+                CreateWordReport(selectedRow);
+            }
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите строку.");
+            }
         }
+        private void CreateWordReport(DataGridViewRow row)
+        {
+            string templatePath = Path.Combine(Application.StartupPath, @"template\template1.docx");
+            var wordApp = new Word.Application();
+            Word.Document doc = null;
+
+            try
+            {
+                doc = wordApp.Documents.Add(Template: templatePath, NewTemplate: false, DocumentType: 0);
+
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    string bookmarkName = cell.OwningColumn.HeaderText.Replace(" ", "_");
+                    if (doc.Bookmarks.Exists(bookmarkName))
+                    {
+                        Word.Range range = doc.Bookmarks[bookmarkName].Range;
+                        range.Text = cell.Value?.ToString() ?? "";
+                        doc.Bookmarks.Add(bookmarkName, range); 
+                    }
+                }
+
+                wordApp.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при создании отчёта: " + ex.Message);
+                doc?.Close(false);
+            }
+            finally
+            {
+                if (doc != null) Marshal.ReleaseComObject(doc);
+                if (wordApp != null) Marshal.ReleaseComObject(wordApp);
+            }
+        }
+
+
 
         // Search
         private void searchBox_TextChanged(object sender, EventArgs e)
@@ -741,6 +786,12 @@ namespace CarRental
                     MaintencToolStripMenuItem.Visible = false;
                     selectedEmployeeId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["employee_id"].Value);
                     contextMenuStrip1.Show(Cursor.Position);
+                }
+                else if (table == "rentals")
+                {
+                    dataGridView1.ClearSelection();
+                    dataGridView1.Rows[e.RowIndex].Selected = true;
+                    selectedRow = dataGridView1.Rows[e.RowIndex]; 
                 }
             }
         }
