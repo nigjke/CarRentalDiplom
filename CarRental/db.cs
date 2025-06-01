@@ -52,57 +52,61 @@ namespace CarRental
         static public int CheckUserRole(string login, string password)
         {
             int role = -1;
-            string hashPassword = string.Empty;
-            MySqlConnection con = new MySqlConnection(connect);
-            con.Open();
-
-            MySqlCommand cmd = new MySqlCommand($"Select * From employee Where employeeLogin = '{login}'", con);
-            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            hashPassword = GetHashPass(password);
 
             try
             {
-                if (password == dt.Rows[0].ItemArray.GetValue(6).ToString())
+                using (MySqlConnection con = new MySqlConnection(connect))
                 {
-                    if (Convert.ToInt32(dt.Rows[0].ItemArray.GetValue(1)) == 2)
+                    con.Open();
+
+                    string query = "SELECT role_id, employeePass FROM employee WHERE employeeLogin = @login";
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
                     {
-                        role = 1;
-                    }
-                    if (Convert.ToInt32(dt.Rows[0].ItemArray.GetValue(1)) == 1)
-                    {
-                        role = 2;
+                        cmd.Parameters.AddWithValue("@login", login);
+
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string storedHash = reader["employeePass"].ToString();
+                                string enteredHash = GetHashPass(password);
+
+                                if (storedHash == enteredHash)
+                                {
+                                    int roleId = Convert.ToInt32(reader["role_id"]);
+                                    role = (roleId == 2) ? 1 : (roleId == 1) ? 2 : -1;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Неправильный логин или пароль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
                     }
                 }
             }
-            catch (System.Exception) {
-                MessageBox.Show("Неправильный логин или пароль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при проверке: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return role;
         }
+
         public static string GetHashPass(string password)
         {
-
-            byte[] bytesPass = Encoding.UTF8.GetBytes(password);
-
-            SHA256Managed hashstring = new SHA256Managed();
-
-            byte[] hash = hashstring.ComputeHash(bytesPass);
-
-            string hashPasswd = string.Empty;
-
-            foreach (byte x in hash)
+            using (var sha256 = SHA256.Create())
             {
-
-                hashPasswd += String.Format("{0:x2}", x);
+                byte[] bytes = Encoding.UTF8.GetBytes(password);
+                byte[] hash = sha256.ComputeHash(bytes);
+                return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
             }
-
-            hashstring.Dispose();
-
-            return hashPasswd;
         }
+
 
 
         public bool CharCorrectEng(char c)

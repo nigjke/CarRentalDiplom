@@ -44,7 +44,7 @@
             this.comboBoxFineTypes.Location = new System.Drawing.Point(230, 24);
             this.comboBoxFineTypes.Name = "comboBoxFineTypes";
             this.comboBoxFineTypes.Size = new System.Drawing.Size(242, 32);
-            this.comboBoxFineTypes.TabIndex = 173;
+            this.comboBoxFineTypes.TabIndex = 1;
             // 
             // button2
             // 
@@ -55,7 +55,7 @@
             this.button2.Location = new System.Drawing.Point(21, 163);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(451, 59);
-            this.button2.TabIndex = 181;
+            this.button2.TabIndex = 3;
             this.button2.Text = "Назад";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -69,7 +69,7 @@
             this.button1.Location = new System.Drawing.Point(21, 88);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(451, 59);
-            this.button1.TabIndex = 180;
+            this.button1.TabIndex = 2;
             this.button1.Text = "Добавить";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);

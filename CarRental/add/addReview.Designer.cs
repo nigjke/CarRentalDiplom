@@ -45,7 +45,7 @@
             this.comboBoxRating.Location = new System.Drawing.Point(226, 33);
             this.comboBoxRating.Name = "comboBoxRating";
             this.comboBoxRating.Size = new System.Drawing.Size(242, 32);
-            this.comboBoxRating.TabIndex = 183;
+            this.comboBoxRating.TabIndex = 1;
             // 
             // button2
             // 
@@ -56,7 +56,7 @@
             this.button2.Location = new System.Drawing.Point(21, 466);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(451, 59);
-            this.button2.TabIndex = 185;
+            this.button2.TabIndex = 4;
             this.button2.Text = "Назад";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -70,7 +70,7 @@
             this.button1.Location = new System.Drawing.Point(21, 391);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(451, 59);
-            this.button1.TabIndex = 184;
+            this.button1.TabIndex = 3;
             this.button1.Text = "Добавить";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -103,7 +103,7 @@
             this.textBoxComment.Location = new System.Drawing.Point(226, 108);
             this.textBoxComment.Name = "textBoxComment";
             this.textBoxComment.Size = new System.Drawing.Size(242, 255);
-            this.textBoxComment.TabIndex = 188;
+            this.textBoxComment.TabIndex = 2;
             this.textBoxComment.Text = "";
             this.textBoxComment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxComment_KeyPress);
             // 

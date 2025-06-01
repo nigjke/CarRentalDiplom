@@ -68,7 +68,7 @@
             this.dateStart.Location = new System.Drawing.Point(224, 122);
             this.dateStart.Name = "dateStart";
             this.dateStart.Size = new System.Drawing.Size(242, 31);
-            this.dateStart.TabIndex = 187;
+            this.dateStart.TabIndex = 3;
             // 
             // comboBoxType
             // 
@@ -80,7 +80,7 @@
             this.comboBoxType.Location = new System.Drawing.Point(224, 70);
             this.comboBoxType.Name = "comboBoxType";
             this.comboBoxType.Size = new System.Drawing.Size(242, 32);
-            this.comboBoxType.TabIndex = 185;
+            this.comboBoxType.TabIndex = 1;
             // 
             // label4
             // 
@@ -102,7 +102,7 @@
             this.closeBtn.Location = new System.Drawing.Point(15, 358);
             this.closeBtn.Name = "closeBtn";
             this.closeBtn.Size = new System.Drawing.Size(451, 59);
-            this.closeBtn.TabIndex = 191;
+            this.closeBtn.TabIndex = 6;
             this.closeBtn.Text = "Назад";
             this.closeBtn.UseVisualStyleBackColor = false;
             this.closeBtn.Click += new System.EventHandler(this.closeBtn_Click);
@@ -116,7 +116,7 @@
             this.addBtn.Location = new System.Drawing.Point(15, 283);
             this.addBtn.Name = "addBtn";
             this.addBtn.Size = new System.Drawing.Size(451, 59);
-            this.addBtn.TabIndex = 190;
+            this.addBtn.TabIndex = 5;
             this.addBtn.Text = "Добавить";
             this.addBtn.UseVisualStyleBackColor = false;
             this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
@@ -152,7 +152,7 @@
             this.textBoxCost.MaxLength = 15;
             this.textBoxCost.Name = "textBoxCost";
             this.textBoxCost.Size = new System.Drawing.Size(242, 32);
-            this.textBoxCost.TabIndex = 199;
+            this.textBoxCost.TabIndex = 4;
             // 
             // labelCar
             // 

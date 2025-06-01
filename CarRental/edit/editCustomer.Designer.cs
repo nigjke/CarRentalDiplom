@@ -72,7 +72,7 @@ namespace CarRental
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(18, 411);
+            this.button2.Location = new System.Drawing.Point(18, 373);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(451, 59);
             this.button2.TabIndex = 7;
@@ -192,7 +192,7 @@ namespace CarRental
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(482, 482);
+            this.ClientSize = new System.Drawing.Size(482, 444);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.maskedTextBox3);
             this.Controls.Add(this.button2);
