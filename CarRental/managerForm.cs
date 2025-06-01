@@ -801,7 +801,26 @@ namespace CarRental
 
                 _isFullscreen = false;
             }
+            UpdatePageSizeAndReload();
         }
+
+        private int CalculatePageSize()
+        {
+            int rowHeight = dataGridView1.RowTemplate.Height;
+            int availableHeight = dataGridView1.Height;
+
+            int rows = (availableHeight - dataGridView1.ColumnHeadersHeight) / rowHeight;
+
+            return Math.Max(rows, 10); 
+        }
+
+        private void UpdatePageSizeAndReload()
+        {
+            pageSize = CalculatePageSize();
+            currentPage = 1;
+            LoadData();
+        }
+
 
         private void chkFreeOnly_CheckedChanged(object sender, EventArgs e)
         {
