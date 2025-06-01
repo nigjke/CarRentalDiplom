@@ -26,6 +26,10 @@ namespace CarRental
         private FormWindowState _previousWindowState;
         private bool _isFullscreen = false;
 
+        private Timer inactivityTimer;
+        private int inactivityTimeSeconds = 60; 
+        private DateTime lastActivityTime;
+
         private int currentPage = 1;
         private int totalRecords = 0;
         int pageSize = 10;
@@ -36,9 +40,7 @@ namespace CarRental
         private static string table = string.Empty;
         private DataTable customersTable;
         private DataGridViewRow selectedRow;
-        private Timer inactivityTimer;
-        private int inactivityTime;
-        private DateTime lastActivityTime;
+
         private int selectedCarId = -1;
         private int selectedEmployeeId = -1;
 
@@ -59,21 +61,30 @@ namespace CarRental
         // Timer 
         private void InitializeInactivityTimer()
         {
-            inactivityTime = int.Parse(ConfigurationManager.AppSettings["InactivityTime"]);
             inactivityTimer = new Timer();
-            inactivityTimer.Interval = 1000;
+            inactivityTimer.Interval = 1000; 
             inactivityTimer.Tick += InactivityTimer_Tick;
             inactivityTimer.Start();
+
+            lastActivityTime = DateTime.Now;
+
+            this.MouseMove += (s, e) => ResetInactivity();
+            this.KeyDown += (s, e) => ResetInactivity();
+            this.MouseClick += (s, e) => ResetInactivity();
+            this.GotFocus += (s, e) => ResetInactivity();
+        }
+
+        private void ResetInactivity()
+        {
             lastActivityTime = DateTime.Now;
         }
+
         private void InactivityTimer_Tick(object sender, EventArgs e)
         {
-            if ((DateTime.Now - lastActivityTime).TotalSeconds > inactivityTime)
+            if ((DateTime.Now - lastActivityTime).TotalSeconds > inactivityTimeSeconds)
             {
                 inactivityTimer.Stop();
-                loginForm loginForm = new loginForm();
-                loginForm.Show();
-                this.Hide();
+                this.WindowState = FormWindowState.Minimized;
             }
         }
         protected override void OnMouseMove(MouseEventArgs e)
@@ -86,14 +97,13 @@ namespace CarRental
             base.OnKeyPress(e);
             lastActivityTime = DateTime.Now;
         }
+        // Data Load
         private void SetButtonVisibility(bool btn7, bool btn8, bool btn9)
         {
             addBtn.Visible = btn7;
             editBtn.Visible = btn8;
             delBtn.Visible = btn9;
         }
-
-        // Data Load
         private void adminForm_Load(object sender, EventArgs e)
         {
             SetButtonVisibility(true, true, true);

@@ -16,6 +16,10 @@ namespace CarRental
         private FormWindowState _previousWindowState;
         private bool _isFullscreen = false;
 
+        private Timer inactivityTimer;
+        private int inactivityTimeSeconds = 60; 
+        private DateTime lastActivityTime;
+
         private int currentPage = 1;
         private int totalRecords = 0;
         int pageSize = 10;
@@ -38,6 +42,39 @@ namespace CarRental
             dataGridView1.CellClick += dataGridView1_CellClick;
             dataGridView1.CellMouseDown += dataGridView1_CellMouseDown;
             dataGridView1.ContextMenuStrip = null;
+
+            InitializeInactivityTimer();
+        }
+
+
+        // Timer 
+        private void InitializeInactivityTimer()
+        {
+            inactivityTimer = new Timer();
+            inactivityTimer.Interval = 1000;
+            inactivityTimer.Tick += InactivityTimer_Tick;
+            inactivityTimer.Start();
+
+            lastActivityTime = DateTime.Now;
+
+            this.MouseMove += (s, e) => ResetInactivity();
+            this.KeyDown += (s, e) => ResetInactivity();
+            this.MouseClick += (s, e) => ResetInactivity();
+            this.GotFocus += (s, e) => ResetInactivity();
+        }
+
+        private void ResetInactivity()
+        {
+            lastActivityTime = DateTime.Now;
+        }
+
+        private void InactivityTimer_Tick(object sender, EventArgs e)
+        {
+            if ((DateTime.Now - lastActivityTime).TotalSeconds > inactivityTimeSeconds)
+            {
+                inactivityTimer.Stop();
+                this.WindowState = FormWindowState.Minimized;
+            }
         }
 
         private void SetButtonVisibility(bool btn7, bool btn8, bool btn9)
