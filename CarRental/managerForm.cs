@@ -47,6 +47,35 @@ namespace CarRental
         }
 
 
+        // Timer 
+        private void InitializeInactivityTimer()
+        {
+            inactivityTimer = new Timer();
+            inactivityTimer.Interval = 1000;
+            inactivityTimer.Tick += InactivityTimer_Tick;
+            inactivityTimer.Start();
+
+            lastActivityTime = DateTime.Now;
+
+            this.MouseMove += (s, e) => ResetInactivity();
+            this.KeyDown += (s, e) => ResetInactivity();
+            this.MouseClick += (s, e) => ResetInactivity();
+            this.GotFocus += (s, e) => ResetInactivity();
+        }
+
+        private void ResetInactivity()
+        {
+            lastActivityTime = DateTime.Now;
+        }
+
+        private void InactivityTimer_Tick(object sender, EventArgs e)
+        {
+            if ((DateTime.Now - lastActivityTime).TotalSeconds > inactivityTimeSeconds)
+            {
+                inactivityTimer.Stop();
+                this.WindowState = FormWindowState.Minimized;
+            }
+        }
 
         private void SetButtonVisibility(bool btn7, bool btn8, bool btn9)
         {
