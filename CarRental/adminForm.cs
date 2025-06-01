@@ -791,6 +791,7 @@ namespace CarRental
             }
             UpdatePageSizeAndReload();
         }
+
         private int CalculatePageSize()
         {
             int rowHeight = dataGridView1.RowTemplate.Height;
