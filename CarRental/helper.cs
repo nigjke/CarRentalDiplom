@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Contexts;
 using System.Windows.Forms;
 using Word = Microsoft.Office.Interop.Word;
@@ -70,7 +71,7 @@ namespace CarRental
 
         public void CreateWordReport(DataGridViewRow row)
         {
-            string templatePath = Path.Combine(Application.StartupPath, "template", "template1.docx");
+            string templatePath = Path.Combine(Application.StartupPath, "template", "template_with_bookmarks.docx");
 
             if (!File.Exists(templatePath))
             {
@@ -78,12 +79,16 @@ namespace CarRental
                 return;
             }
 
-            Word.Application wordApp = new Word.Application();
+            Word.Application wordApp = null;
             Word.Document doc = null;
 
             try
             {
-                doc = wordApp.Documents.Add(templatePath);
+                wordApp = new Word.Application();
+                wordApp.Visible = false;
+
+                doc = wordApp.Documents.Open(templatePath, ReadOnly: false, Visible: false);
+                doc.Activate();
 
                 foreach (DataGridViewCell cell in row.Cells)
                 {
@@ -91,11 +96,16 @@ namespace CarRental
 
                     if (doc.Bookmarks.Exists(bookmarkName))
                     {
-                        doc.Bookmarks[bookmarkName].Range.Text = cell.Value?.ToString() ?? "";
+                        string value = cell.Value?.ToString() ?? "";
+                        doc.Bookmarks[bookmarkName].Range.Text = value;
                     }
                 }
 
+                string tempPath = Path.Combine(Path.GetTempPath(), $"report_{DateTime.Now.Ticks}.docx");
+                doc.SaveAs2(tempPath);
                 wordApp.Visible = true;
+
+                wordApp.Documents.Open(tempPath);
             }
             catch (Exception ex)
             {
@@ -103,10 +113,26 @@ namespace CarRental
             }
             finally
             {
+                if (doc != null)
+                {
+                    doc.Close(false);
+                    Marshal.ReleaseComObject(doc);
+                }
+
+                if (wordApp != null)
+                {
+                    Marshal.ReleaseComObject(wordApp);
+                }
+
                 doc = null;
                 wordApp = null;
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
         }
+
+
         public static byte[] GetCarPhoto(int carId)
         {
             using (var con = new MySqlConnection(db.connect))
