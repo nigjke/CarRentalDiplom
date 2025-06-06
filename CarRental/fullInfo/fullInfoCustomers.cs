@@ -36,6 +36,10 @@ namespace CarRental.fullInfo
                 adapter.Fill(dataTable);
                 dataGridView1.DataSource = dataTable;
                 dataGridView1.Columns[0].Visible = false;
+
+                dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 9);
+                dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 14, FontStyle.Bold);
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
         }
 

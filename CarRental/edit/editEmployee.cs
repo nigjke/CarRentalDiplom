@@ -237,5 +237,13 @@ namespace CarRental
             if (!string.IsNullOrEmpty(textBox2.Text))
                 textBox2.Text = char.ToUpper(textBox2.Text[0]) + textBox2.Text.Substring(1);
         }
+
+        private void textBoxEmail_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!db.CharCorrectEng(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

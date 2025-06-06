@@ -114,7 +114,7 @@
             this.dataGridView1.RowTemplate.Height = 30;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(853, 137);
+            this.dataGridView1.Size = new System.Drawing.Size(853, 129);
             this.dataGridView1.TabIndex = 24;
             // 
             // fullInfoEmployee

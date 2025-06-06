@@ -191,5 +191,13 @@ namespace CarRental
         {
             textBox4.Text = CreatePassword(15);
         }
+
+        private void textBoxEmail_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!db.CharCorrectEng(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
