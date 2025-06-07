@@ -13,7 +13,10 @@ namespace CarRental
 {
     internal class db
     {
-        public static string connect = @"server=localhost;port=3306;username=root;password=root;database=carrentaldb";
+        public static string connect = $@"host={Properties.Settings.Default["host"]};
+                                      uid={Properties.Settings.Default["uid"]};
+                                      pwd={Properties.Settings.Default["pwd"]};
+                                      database={Properties.Settings.Default["db"]};";
         MySqlConnection connection = new MySqlConnection(connect);
 
         public DataTable MySqlReturnData(string query,DataGridView grid)

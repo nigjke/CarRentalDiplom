@@ -107,247 +107,238 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="add\addMaintenance.cs">
+    <Compile Include="forms\add\addMaintenance.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="add\addMaintenance.Designer.cs">
+    <Compile Include="forms\add\addMaintenance.Designer.cs">
       <DependentUpon>addMaintenance.cs</DependentUpon>
     </Compile>
-    <Compile Include="add\addRental.cs">
+    <Compile Include="forms\add\addRental.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="add\addRental.Designer.cs">
+    <Compile Include="forms\add\addRental.Designer.cs">
       <DependentUpon>addRental.cs</DependentUpon>
     </Compile>
-    <Compile Include="add\addCar.cs">
+    <Compile Include="forms\add\addCar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="add\addCar.Designer.cs">
+    <Compile Include="forms\add\addCar.Designer.cs">
       <DependentUpon>addCar.cs</DependentUpon>
     </Compile>
-    <Compile Include="add\addCustomer.cs">
+    <Compile Include="forms\add\addCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="add\addCustomer.Designer.cs">
+    <Compile Include="forms\add\addCustomer.Designer.cs">
       <DependentUpon>addCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="add\addEmployee.cs">
+    <Compile Include="forms\add\addEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="add\addEmployee.Designer.cs">
+    <Compile Include="forms\add\addEmployee.Designer.cs">
       <DependentUpon>addEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="add\addFine.cs">
+    <Compile Include="forms\add\addFine.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="add\addFine.Designer.cs">
+    <Compile Include="forms\add\addFine.Designer.cs">
       <DependentUpon>addFine.cs</DependentUpon>
     </Compile>
-    <Compile Include="add\addReview.cs">
+    <Compile Include="forms\add\addReview.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="add\addReview.Designer.cs">
+    <Compile Include="forms\add\addReview.Designer.cs">
       <DependentUpon>addReview.cs</DependentUpon>
     </Compile>
-    <Compile Include="adminForm.cs">
+    <Compile Include="forms\main\adminForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="adminForm.Designer.cs">
+    <Compile Include="forms\main\adminForm.Designer.cs">
       <DependentUpon>adminForm.cs</DependentUpon>
     </Compile>
     <Compile Include="db.cs" />
-    <Compile Include="edit\editCar.cs">
+    <Compile Include="forms\edit\editCar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="edit\editCar.Designer.cs">
+    <Compile Include="forms\edit\editCar.Designer.cs">
       <DependentUpon>editCar.cs</DependentUpon>
     </Compile>
-    <Compile Include="edit\editEmployee.cs">
+    <Compile Include="forms\edit\editEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="edit\editEmployee.Designer.cs">
+    <Compile Include="forms\edit\editEmployee.Designer.cs">
       <DependentUpon>editEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="edit\editCustomer.cs">
+    <Compile Include="forms\edit\editCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="edit\editCustomer.Designer.cs">
+    <Compile Include="forms\edit\editCustomer.Designer.cs">
       <DependentUpon>editCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="fullInfo\carReview.cs">
+    <Compile Include="forms\fullInfo\carReview.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fullInfo\carReview.Designer.cs">
+    <Compile Include="forms\fullInfo\carReview.Designer.cs">
       <DependentUpon>carReview.cs</DependentUpon>
     </Compile>
-    <Compile Include="fullInfo\fullInfoCar.cs">
+    <Compile Include="forms\fullInfo\fullInfoCar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fullInfo\fullInfoCar.Designer.cs">
+    <Compile Include="forms\fullInfo\fullInfoCar.Designer.cs">
       <DependentUpon>fullInfoCar.cs</DependentUpon>
     </Compile>
-    <Compile Include="fullInfo\fullInfoCarRental.cs">
+    <Compile Include="forms\fullInfo\fullInfoCustomerReviews.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fullInfo\fullInfoCarRental.Designer.cs">
-      <DependentUpon>fullInfoCarRental.cs</DependentUpon>
-    </Compile>
-    <Compile Include="fullInfo\fullInfoCustomerReviews.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="fullInfo\fullInfoCustomerReviews.Designer.cs">
+    <Compile Include="forms\fullInfo\fullInfoCustomerReviews.Designer.cs">
       <DependentUpon>fullInfoCustomerReviews.cs</DependentUpon>
     </Compile>
-    <Compile Include="fullInfo\fullInfoCustomers.cs">
+    <Compile Include="forms\fullInfo\fullInfoCustomers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fullInfo\fullInfoCustomers.Designer.cs">
+    <Compile Include="forms\fullInfo\fullInfoCustomers.Designer.cs">
       <DependentUpon>fullInfoCustomers.cs</DependentUpon>
     </Compile>
-    <Compile Include="fullInfo\fullInfoEmployee.cs">
+    <Compile Include="forms\fullInfo\fullInfoEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fullInfo\fullInfoEmployee.Designer.cs">
+    <Compile Include="forms\fullInfo\fullInfoEmployee.Designer.cs">
       <DependentUpon>fullInfoEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="fullInfo\fullInfoFines.cs">
+    <Compile Include="forms\fullInfo\fullInfoFines.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fullInfo\fullInfoFines.Designer.cs">
+    <Compile Include="forms\fullInfo\fullInfoFines.Designer.cs">
       <DependentUpon>fullInfoFines.cs</DependentUpon>
     </Compile>
-    <Compile Include="fullInfo\fullInfoFinesRental.cs">
+    <Compile Include="forms\fullInfo\fullInfoFinesRental.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fullInfo\fullInfoFinesRental.Designer.cs">
+    <Compile Include="forms\fullInfo\fullInfoFinesRental.Designer.cs">
       <DependentUpon>fullInfoFinesRental.cs</DependentUpon>
     </Compile>
-    <Compile Include="fullInfo\fullInfoMaintenance.cs">
+    <Compile Include="forms\fullInfo\fullInfoMaintenance.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fullInfo\fullInfoMaintenance.Designer.cs">
+    <Compile Include="forms\fullInfo\fullInfoMaintenance.Designer.cs">
       <DependentUpon>fullInfoMaintenance.cs</DependentUpon>
     </Compile>
-    <Compile Include="fullInfo\fullInfoReference.cs">
+    <Compile Include="forms\fullInfo\fullInfoReference.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fullInfo\fullInfoReference.Designer.cs">
+    <Compile Include="forms\fullInfo\fullInfoReference.Designer.cs">
       <DependentUpon>fullInfoReference.cs</DependentUpon>
     </Compile>
-    <Compile Include="fullInfo\fullInfoRentals.cs">
+    <Compile Include="forms\fullInfo\fullInfoRentals.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fullInfo\fullInfoRentals.Designer.cs">
+    <Compile Include="forms\fullInfo\fullInfoRentals.Designer.cs">
       <DependentUpon>fullInfoRentals.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\settings\settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\settings\settings.Designer.cs">
+      <DependentUpon>settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="helper.cs" />
-    <Compile Include="importForm.cs">
+    <Compile Include="forms\main\loginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="importForm.Designer.cs">
-      <DependentUpon>importForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="loginForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="loginForm.Designer.cs">
+    <Compile Include="forms\main\loginForm.Designer.cs">
       <DependentUpon>loginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="managerForm.cs">
+    <Compile Include="forms\main\managerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="managerForm.Designer.cs">
+    <Compile Include="forms\main\managerForm.Designer.cs">
       <DependentUpon>managerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sysAdminForm.cs">
+    <Compile Include="forms\main\sysAdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="sysAdminForm.Designer.cs">
+    <Compile Include="forms\main\sysAdminForm.Designer.cs">
       <DependentUpon>sysAdminForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="add\addMaintenance.resx">
+    <EmbeddedResource Include="forms\add\addMaintenance.resx">
       <DependentUpon>addMaintenance.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="add\addRental.resx">
+    <EmbeddedResource Include="forms\add\addRental.resx">
       <DependentUpon>addRental.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="add\addCar.resx">
+    <EmbeddedResource Include="forms\add\addCar.resx">
       <DependentUpon>addCar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="add\addCustomer.resx">
+    <EmbeddedResource Include="forms\add\addCustomer.resx">
       <DependentUpon>addCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="add\addEmployee.resx">
+    <EmbeddedResource Include="forms\add\addEmployee.resx">
       <DependentUpon>addEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="add\addFine.resx">
+    <EmbeddedResource Include="forms\add\addFine.resx">
       <DependentUpon>addFine.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="add\addReview.resx">
+    <EmbeddedResource Include="forms\add\addReview.resx">
       <DependentUpon>addReview.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="adminForm.resx">
+    <EmbeddedResource Include="forms\main\adminForm.resx">
       <DependentUpon>adminForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="edit\editCar.resx">
+    <EmbeddedResource Include="forms\edit\editCar.resx">
       <DependentUpon>editCar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="edit\editEmployee.resx">
+    <EmbeddedResource Include="forms\edit\editEmployee.resx">
       <DependentUpon>editEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="edit\editCustomer.resx">
+    <EmbeddedResource Include="forms\edit\editCustomer.resx">
       <DependentUpon>editCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fullInfo\carReview.resx">
+    <EmbeddedResource Include="forms\fullInfo\carReview.resx">
       <DependentUpon>carReview.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fullInfo\fullInfoCar.resx">
+    <EmbeddedResource Include="forms\fullInfo\fullInfoCar.resx">
       <DependentUpon>fullInfoCar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fullInfo\fullInfoCarRental.resx">
-      <DependentUpon>fullInfoCarRental.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="fullInfo\fullInfoCustomerReviews.resx">
+    <EmbeddedResource Include="forms\fullInfo\fullInfoCustomerReviews.resx">
       <DependentUpon>fullInfoCustomerReviews.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fullInfo\fullInfoCustomers.resx">
+    <EmbeddedResource Include="forms\fullInfo\fullInfoCustomers.resx">
       <DependentUpon>fullInfoCustomers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fullInfo\fullInfoEmployee.resx">
+    <EmbeddedResource Include="forms\fullInfo\fullInfoEmployee.resx">
       <DependentUpon>fullInfoEmployee.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fullInfo\fullInfoFines.resx">
+    <EmbeddedResource Include="forms\fullInfo\fullInfoFines.resx">
       <DependentUpon>fullInfoFines.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fullInfo\fullInfoFinesRental.resx">
+    <EmbeddedResource Include="forms\fullInfo\fullInfoFinesRental.resx">
       <DependentUpon>fullInfoFinesRental.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fullInfo\fullInfoMaintenance.resx">
+    <EmbeddedResource Include="forms\fullInfo\fullInfoMaintenance.resx">
       <DependentUpon>fullInfoMaintenance.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fullInfo\fullInfoReference.resx">
+    <EmbeddedResource Include="forms\fullInfo\fullInfoReference.resx">
       <DependentUpon>fullInfoReference.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="fullInfo\fullInfoRentals.resx">
+    <EmbeddedResource Include="forms\fullInfo\fullInfoRentals.resx">
       <DependentUpon>fullInfoRentals.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="importForm.resx">
-      <DependentUpon>importForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="loginForm.resx">
+    <EmbeddedResource Include="forms\main\loginForm.resx">
       <DependentUpon>loginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="managerForm.resx">
+    <EmbeddedResource Include="forms\main\managerForm.resx">
       <DependentUpon>managerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\settings\settings.resx">
+      <DependentUpon>settings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="sysAdminForm.resx">
+    <EmbeddedResource Include="forms\main\sysAdminForm.resx">
       <DependentUpon>sysAdminForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -410,6 +401,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="car+rental-1326929064099195464_32px %281%29.ico" />
+    <None Include="Resources\icons8-settings-50.png" />
     <None Include="Resources\png-transparent-computer-icons-avatar-expand-icon-angle-text-rectangle-thumbnail.png" />
     <None Include="Resources\png-clipart-computer-icons-icon-design-symbol-full-screen-miscellaneous-angle.png" />
     <None Include="Resources\109448181.png" />
