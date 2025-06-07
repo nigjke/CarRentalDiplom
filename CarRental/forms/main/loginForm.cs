@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using CarRental.forms.settings;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -285,6 +286,13 @@ namespace CarRental
         {
             panel2.BackColor = Color.FromArgb(92, 96, 255);
             inputcaptcha.ForeColor = Color.FromArgb(92, 96, 255);
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            settings set = new settings();
+            set.ShowDialog();
         }
     }
 }

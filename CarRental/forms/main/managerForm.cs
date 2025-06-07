@@ -549,7 +549,7 @@ namespace CarRental
 
         private void viewCarMenuItem_Click(object sender, EventArgs e)
         {
-            var carInfo = new fullInfo.fullInfoCarRental(helper.selectedCarId);
+            var carInfo = new fullInfoCar.fullInfoCar(helper.selectedCarId);
             carInfo.ShowDialog();
         }
 
