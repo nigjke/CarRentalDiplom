@@ -46,6 +46,7 @@ namespace CarRental
             this.textBoxTotalAmount = new System.Windows.Forms.TextBox();
             this.comboBoxMake = new System.Windows.Forms.ComboBox();
             this.textPhone = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label4
@@ -76,7 +77,7 @@ namespace CarRental
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(16, 496);
+            this.button2.Location = new System.Drawing.Point(16, 517);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(451, 59);
             this.button2.TabIndex = 9;
@@ -90,7 +91,7 @@ namespace CarRental
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(16, 421);
+            this.button1.Location = new System.Drawing.Point(16, 443);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(451, 59);
             this.button1.TabIndex = 8;
@@ -233,6 +234,17 @@ namespace CarRental
             this.textPhone.Size = new System.Drawing.Size(242, 32);
             this.textPhone.TabIndex = 4;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.ForeColor = System.Drawing.Color.White;
+            this.label6.Location = new System.Drawing.Point(10, 391);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(129, 32);
+            this.label6.TabIndex = 183;
+            this.label6.Text = "Скидка : ";
+            // 
             // addRental
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -240,6 +252,7 @@ namespace CarRental
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(51)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(482, 588);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.textPhone);
             this.Controls.Add(this.comboBoxMake);
             this.Controls.Add(this.textBoxTotalAmount);
@@ -284,5 +297,6 @@ namespace CarRental
         private System.Windows.Forms.TextBox textBoxTotalAmount;
         private System.Windows.Forms.ComboBox comboBoxMake;
         private System.Windows.Forms.TextBox textPhone;
+        private System.Windows.Forms.Label label6;
     }
 }

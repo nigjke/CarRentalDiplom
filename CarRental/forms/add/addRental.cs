@@ -31,6 +31,7 @@ namespace CarRental
             rentalCheckTimer.Tick += new EventHandler(CheckRentals);
             rentalCheckTimer.Start();
             button1.Enabled = false;
+            label6.Text = 0.ToString("C");
         }
         string connectionString = db.connect;
         private void LoadComboBoxes()
@@ -75,6 +76,7 @@ namespace CarRental
             if (comboBoxModel.SelectedItem == null || dateTimePickerRentalDate.Value == null || dateTimePickerReturnDate.Value == null)
             {
                 textBoxTotalAmount.Text = string.Empty;
+                label8.Text = "Скидка: 0 - 0%";
                 return;
             }
 
@@ -82,15 +84,7 @@ namespace CarRental
             DateTime returnDate = dateTimePickerReturnDate.Value.Date;
 
             int days = (int)(returnDate - rentalDate).TotalDays;
-            if (days < 1)
-            {
-                days = 1;
-            }
-            else if (days > 30) 
-            {
-                days = 30;
-                dateTimePickerReturnDate.Value = rentalDate.AddDays(30);
-            }
+            if (days < 1) days = 1;
 
             string selectedModel = comboBoxModel.Text;
             string connectionString = db.connect;
@@ -106,8 +100,26 @@ namespace CarRental
                     ? Convert.ToDecimal(result)
                     : 0;
 
-                decimal totalAmount = pricePerDay * days;
-                textBoxTotalAmount.Text = totalAmount.ToString("C");
+                decimal baseAmount = pricePerDay * days;
+
+                decimal discountPercentage = 0;
+                if (days >= 14 && days <= 30)
+                {
+                    discountPercentage = 0.10m; 
+                }
+                else if (days >= 7 && days < 14)
+                {
+                    discountPercentage = 0.05m;
+                }
+
+                decimal discountAmount = baseAmount * discountPercentage;
+                decimal finalAmount = baseAmount - discountAmount;
+
+                string discountInfo = $"Скидка: {discountAmount:C} - {discountPercentage * 100}%";
+
+
+                textBoxTotalAmount.Text = finalAmount.ToString("C");
+                label6.Text = discountInfo;
             }
         }
 
