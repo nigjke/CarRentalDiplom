@@ -70,6 +70,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewReviews.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewReviews.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewReviews.EnableHeadersVisualStyles = false;
             this.dataGridViewReviews.Location = new System.Drawing.Point(30, 72);
             this.dataGridViewReviews.Margin = new System.Windows.Forms.Padding(30, 80, 30, 100);

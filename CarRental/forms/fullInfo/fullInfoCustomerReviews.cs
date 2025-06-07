@@ -18,7 +18,7 @@ namespace CarRental.fullInfo
         {
             InitializeComponent();
             this.customerId = customerId;
-            LoadCustomerReviews();  
+            LoadCustomerReviews();
         }
 
         private void LoadCustomerReviews()
@@ -61,6 +61,7 @@ namespace CarRental.fullInfo
                 {
                     MessageBox.Show("Ошибка при загрузке отзывов: " + ex.Message);
                 }
+                dataGridViewReviews.ClearSelection();
             }
         }
 

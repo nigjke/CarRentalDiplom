@@ -89,6 +89,7 @@ namespace CarRental.fullInfo
             {
                 MessageBox.Show("Ошибка при загрузке отзывов: " + ex.Message);
             }
+            dataGridView1.ClearSelection();
         }
 
         private void closeBtn_Click(object sender, EventArgs e)

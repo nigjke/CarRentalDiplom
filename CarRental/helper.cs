@@ -100,12 +100,14 @@ namespace CarRental
                         doc.Bookmarks[bookmarkName].Range.Text = value;
                     }
                 }
+                int rentalId = Convert.ToInt32(row.Cells["rental_id"].Value);
+                string fullName = GetCustomerFullNameByRentalId(rentalId);
+                if (doc.Bookmarks.Exists("ФИО"))
+                {
+                    doc.Bookmarks["ФИО"].Range.Text = fullName;
+                }
 
-                string tempPath = Path.Combine(Path.GetTempPath(), $"report_{DateTime.Now.Ticks}.docx");
-                doc.SaveAs2(tempPath);
                 wordApp.Visible = true;
-
-                wordApp.Documents.Open(tempPath);
             }
             catch (Exception ex)
             {
@@ -113,23 +115,39 @@ namespace CarRental
             }
             finally
             {
-                if (doc != null)
-                {
-                    doc.Close(false);
-                    Marshal.ReleaseComObject(doc);
-                }
-
-                if (wordApp != null)
-                {
-                    Marshal.ReleaseComObject(wordApp);
-                }
-
                 doc = null;
                 wordApp = null;
-
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
             }
+        }
+
+
+        private string GetCustomerFullNameByRentalId(int rentalId)
+        {
+            string fullName = "Неизвестно";
+
+            using (MySqlConnection con = new MySqlConnection(db.connect))
+            {
+                con.Open();
+                string query = @"
+            SELECT CONCAT(c.first_name, ' ', c.last_name) AS full_name
+            FROM rentals r
+            JOIN customers c ON r.customer_id = c.customer_id
+            WHERE r.rental_id = @id";
+
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@id", rentalId);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            fullName = reader["full_name"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return fullName;
         }
 
 

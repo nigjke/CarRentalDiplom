@@ -73,6 +73,7 @@ namespace CarRental.fullInfo
                     this.Close();
                 }
             }
+            dataGridView1.ClearSelection();
         }
 
         private void closeBtn_Click(object sender, EventArgs e)

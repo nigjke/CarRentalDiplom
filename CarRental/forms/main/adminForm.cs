@@ -110,6 +110,7 @@ namespace CarRental
             SetButtonVisibility(true, true, true);
             helper.SetButtonColors(carBtn, customerBtn, rentalBtn, employeeBtn);
             LoadTable("cars", "Машины", new string[] { "По Марке", "По Модели", "По Статусу", "По Цене" });
+            dataGridView1.ClearSelection();
         }
 
         private Dictionary<string, Dictionary<string, string>> columnMappings = new Dictionary<string, Dictionary<string, string>>
@@ -246,6 +247,7 @@ namespace CarRental
                     ApplyHighlighting();
             }
             CheckMaintenanceStatus();
+            dataGridView1.ClearSelection();
         }
 
         private void LoadTable(string tableName, string labelText, string[] comboBoxItems)

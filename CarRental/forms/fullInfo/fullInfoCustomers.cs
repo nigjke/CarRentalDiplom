@@ -40,7 +40,15 @@ namespace CarRental.fullInfo
                 dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 9);
                 dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 14, FontStyle.Bold);
                 dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dataGridView1.RowHeadersVisible = false;
+                dataGridView1.ScrollBars = ScrollBars.None;
+                dataGridView1.AllowUserToAddRows = false;
+                dataGridView1.RowTemplate.Height = 100;
+                dataGridView1.Height = dataGridView1.RowTemplate.Height + dataGridView1.ColumnHeadersHeight;
             }
+            dataGridView1.ClearSelection();
         }
 
         private void closeBtn_Click(object sender, EventArgs e)

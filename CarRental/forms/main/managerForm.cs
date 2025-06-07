@@ -253,6 +253,7 @@ namespace CarRental
 
                 ResetContextMenu();
                 CheckMaintenanceStatus();
+                dataGridView1.ClearSelection();
             }
         }
 

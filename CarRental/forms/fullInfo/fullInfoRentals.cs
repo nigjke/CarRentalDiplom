@@ -59,14 +59,22 @@ namespace CarRental.fullInfo
 
                     dataGridView1.DataSource = dataTable;
 
+                    dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 9);
+                    dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 14, FontStyle.Bold);
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                    dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 10);
-                    dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dataGridView1.RowHeadersVisible = false;
+                    dataGridView1.ScrollBars = ScrollBars.None;
+                    dataGridView1.AllowUserToAddRows = false;
+                    dataGridView1.RowTemplate.Height = 100;
+                    dataGridView1.Height = dataGridView1.RowTemplate.Height + dataGridView1.ColumnHeadersHeight;
 
                     if (dataGridView1.Columns.Contains("ID штрафа"))
                         dataGridView1.Columns["ID штрафа"].Visible = false;
                 }
             }
+            dataGridView1.ClearSelection();
         }
 
     }

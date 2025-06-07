@@ -22,6 +22,7 @@ namespace CarRental.fullInfo
             LoadFines(customerId);
             payBtn.Click -= payBtn_Click;
             payBtn.Click += payBtn_Click;
+            dataGridView1.ClearSelection();
         }
 
         private void LoadFines(int customerId)
