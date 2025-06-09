@@ -1,4 +1,5 @@
-﻿using CarRental.fullInfo;
+﻿using CarRental.forms.add;
+using CarRental.fullInfo;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
@@ -586,13 +587,10 @@ namespace CarRental
 
         private void reportBtn_Click(object sender, EventArgs e)
         {
-            if (selectedRow != null)
+            if(table == "rentals")
             {
-                CreateWordReport(selectedRow);
-            }
-            else
-            {
-                MessageBox.Show("Пожалуйста, выберите строку.");
+                addReport report = new addReport();
+                report.ShowDialog();
             }
         }
         private void CreateWordReport(DataGridViewRow row)

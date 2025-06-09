@@ -54,6 +54,10 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -142,6 +146,12 @@
     </Compile>
     <Compile Include="forms\add\addFine.Designer.cs">
       <DependentUpon>addFine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\add\addReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\add\addReport.Designer.cs">
+      <DependentUpon>addReport.cs</DependentUpon>
     </Compile>
     <Compile Include="forms\add\addReview.cs">
       <SubType>Form</SubType>
@@ -278,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\add\addFine.resx">
       <DependentUpon>addFine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\add\addReport.resx">
+      <DependentUpon>addReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\add\addReview.resx">
       <DependentUpon>addReview.cs</DependentUpon>
