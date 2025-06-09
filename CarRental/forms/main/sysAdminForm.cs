@@ -1,17 +1,13 @@
-﻿    using MySql.Data.MySqlClient;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Configuration;
-    using System.Data;
-    using System.Drawing;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows.Forms;
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
 
-    namespace CarRental
+
+namespace CarRental
     {
         public partial class sysAdminForm : Form
         {
@@ -19,113 +15,98 @@
             public sysAdminForm()
             {
                 InitializeComponent();
-                LoadTables();
+                FillTables();
             }
 
             private void button2_Click(object sender, EventArgs e)
             {
-                this.Close();
-                loginForm loginForm = new loginForm();
-                loginForm.Show();
+                DialogResult result = MessageBox.Show("Вы уверены, что хотите выйти?", "Подтверждение выхода", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    Application.Exit();
+                }
             }
             private void btnImportData_Click(object sender, EventArgs e)
             {
-                if (cmbTables.SelectedIndex == -1)
-                    return;
+            if (cmbTables.SelectedIndex == -1)
+            {
+                MessageBox.Show("Выберите таблицу.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "CSV файлы (*.csv)|*.csv";
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                string path = dialog.FileName;
+                string table = cmbTables.SelectedItem.ToString();
+
+                try
                 {
-                    openFileDialog.Filter = "CSV файлы (*.csv)|*.csv";
-                    if (openFileDialog.ShowDialog() == DialogResult.OK)
-                    {
-                        ImportData(openFileDialog.FileName, cmbTables.SelectedItem.ToString());
-                    }
+                    int count = ImportCSV(path, table);
+                    MessageBox.Show($"Импортировано {count} записей.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-            }
-
-        private void LoadTables()
-            {
-                cmbTables.Items.AddRange(new object[]
-                  {
-                        "role", "cars", "customers", "employee",
-                        "fines", "finestype", "maintenance", "maintenance_type",
-                        "rentals", "reviews"
-                  });
-            }
-            private void btnRestoreDatabase_Click(object sender, EventArgs e)
-            {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Filter = "SQL Files (*.sql)|*.sql";
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                catch (Exception ex)
                 {
-                    string sqlScript = File.ReadAllText(openFileDialog.FileName);
-                    ExecuteSqlScript(sqlScript);
+                    MessageBox.Show("Ошибка при импорте: " + ex.Message);
                 }
             }
         }
-            private void RestoreDatabaseStructure(string filePath)
-            {
-                string sqlScript = File.ReadAllText(filePath);
 
-                InsertDataOnDb(sqlScript);
-            }
-            static public long InsertDataOnDb(string query)
+        private void FillTables()
+        {
+            cmbTables.Items.Clear();
+            using (MySqlConnection connection = new MySqlConnection(connect))
             {
-                using (MySqlConnection con = new MySqlConnection())
+                connection.Open();
+                MySqlCommand command = new MySqlCommand("SHOW TABLES", connection);
+                MySqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    con.ConnectionString = db.connect;
+                    cmbTables.Items.Add(reader.GetString(0));
+                }
+                connection.Close();
+            }
+        }
+        private void btnRestoreDatabase_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "SQL файлы (*.sql)|*.sql";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                string script = File.ReadAllText(dialog.FileName);
+                using (MySqlConnection con = new MySqlConnection(connect))
+                {
                     con.Open();
-
-                    MySqlCommand cmd = new MySqlCommand(query, con);
+                    MySqlCommand cmd = new MySqlCommand(script, con);
                     cmd.ExecuteNonQuery();
-
-                    con.Close();
-                    return cmd.LastInsertedId;
+                    MessageBox.Show("База данных восстановлена.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
 
-        private void ImportData(string filePath, string tableName)
+        private int ImportCSV(string path, string table)
         {
-            int counter = 0;
+            int count = 0;
+            var lines = File.ReadAllLines(path, Encoding.UTF8);
+            if (lines.Length < 2) return 0;
+
             using (MySqlConnection con = new MySqlConnection(connect))
             {
                 con.Open();
-                Encoding encoding = Encoding.GetEncoding(1251);
-                using (StreamReader reader = new StreamReader(filePath, encoding))
+                for (int i = 1; i < lines.Length; i++)
                 {
-                    string line;
-                    bool isFirstLine = true;
-
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        if (isFirstLine)
-                        {
-                            isFirstLine = false;
-                            continue;
-                        }
-
-                        string[] values = line.Split(',');
-                        string query = BuildInsertQuery(tableName, values);
-
-                        if (!string.IsNullOrEmpty(query))
-                        {
-                            try
-                            {
-                                MySqlCommand cmd = new MySqlCommand(query, con);
-                                cmd.ExecuteNonQuery();
-                                counter++;
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show($"Ошибка: {ex.Message}");
-                                return;
-                            }
-                        }
-                    }
+                    var values = lines[i].Split(';');
+                    string query = BuildInsertQuery(table, values);
+                    if (string.IsNullOrEmpty(query)) continue;
+                    MySqlCommand cmd = new MySqlCommand(query, con);
+                    cmd.ExecuteNonQuery();
+                    count++;
                 }
-                MessageBox.Show($"Успешно импортировано {counter} записей в таблицу {tableName}.");
+                con.Close();
             }
+            return count;
         }
 
         private string BuildInsertQuery(string table, string[] v)
@@ -133,59 +114,92 @@
             switch (table)
             {
                 case "role":
-                    return $"INSERT INTO role (role_id, name) VALUES ({v[0]}, '{v[1]}')";
-
-                case "cars":
-                    return $"INSERT INTO cars (car_id, make, model, year, license_plate, status, price) " +
-                           $"VALUES ({v[0]}, '{v[1]}', '{v[2]}', {v[3]}, '{v[4]}', '{v[5]}', {v[6]})";
-
-                case "customers":
-                    return $"INSERT INTO customers (customer_id, first_name, last_name, phone, driver_license, passport, email) " +
-                           $"VALUES ({v[0]}, '{v[1]}', '{v[2]}', '{v[3]}', '{v[4]}', '{v[5]}', '{v[6]}')";
-
+                    return $"INSERT INTO role (name) VALUES ('{v[0]}')";
                 case "employee":
-                    return $"INSERT INTO employee (employee_id, role_id, first_name, last_name, phone, email, employeeLogin, employeePass) " +
-                           $"VALUES ({v[0]}, {v[1]}, '{v[2]}', '{v[3]}', '{v[4]}', '{v[5]}', '{v[6]}', '{v[7]}')";
-
-                case "fines":
-                    return $"INSERT INTO fines (fine_id, rental_id, customer_id, fine_type_id, fine_amount, fine_date, is_paid) " +
-                           $"VALUES ({v[0]}, {v[1]}, {v[2]}, {v[3]}, {v[4]}, '{v[5]}', {v[6]})";
-
-                case "finestype":
-                    return $"INSERT INTO finestype (fine_type_id, name, amount) " +
-                           $"VALUES ({v[0]}, '{v[1]}', {v[2]})";
-
-                case "maintenance":
-                    return $"INSERT INTO maintenance (maintenance_id, car_id, maintenance_type_id, cost, service_start_date, service_end_date) " +
-                           $"VALUES ({v[0]}, {v[1]}, {v[2]}, {v[3]}, '{v[4]}', '{v[5]}')";
-
-                case "maintenance_type":
-                    return $"INSERT INTO maintenance_type (maintenance_type_id, name) VALUES ({v[0]}, '{v[1]}')";
-
-                case "rentals":
-                    return $"INSERT INTO rentals (rental_id, customer_id, car_id, rental_date, return_date, employee_id, total_amount) " +
-                           $"VALUES ({v[0]}, {v[1]}, {v[2]}, '{v[3]}', '{v[4]}', {v[5]}, {v[6]})";
-
-                case "reviews":
-                    return $"INSERT INTO reviews (review_id, customer_id, car_id, rating, comment, review_date, rental_id) " +
-                           $"VALUES ({v[0]}, {v[1]}, {v[2]}, {v[3]}, '{v[4]}', '{v[5]}', {v[6]})";
-
+                    return $"INSERT INTO employee (role_id, first_name, last_name, phone, email, employeeLogin, employeePass) VALUES ('{v[0]}','{v[1]}','{v[2]}','{v[3]}','{v[4]}','{v[5]}','{v[6]}')";
+                case "cars":
+                    return $"INSERT INTO cars (make, model, year, license_plate, status, price) VALUES ('{v[0]}','{v[1]}',{v[2]},'{v[3]}','{v[4]}',{v[5]})";
+                case "customers":
+                    return $"INSERT INTO customers (first_name, last_name, phone, driver_license, passport, email) VALUES ('{v[0]}','{v[1]}','{v[2]}','{v[3]}','{v[4]}','{v[5]}')";
                 default:
                     return null;
             }
         }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            loginForm loginForm = new loginForm();
+            loginForm.Show();
+        }
 
-            private void ExecuteSqlScript(string script)
+        private void exportBtn_Click(object sender, EventArgs e)
+        {
+            if (cmbTables.SelectedIndex == -1)
             {
+                MessageBox.Show("Выберите таблицу.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV файлы (*.csv)|*.csv";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog.FileName;
+                string table = cmbTables.SelectedItem.ToString();
+
                 using (MySqlConnection con = new MySqlConnection(connect))
                 {
                     con.Open();
-                    MySqlCommand cmd = new MySqlCommand(script, con);
-                    cmd.ExecuteNonQuery();
+                    MySqlCommand cmd = new MySqlCommand($"SELECT * FROM {table}", con);
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+
+                    using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
+                    {
+                        writer.WriteLine(string.Join(";", dt.Columns.Cast<DataColumn>().Select(col => col.ColumnName)));
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            writer.WriteLine(string.Join(";", row.ItemArray));
+                        }
+                    }
                 }
+                MessageBox.Show("Экспорт завершен.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void backupData_Click(object sender, EventArgs e)
+        {
+            string fileName = $"backup_carrental_{DateTime.Now:yyyyMMdd_HHmmss}.sql";
+            string path = Path.Combine(Application.StartupPath, "backup");
+            Directory.CreateDirectory(path);
+            string fullPath = Path.Combine(path, fileName);
+
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connect))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand())
+                    {
+                        using (MySqlBackup mb = new MySqlBackup(cmd))
+                        {
+                            cmd.Connection = conn;
+                            conn.Open();
+                            mb.ExportToFile(fullPath);
+                            conn.Close();
+                        }
+                    }
+                }
+                MessageBox.Show($"Резервная копия создана: {fullPath}", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при создании резервной копии: " + ex.Message);
             }
         }
     }
+}
 
 
 
