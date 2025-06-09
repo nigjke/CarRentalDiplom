@@ -21,10 +21,12 @@ namespace CarRental
         string connect = db.connect;
         private byte[] _imageBytes;
         private const int MaxImageSizeMB = 25;
+        bool isUpload = false;
         public addCar()
         {
             db = new db();
             InitializeComponent();
+            textBox4.MaxLength = 5;
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -132,19 +134,13 @@ namespace CarRental
                 string.IsNullOrWhiteSpace(textBox2.Text) ||
                 string.IsNullOrWhiteSpace(textBox3.Text) ||
                 !maskedTextBox1.MaskCompleted ||
-                string.IsNullOrWhiteSpace(textBox4.Text))
+                string.IsNullOrWhiteSpace(textBox4.Text) ||
+                isUpload == false
+                )
             {
                 MessageBox.Show("Заполните все поля корректно");
                 return false;
             }
-
-            if (!int.TryParse(textBox3.Text, out _) ||
-                !decimal.TryParse(textBox4.Text, out _))
-            {
-                MessageBox.Show("Некорректные числовые значения");
-                return false;
-            }
-
             return true;
         }
         private void uploadBtn_Click(object sender, EventArgs e)
@@ -179,6 +175,7 @@ namespace CarRental
                     }
 
                     MessageBox.Show("Изображение загружено");
+                    isUpload = true;
                 }
                 catch (Exception ex)
                 {
@@ -209,6 +206,23 @@ namespace CarRental
             {
                 image.Save(ms, jpegCodec, encoderParams);
                 return Image.FromStream(new MemoryStream(ms.ToArray()));
+            }
+        }
+
+        private void textBox3_Validating(object sender, CancelEventArgs e)
+        {
+            if (int.TryParse(textBox3.Text, out int year))
+            {
+                if (year < 2000 || year > 2025)
+                {
+                    MessageBox.Show("Допустимые значения: 2000–2025");
+                    e.Cancel = true; 
+                }
+            }
+            else if (!string.IsNullOrEmpty(textBox3.Text))
+            {
+                MessageBox.Show("Введите число!");
+                e.Cancel = true;
             }
         }
     }

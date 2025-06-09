@@ -52,7 +52,7 @@ namespace CarRental.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("carrentaldb")]
+        [global::System.Configuration.DefaultSettingValueAttribute("carrental")]
         public string db {
             get {
                 return ((string)(this["db"]));

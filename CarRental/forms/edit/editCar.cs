@@ -24,6 +24,7 @@ namespace CarRental
             db = new db();
             selectedRow = row;
             LoadData();
+            textBox4.MaxLength = 5;
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -326,6 +327,23 @@ namespace CarRental
             if (!db.CharCorrectNum(e.KeyChar) && !char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void textBox3_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (int.TryParse(textBox3.Text, out int year))
+            {
+                if (year < 2000 || year > 2025)
+                {
+                    MessageBox.Show("Допустимые значения: 2000–2025");
+                    e.Cancel = true;
+                }
+            }
+            else if (!string.IsNullOrEmpty(textBox3.Text))
+            {
+                MessageBox.Show("Введите число!");
+                e.Cancel = true;
             }
         }
     }

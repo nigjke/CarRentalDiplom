@@ -1,6 +1,7 @@
 ﻿using CarRental.forms.add;
 using CarRental.fullInfo;
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -150,6 +151,7 @@ namespace CarRental
 
         private void LoadData()
         {
+
             using (MySqlConnection connection = new MySqlConnection(db.connect))
             {
                 connection.Open();
@@ -216,6 +218,14 @@ namespace CarRental
                     r.total_amount AS 'Сумма' 
                 FROM rentals r
                 INNER JOIN cars c ON c.car_id = r.car_id";
+                }
+                if (table == "rentals")
+                {
+                    delBtn.Text = "Отчет";
+                }
+                else
+                {
+                    delBtn.Text = "Удалить";
                 }
 
                 if (!string.IsNullOrEmpty(sortColumn) && !string.IsNullOrEmpty(sortDirection))
@@ -410,7 +420,7 @@ namespace CarRental
         private void rentalBtn_Click(object sender, EventArgs e)
         {
             currentPage = 1;
-            SetButtonVisibility(true, true, false);
+            SetButtonVisibility(true, true, true);
             helper.SetButtonColors(rentalBtn, customerBtn, carBtn, employeeBtn);
             LoadTable("rentals", "Аренды", new string[] { "По Марке", "По Модели", "По Дате взятия", "По Дате возврата", "По Сумме" });
             
@@ -495,7 +505,7 @@ namespace CarRental
                     }
                 }
 
-                if (isEmptyRow)
+                if (isEmptyRow && table != "rental")
                 {
                     MessageBox.Show("Выбранная строка пуста и не может быть отредактирована.");
                     return;
@@ -540,6 +550,21 @@ namespace CarRental
                     }
                 }
             }
+            else if (table == "rentals")
+            {
+                isHighlightEnabled = !isHighlightEnabled;
+
+                if (isHighlightEnabled)
+                {
+                    editBtn.Text = "Отключить подсветку";
+                    ApplyHighlighting();
+                }
+                else
+                {
+                    editBtn.Text = "Включить подсветку";
+                    ClearHighlighting();
+                }
+            }
             else
             {
                 MessageBox.Show("Выберите строку для редактирования");
@@ -579,18 +604,15 @@ namespace CarRental
                     dataGridView1.Rows.Remove(selectedRow);
                 }
             }
-            else
-            {
-                MessageBox.Show("Пожалуйста, выберите строку для удаления.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void reportBtn_Click(object sender, EventArgs e)
-        {
-            if(table == "rentals")
+            else if (table == "rentals")
             {
                 addReport report = new addReport();
                 report.ShowDialog();
+            }
+
+            else
+            {
+                MessageBox.Show("Пожалуйста, выберите строку для удаления.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void CreateWordReport(DataGridViewRow row)

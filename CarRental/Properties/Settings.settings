@@ -12,7 +12,7 @@
       <Value Profile="(Default)">root</Value>
     </Setting>
     <Setting Name="db" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">carrentaldb</Value>
+      <Value Profile="(Default)">carrental</Value>
     </Setting>
   </Settings>
 </SettingsFile>

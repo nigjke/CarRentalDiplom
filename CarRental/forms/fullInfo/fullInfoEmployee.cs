@@ -60,6 +60,15 @@ namespace CarRental.fullInfo
                             dataGridView1.DataSource = dt;
                         });
                     }
+
+                    if (dt.Columns.Contains("Пароль"))
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            row["Пароль"] = new string('•', 10); 
+                        }
+                    }
+
                     dataGridView1.DefaultCellStyle.Font = new Font("Segoe UI", 9);
                     dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 14, FontStyle.Bold);
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;

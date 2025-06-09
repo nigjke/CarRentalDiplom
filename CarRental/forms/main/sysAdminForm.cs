@@ -12,11 +12,23 @@ namespace CarRental
         public partial class sysAdminForm : Form
         {
             string connect = db.connect;
-            public sysAdminForm()
+            private bool databaseExists;
+            public sysAdminForm(bool dbExists)
             {
-                InitializeComponent();
+            InitializeComponent();
+            databaseExists = dbExists;
+            if (databaseExists)
+            {
                 FillTables();
             }
+            else
+            {
+                MessageBox.Show("База данных не обнаружена. Используйте восстановление.");
+                cmbTables.Enabled = false;
+                btnImportData.Enabled = false;
+                exportBtn.Enabled = false;
+            }
+        }
 
             private void button2_Click(object sender, EventArgs e)
             {

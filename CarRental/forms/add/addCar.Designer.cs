@@ -60,6 +60,7 @@
             this.textBox3.Size = new System.Drawing.Size(188, 32);
             this.textBox3.TabIndex = 3;
             this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
+            this.textBox3.Validating += new System.ComponentModel.CancelEventHandler(this.textBox3_Validating);
             // 
             // comboBox1
             // 
@@ -115,7 +116,7 @@
             this.maskedTextBox1.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.maskedTextBox1.ForeColor = System.Drawing.Color.White;
             this.maskedTextBox1.Location = new System.Drawing.Point(280, 171);
-            this.maskedTextBox1.Mask = "AAA000";
+            this.maskedTextBox1.Mask = "A000AA000";
             this.maskedTextBox1.Name = "maskedTextBox1";
             this.maskedTextBox1.Size = new System.Drawing.Size(188, 32);
             this.maskedTextBox1.TabIndex = 4;
