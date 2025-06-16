@@ -96,60 +96,68 @@ namespace CarRental
                 string adminUsername = ConfigurationManager.AppSettings["AdminUsername"];
 
                 string adminPassword = ConfigurationManager.AppSettings["AdminPassword"];
-
                 if (loginUser == adminUsername && pwdUser == adminPassword)
                 {
-                    sysAdminForm sysAdminForm = new sysAdminForm();
+                    bool dbExists = db.CheckDatabaseExists();
+                    sysAdminForm sysAdminForm = new sysAdminForm(dbExists);
                     sysAdminForm.Show();
                     this.Hide();
                 }
                 else
                 {
-                    int role = db.CheckUserRole(loginUser, pwdUser);
-                    if (role == 2)
+                    try
                     {
-                        adminForm a = new adminForm(loginUser);
-                        a.Show();
-                        this.Hide();
-                    }
-                    else if (role == 1)
-                    {
-                        managerForm a = new managerForm(loginUser);
-                        a.Show();
-                        this.Hide();
-                    }
-                    else
-                    {
-                        loginField.Text = "Login";
-                        pwdField.Text = "Password";
-                        pwdField.PasswordChar = default;
-                        pictureBox3.BackgroundImage = Properties.Resources.padlock;
-                        panel1.BackColor = Color.White;
-                        pwdField.ForeColor = Color.White;
-                        this.Size = expandedSize;
-                        ShowCaptchaAndControls();
-                        countfailloginandpwd++;
-                        if (DateTime.Now - _lastFailedAttempt < TimeSpan.FromSeconds(_blockDurationSeconds))
+                        int role = db.CheckUserRole(loginUser, pwdUser);
+                        if (role == 2)
                         {
-                            this.Enabled = false;
-                            MessageBox.Show("Вы были заблокированы на 10 секунд из-за слишком большого количества неудачных попыток входа в систему.");
-                            await Task.Delay(TimeSpan.FromSeconds(10));
-                            this.Enabled = true;
-                            return;
+                            adminForm a = new adminForm(loginUser);
+                            a.Show();
+                            this.Hide();
                         }
-                        if (inputcaptcha.Text != _currentCaptcha && countfailloginandpwd == 1)
+                        else if (role == 1)
                         {
-                            _lastFailedAttempt = DateTime.Now;
-                            UpdateCaptcha();
-                            updatecaptch.Click += (s, args) => UpdateCaptcha();
+                            managerForm a = new managerForm(loginUser);
+                            a.Show();
+                            this.Hide();
+                        }
+                        else
+                        {
+                            loginField.Text = "Login";
+                            pwdField.Text = "Password";
+                            pwdField.PasswordChar = default;
+                            pictureBox3.BackgroundImage = Properties.Resources.padlock;
+                            panel1.BackColor = Color.White;
+                            pwdField.ForeColor = Color.White;
                             this.Size = expandedSize;
                             ShowCaptchaAndControls();
-                            inputcaptcha.Enabled = true;
-                            updatecaptch.Enabled = true;
-                            return;
+                            countfailloginandpwd++;
+                            if (DateTime.Now - _lastFailedAttempt < TimeSpan.FromSeconds(_blockDurationSeconds))
+                            {
+                                this.Enabled = false;
+                                MessageBox.Show("Вы были заблокированы на 10 секунд из-за слишком большого количества неудачных попыток входа в систему.");
+                                await Task.Delay(TimeSpan.FromSeconds(10));
+                                this.Enabled = true;
+                                return;
+                            }
+                            if (inputcaptcha.Text != _currentCaptcha && countfailloginandpwd == 1)
+                            {
+                                _lastFailedAttempt = DateTime.Now;
+                                UpdateCaptcha();
+                                updatecaptch.Click += (s, args) => UpdateCaptcha();
+                                this.Size = expandedSize;
+                                ShowCaptchaAndControls();
+                                inputcaptcha.Enabled = true;
+                                updatecaptch.Enabled = true;
+                                return;
+                            }
                         }
                     }
+                    catch (MySqlException)
+                    {
+                        MessageBox.Show($"Ошибка подключения");
+                    }
                 }
+
             }
         }
         private void loginField_KeyPress(object sender, KeyPressEventArgs e)

@@ -42,7 +42,6 @@ namespace CarRental
             this.descendingBtn = new System.Windows.Forms.Button();
             this.ascendingBtn = new System.Windows.Forms.Button();
             this.backBtn = new System.Windows.Forms.Button();
-            this.reportBtn = new System.Windows.Forms.Button();
             this.exitBtn = new System.Windows.Forms.Button();
             this.addBtn = new System.Windows.Forms.Button();
             this.editBtn = new System.Windows.Forms.Button();
@@ -181,22 +180,6 @@ namespace CarRental
             this.backBtn.UseVisualStyleBackColor = false;
             this.backBtn.Click += new System.EventHandler(this.backBtn_Click);
             // 
-            // reportBtn
-            // 
-            this.reportBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.reportBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(96)))), ((int)(((byte)(255)))));
-            this.reportBtn.FlatAppearance.BorderSize = 0;
-            this.reportBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reportBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.reportBtn.ForeColor = System.Drawing.Color.White;
-            this.reportBtn.Location = new System.Drawing.Point(354, 609);
-            this.reportBtn.Name = "reportBtn";
-            this.reportBtn.Size = new System.Drawing.Size(204, 61);
-            this.reportBtn.TabIndex = 11;
-            this.reportBtn.Text = "Отчет";
-            this.reportBtn.UseVisualStyleBackColor = false;
-            this.reportBtn.Click += new System.EventHandler(this.reportBtn_Click);
-            // 
             // exitBtn
             // 
             this.exitBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -221,7 +204,7 @@ namespace CarRental
             this.addBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.addBtn.ForeColor = System.Drawing.Color.White;
-            this.addBtn.Location = new System.Drawing.Point(580, 610);
+            this.addBtn.Location = new System.Drawing.Point(354, 610);
             this.addBtn.Name = "addBtn";
             this.addBtn.Size = new System.Drawing.Size(204, 60);
             this.addBtn.TabIndex = 12;
@@ -237,7 +220,7 @@ namespace CarRental
             this.editBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editBtn.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.editBtn.ForeColor = System.Drawing.Color.White;
-            this.editBtn.Location = new System.Drawing.Point(809, 609);
+            this.editBtn.Location = new System.Drawing.Point(698, 610);
             this.editBtn.Name = "editBtn";
             this.editBtn.Size = new System.Drawing.Size(204, 61);
             this.editBtn.TabIndex = 13;
@@ -523,7 +506,6 @@ namespace CarRental
             this.Controls.Add(this.delBtn);
             this.Controls.Add(this.editBtn);
             this.Controls.Add(this.addBtn);
-            this.Controls.Add(this.reportBtn);
             this.Controls.Add(this.ascendingBtn);
             this.Controls.Add(this.descendingBtn);
             this.Controls.Add(this.dataGridView1);
@@ -558,7 +540,6 @@ namespace CarRental
         private System.Windows.Forms.Button descendingBtn;
         private System.Windows.Forms.Button ascendingBtn;
         private System.Windows.Forms.Button backBtn;
-        private System.Windows.Forms.Button reportBtn;
         private System.Windows.Forms.Button exitBtn;
         private System.Windows.Forms.Button addBtn;
         private System.Windows.Forms.Button editBtn;

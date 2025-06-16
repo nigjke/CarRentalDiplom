@@ -44,12 +44,40 @@ namespace CarRental.add
                 MessageBox.Show("Дата окончания не может быть раньше даты начала.");
                 return;
             }
+
             using (var con = new MySqlConnection(db.connect))
             {
                 con.Open();
+                string currentStatus = "";
+                string statusSql = "SELECT status FROM cars WHERE car_id = @carId";
+                using (var cmd = new MySqlCommand(statusSql, con))
+                {
+                    cmd.Parameters.AddWithValue("@carId", carId);
+                    currentStatus = cmd.ExecuteScalar()?.ToString();
+                }
+                if (currentStatus != "Свободная")
+                {
+                    string message;
+                    switch (currentStatus)
+                    {
+                        case "Занята":
+                            message = "Автомобиль в настоящее время арендован. Невозможно добавить обслуживание.";
+                            break;
+                        case "На обслуживании":
+                            message = "Автомобиль уже находится на обслуживании.";
+                            break;
+                        default:
+                            message = "Автомобиль недоступен для обслуживания.";
+                            break;
+                    }
+
+                    MessageBox.Show(message);
+                    return;
+                }
                 string insertSql = @"
-            INSERT INTO maintenance (car_id, maintenance_type_id, service_start_date, service_end_date, cost)
-            VALUES (@carId, @typeId, @start, @end, @cost)";
+                    INSERT INTO maintenance (car_id, maintenance_type_id, service_start_date, service_end_date, cost)
+                    VALUES (@carId, @typeId, @start, @end, @cost)";
+
                 using (var cmd = new MySqlCommand(insertSql, con))
                 {
                     cmd.Parameters.AddWithValue("@carId", carId);
@@ -59,14 +87,11 @@ namespace CarRental.add
                     cmd.Parameters.AddWithValue("@cost", cost);
                     cmd.ExecuteNonQuery();
                 }
-                if (DateTime.Today >= start && DateTime.Today <= end)
+                string updateStatus = "UPDATE cars SET status = 'На обслуживании' WHERE car_id = @carId";
+                using (var cmd = new MySqlCommand(updateStatus, con))
                 {
-                    string updateStatus = "UPDATE cars SET status = 'На обслуживании' WHERE car_id = @carId";
-                    using (var cmd = new MySqlCommand(updateStatus, con))
-                    {
-                        cmd.Parameters.AddWithValue("@carId", carId);
-                        cmd.ExecuteNonQuery();
-                    }
+                    cmd.Parameters.AddWithValue("@carId", carId);
+                    cmd.ExecuteNonQuery();
                 }
             }
 

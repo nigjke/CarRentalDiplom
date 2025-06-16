@@ -34,15 +34,15 @@ namespace CarRental.fullInfoCar
                     await con.OpenAsync();
 
                     const string query = @"SELECT 
-                        make,
-                        model,
-                        year,
-                        status,
-                        license_plate,
-                        price,
-                        photo 
-                    FROM cars 
-                    WHERE car_id = @id";
+                make,
+                model,
+                year,
+                status,
+                license_plate,
+                price,
+                photo 
+            FROM cars 
+            WHERE car_id = @id";
 
                     using (var cmd = new MySqlCommand(query, con))
                     {
@@ -53,20 +53,32 @@ namespace CarRental.fullInfoCar
                             if (await reader.ReadAsync() && !_isClosing)
                             {
                                 if (_isClosing) return;
+                                int photoIndex = reader.GetOrdinal("photo");
+                                int priceIndex = reader.GetOrdinal("price");
+
                                 this.Invoke((MethodInvoker)delegate
                                 {
                                     if (_isClosing) return;
+
                                     carName.Text = $"{reader["make"]} {reader["model"]}";
                                     carYear.Text = $"Год выпуска: {reader["year"]}";
                                     carStatus.Text = $"Статус: {reader["status"]}";
                                     carNumber.Text = $"Гос.номер: {reader["license_plate"]}";
-                                    carPrice.Text = $"Цена за сутки: {Convert.ToDecimal(reader["price"]):N0} ₽";
+
+                                    if (!reader.IsDBNull(priceIndex))
+                                    {
+                                        carPrice.Text = $"Цена за сутки: {Convert.ToDecimal(reader["price"]):N0} ₽";
+                                    }
+                                    else
+                                    {
+                                        carPrice.Text = "Цена за сутки: не указана";
+                                    }
                                 });
 
                                 this.Invoke((MethodInvoker)delegate
                                 {
                                     if (_isClosing) return;
-                                    if (!reader.IsDBNull(5))
+                                    if (!reader.IsDBNull(photoIndex))
                                     {
                                         LoadImageFromDatabase((byte[])reader["photo"]);
                                     }
