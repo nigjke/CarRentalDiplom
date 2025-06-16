@@ -92,9 +92,9 @@ namespace CarRental
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show($"Ошибка при проверке: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ошибка подключения", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             return role;
@@ -110,6 +110,31 @@ namespace CarRental
             }
         }
 
+        public static bool CheckDatabaseExists()
+        {
+            try
+            {
+                MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder(db.connect);
+
+                builder.Database = "";
+
+                string serverConnect = builder.ToString();
+
+                using (var con = new MySqlConnection(serverConnect))
+                {
+                    con.Open();
+                    var cmd = new MySqlCommand(
+                        "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA " +
+                        "WHERE SCHEMA_NAME = 'carrentaldb'", con);
+
+                    return cmd.ExecuteScalar() != null;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
 
         public bool CharCorrectEng(char c)

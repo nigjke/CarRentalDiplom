@@ -98,7 +98,8 @@ namespace CarRental
                 string adminPassword = ConfigurationManager.AppSettings["AdminPassword"];
                 if (loginUser == adminUsername && pwdUser == adminPassword)
                 {
-                    sysAdminForm sysAdminForm = new sysAdminForm(false);
+                    bool dbExists = db.CheckDatabaseExists();
+                    sysAdminForm sysAdminForm = new sysAdminForm(dbExists);
                     sysAdminForm.Show();
                     this.Hide();
                 }
@@ -151,9 +152,9 @@ namespace CarRental
                             }
                         }
                     }
-                    catch (MySqlException ex)
+                    catch (MySqlException)
                     {
-                        MessageBox.Show($"Ошибка базы данных: {ex.Message}");
+                        MessageBox.Show($"Ошибка подключения");
                     }
                 }
 
