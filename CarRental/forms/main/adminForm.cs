@@ -585,12 +585,17 @@ namespace CarRental
                         break;
                     }
                 }
-                if (isEmpty)
+                if (table == "rentals")
+                {
+                    addReport report = new addReport();
+                    report.ShowDialog();
+                }
+                else if (isEmpty)
                 {
                     MessageBox.Show("Выбранная строка пуста и не может быть удалена.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                if (table == "cars")
+                else if (table == "cars")
                 {
                     if (IsDataUsedInRentals(selectedRow))
                     {
@@ -598,10 +603,13 @@ namespace CarRental
                         return;
                     }
                 }
-                var result = MessageBox.Show("Вы уверены, что хотите удалить выбранную строку?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
+                else
                 {
-                    dataGridView1.Rows.Remove(selectedRow);
+                    var result = MessageBox.Show("Вы уверены, что хотите удалить выбранную строку?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        dataGridView1.Rows.Remove(selectedRow);
+                    }
                 }
             }
             else if (table == "rentals")
