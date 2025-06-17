@@ -62,15 +62,23 @@ namespace CarRental
         private void CheckRentals(object sender, EventArgs e)
         {
             string connectionString = db.connect;
-            string query = "UPDATE cars SET status = 'Свободная' WHERE car_id IN (SELECT car_id FROM rentals WHERE return_date < NOW() AND status = 'Занята')";
+            string query = @"
+        UPDATE cars 
+        SET status = 'Свободная'
+        WHERE car_id IN (
+            SELECT car_id 
+            FROM rentals 
+            WHERE return_date < NOW()
+        ) AND status = 'Занята'";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                MySqlCommand command = new MySqlCommand(query, connection);
                 connection.Open();
+                MySqlCommand command = new MySqlCommand(query, connection);
                 command.ExecuteNonQuery();
             }
         }
+
         private void CalculateTotalAmount()
         {
             if (comboBoxModel.SelectedItem == null || dateTimePickerRentalDate.Value == null || dateTimePickerReturnDate.Value == null)

@@ -293,13 +293,20 @@ namespace CarRental
                 FROM maintenance
                 WHERE CURDATE() BETWEEN service_start_date AND service_end_date
             )
-            AND status = 'На обслуживании'";
+            AND status = 'На обслуживании'
+            AND car_id NOT IN (
+                SELECT car_id
+                FROM rentals
+                WHERE CURDATE() BETWEEN rental_date AND return_date
+            )";
+
                 using (var cmd = new MySqlCommand(sql, con))
                 {
                     cmd.ExecuteNonQuery();
                 }
             }
         }
+
 
 
         // Utils Functions
@@ -573,54 +580,81 @@ namespace CarRental
 
         private void delBtn_Click(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
             {
-                var selectedRow = dataGridView1.SelectedRows[0];
-                bool isEmpty = true;
-                foreach (DataGridViewCell cell in selectedRow.Cells)
+                if (dataGridView1.SelectedRows.Count > 0)
                 {
-                    if (cell.Value != null && !string.IsNullOrWhiteSpace(cell.Value.ToString()))
+                    var selectedRow = dataGridView1.SelectedRows[0];
+                    bool isEmpty = true;
+
+                    foreach (DataGridViewCell cell in selectedRow.Cells)
                     {
-                        isEmpty = false;
-                        break;
+                        if (cell.Value != null && !string.IsNullOrWhiteSpace(cell.Value.ToString()))
+                        {
+                            isEmpty = false;
+                            break;
+                        }
                     }
-                }
-                if (table == "rentals")
-                {
-                    addReport report = new addReport();
-                    report.ShowDialog();
-                }
-                else if (isEmpty)
-                {
-                    MessageBox.Show("Выбранная строка пуста и не может быть удалена.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                else if (table == "cars")
-                {
-                    if (IsDataUsedInRentals(selectedRow))
+
+                    if (isEmpty)
                     {
-                        MessageBox.Show("Данные из выбранной строки используются в других таблицах и не могут быть удалены.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Выбранная строка пуста и не может быть удалена.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                }
-                else
-                {
-                    var result = MessageBox.Show("Вы уверены, что хотите удалить выбранную строку?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (result == DialogResult.Yes)
+                    if (table == "rentals")
+                    {
+                        addReport report = new addReport();
+                        report.ShowDialog();
+                        return;
+                    }
+                    if (table == "cars")
+                    {
+                        if (IsDataUsedInRentals(selectedRow))
+                        {
+                            MessageBox.Show("Данные из выбранной строки используются в других таблицах и не могут быть удалены.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        var result = MessageBox.Show("Вы уверены, что хотите удалить выбранную машину?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if (result == DialogResult.Yes)
+                        {
+                            int carId = Convert.ToInt32(selectedRow.Cells["car_id"].Value);
+                            DeleteCarFromDatabase(carId);
+                            dataGridView1.Rows.Remove(selectedRow);
+                            MessageBox.Show("Машина успешно удалена.");
+                        }
+
+                        return;
+                    }
+
+                    var confirm = MessageBox.Show("Вы уверены, что хотите удалить выбранную строку?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (confirm == DialogResult.Yes)
                     {
                         dataGridView1.Rows.Remove(selectedRow);
                     }
                 }
+                else if (table == "rentals")
+                {
+                    addReport report = new addReport();
+                    report.ShowDialog();
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Пожалуйста, выберите строку для удаления.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else if (table == "rentals")
+        }
+        private void DeleteCarFromDatabase(int carId)
+        {
+            using (var connection = new MySqlConnection(db.connect))
             {
-                addReport report = new addReport();
-                report.ShowDialog();
-            }
-
-            else
-            {
-                MessageBox.Show("Пожалуйста, выберите строку для удаления.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                connection.Open();
+                string query = "DELETE FROM cars WHERE car_id = @carId";
+                using (var cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@carId", carId);
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
         private void CreateWordReport(DataGridViewRow row)

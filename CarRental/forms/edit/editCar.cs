@@ -99,16 +99,15 @@ namespace CarRental
                         pictureBox1.Image = new Bitmap(tempImage);
                     }
                 }
+                else
+                {
+                    SetDefaultImage();
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show($"Ошибка загрузки фото: {ex.Message}");
                 SetDefaultImage();
             }
-        }
-        private string GetCellValue(string columnName)
-        {
-            return selectedRow.Cells[columnName].Value?.ToString() ?? string.Empty;
         }
         private void UpdateCar()
         {
@@ -228,6 +227,7 @@ namespace CarRental
             try
             {
                 pictureBox1.Image?.Dispose();
+                pictureBox1.Image = Properties.Resources._1637827423_1_flomaster_club_p_mashina_risunok_karandashom_lyogkie_detski_1;
             }
             catch
             {
