@@ -49,7 +49,14 @@ namespace CarRental
                 comboBoxMake.SelectedIndex = 0;
                 comboBoxMake_SelectedIndexChanged_1(null, null);
 
-                string queryCustomers = "SELECT customer_id, last_name, phone FROM customers";
+                string queryCustomers = @"
+    SELECT customer_id, last_name, phone 
+    FROM customers 
+    WHERE customer_id NOT IN (
+        SELECT customer_id 
+        FROM fines 
+        WHERE is_paid = 0
+    )";
                 MySqlDataAdapter adapterCustomers = new MySqlDataAdapter(queryCustomers, connection);
                 DataTable dataTableCustomers = new DataTable();
                 adapterCustomers.Fill(dataTableCustomers);
