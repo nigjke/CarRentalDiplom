@@ -1,3 +1,14 @@
 ﻿employee_id;role_id;first_name;last_name;phone;email;employeeLogin;employeePass
-1;1;Эллиот;Алдерсон;+7 (895) 247-9716;nik.poteschnow2017@tyandex.ru;el;d65c3e892354b17a4c032593974d46bc8732c6c0b1ce56edf0c95511d1749cf5
-15;2;Менеджер;Менеджеров;+7 (943) 543-5341;man;man;48b676e2b107da679512b793d5fd4cc4329f0c7c17a97cf6e0e3d1005b600b03
+1;1;Админ;Админов;+7 (945) 274-3627;admin@example.com;admin;admin
+2;2;Мария;Петрова;+7(901)2345678;maria@example.com;maria;maria
+3;1;Дмитрий;Сидоров;+7(902)3456789;dmitriy@example.com;dmitriy;dmitriy
+4;2;Екатерина;Смирнова;+7(903)4567890;ekaterina@example.com;ekaterina;ekaterina
+5;1;Василий;Камоцкий;+7(904)5678901;vasiliy@example.com;vasiliy;vasiliy
+6;2;Ольга;Кузнецова;+7(905)6789012;olga@example.com;olga;olga
+7;2;Андрей;Попова;+7 (906) 789-0123;andrey@example.com;andrey;186eedcf45976eaef5da5154d3d14d4367b7154fea1111e295893ba6691335f1
+8;2;Елена;Лебедева;+7(907)8901234;elena@example.com;elena;elena
+9;2;Менеджер;Менеджеров;+7 (238) 942-3483;manager@example.com;manager;6ee4a469cd4e91053847f5d3fcb61dbcc91e8f0ef10be7748da4c4a1ba382d17
+10;1;Геннадий;Генов;+7 (239) 493-2482;gena@example.com;gena;gena
+11;1;Апапарап;Парапрапр;+7 (435) 345-4355;;fdgfdgfd;8e237403b1820355ec9de75120f560a5493b6af2f28fb3cee3f5f63326aa00fa
+12;2;Йццйуыв;Ввфываваыыы;+7 (231) 341-2423;sdsadas@asa;sdsadssdas;92064d6ceb3ba4f115b791861fb7a4a49b001539ea2957048954bb4ce268854c
+13;1;Элиот;Алдерсон;+7 (213) 123-2131;el;el;d65c3e892354b17a4c032593974d46bc8732c6c0b1ce56edf0c95511d1749cf5

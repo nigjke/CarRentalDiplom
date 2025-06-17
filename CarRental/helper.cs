@@ -71,7 +71,7 @@ namespace CarRental
 
         public void CreateWordReport(DataGridViewRow row)
         {
-            string templatePath = Path.Combine(Application.StartupPath, "template", "template_with_bookmarks.docx");
+            string templatePath = Path.Combine(Application.StartupPath, "template_with_bookmarks.docx");
 
             if (!File.Exists(templatePath))
             {

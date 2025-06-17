@@ -30,7 +30,7 @@ namespace CarRental
         private bool _isFullscreen = false;
 
         private Timer inactivityTimer;
-        private int inactivityTimeSeconds = 10; 
+        private int inactivityTimeSeconds = 60; 
         private DateTime lastActivityTime;
 
         private int currentPage = 1;
