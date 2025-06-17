@@ -203,31 +203,6 @@ namespace CarRental
             }
             return count;
         }
-
-
-        private string BuildInsertQuery(string table, string[] values)
-        {
-            switch (table.ToLower())
-            {
-                case "role":
-                    return $"INSERT INTO role (name) VALUES ('{values[0]}')";
-
-                case "employee":
-                    return $"INSERT INTO employee (role_id, first_name, last_name, phone, email, employeeLogin, employeePass) " +
-                           $"VALUES ({values[0]}, '{values[1]}', '{values[2]}', '{values[3]}', '{values[4]}', '{values[5]}', '{values[6]}')";
-
-                case "cars":
-                    return $"INSERT INTO cars (make, model, year, license_plate, status, price, photo) " +
-                           $"VALUES ('{values[0]}', '{values[1]}', {values[2]}, '{values[3]}', '{values[4]}', {values[5]}, NULL)";
-
-                case "customers":
-                    return $"INSERT INTO customers (first_name, last_name, phone, driver_license, passport, email) " +
-                           $"VALUES ('{values[0]}', '{values[1]}', '{values[2]}', '{values[3]}', '{values[4]}', '{values[5]}')";
-
-                default:
-                    return null;
-            }
-        }
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -360,7 +335,8 @@ namespace CarRental
 
         private void backupData_Click(object sender, EventArgs e)
         {
-            string backupDir = Path.Combine(Application.StartupPath, "backup");
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string backupDir = Path.Combine(documentsPath, "CarRental", "Backups");
             Directory.CreateDirectory(backupDir);
 
             string fileName = $"backup_carrentaldb_{DateTime.Now:yyyyMMdd_HHmmss}.sql";
@@ -380,17 +356,18 @@ namespace CarRental
                         }
                     }
                 }
-                MessageBox.Show($"Резервная копия создана:\n{fullPath}",
-                              "Успех",
-                              MessageBoxButtons.OK,
-                              MessageBoxIcon.Information);
+
+                MessageBox.Show($"Резервная копия успешно создана:\n{fullPath}",
+                                "Успех",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка при создании резервной копии: " + ex.Message,
-                               "Ошибка",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка при создании резервной копии:\n" + ex.Message,
+                                "Ошибка",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
         }
     }

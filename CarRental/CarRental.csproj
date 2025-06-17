@@ -423,10 +423,6 @@
     <None Include="Resources\109448181.png" />
     <None Include="Resources\10944818.png" />
     <None Include="Resources\1637827423_1-flomaster-club-p-mashina-risunok-karandashom-lyogkie-detski-1.jpg" />
-    <None Include="Resources\arr.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\arrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

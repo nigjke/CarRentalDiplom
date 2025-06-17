@@ -1,0 +1,23 @@
+﻿car_id;make;model;year;license_plate;status;price
+35;Toyota;Camry;2020;A12312;Свободная;2500
+36;Honda;Civic;2021;B456DE;На обслуживании;2200
+37;Ford;Focus;2019;C789FG;Занята;2000
+38;Volkswagen;Golf;2022;D012HI;Занята;2300
+39;Hyundai;Solaris;2021;E34512;Свободная;2100
+40;Kia;Rio;2020;F678LM;Занята;1900
+41;Skoda;Octavia;2022;G901NO;На обслуживании;2700
+42;Nissan;Qashqai;2021;H234PQ;Занята;2800
+43;BMW;X5;2020;J567RS;Свободная;4500
+44;Mercedes;C-Class;2022;K890TU;На обслуживании;4200
+45;Audi;A4;2021;L123VW;Свободная;3800
+46;Renault;Logan;2019;M456XY;На обслуживании;1700
+47;Lada;Vesta;2021;N789ZA;Занята;1500
+48;Chevrolet;Cruze;2018;P012BC;Занята;1800
+49;Mazda;CX-5;2022;Q345DE;Занята;3200
+50;Subaru;Forester;2021;R678FG;На обслуживании;3400
+51;Lexus;RX;2020;S901HI;Занята;4800
+52;Volvo;XC60;2022;T234JK;На обслуживании;4100
+53;Jeep;Grand Cherokee;2021;U567LM;Занята;3900
+54;Tesla;Model 3;2022;V890NO;Занята;5200
+55;Peugeot;308;2020;W123PQ;На обслуживании;2100
+56;Citroen;C4;2021;X456RS;На обслуживании;1900
