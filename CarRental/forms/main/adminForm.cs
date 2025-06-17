@@ -30,7 +30,7 @@ namespace CarRental
         private bool _isFullscreen = false;
 
         private Timer inactivityTimer;
-        private int inactivityTimeSeconds = 60; 
+        private int inactivityTimeSeconds = 10; 
         private DateTime lastActivityTime;
 
         private int currentPage = 1;
@@ -87,7 +87,9 @@ namespace CarRental
             if ((DateTime.Now - lastActivityTime).TotalSeconds > inactivityTimeSeconds)
             {
                 inactivityTimer.Stop();
-                this.WindowState = FormWindowState.Minimized;
+                this.Close();
+                loginForm loginForm = new loginForm();
+                loginForm.ShowDialog();
             }
         }
         protected override void OnMouseMove(MouseEventArgs e)
@@ -279,26 +281,26 @@ namespace CarRental
                 editBtn.Text = "Редактировать";
             }
         }
-
         private void CheckMaintenanceStatus()
         {
             using (var con = new MySqlConnection(db.connect))
             {
                 con.Open();
                 string sql = @"
-            UPDATE cars
-            SET status = 'Свободная'
-            WHERE car_id NOT IN (
-                SELECT car_id
-                FROM maintenance
-                WHERE CURDATE() BETWEEN service_start_date AND service_end_date
-            )
-            AND status = 'На обслуживании'
-            AND car_id NOT IN (
-                SELECT car_id
-                FROM rentals
-                WHERE CURDATE() BETWEEN rental_date AND return_date
-            )";
+                UPDATE cars
+                SET status = 'Свободная'
+                WHERE car_id NOT IN (
+                    SELECT car_id
+                    FROM maintenance
+                    WHERE CURDATE() BETWEEN service_start_date AND service_end_date
+                )
+                AND status = 'На обслуживании'
+                AND car_id NOT IN (
+                    SELECT car_id
+                    FROM rentals
+                    WHERE CURDATE() BETWEEN DATE(rental_date) AND DATE(return_date)
+                )
+                ";
 
                 using (var cmd = new MySqlCommand(sql, con))
                 {
@@ -306,7 +308,6 @@ namespace CarRental
                 }
             }
         }
-
 
 
         // Utils Functions

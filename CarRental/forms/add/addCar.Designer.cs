@@ -232,9 +232,11 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Image = global::CarRental.Properties.Resources._1637827423_1_flomaster_club_p_mashina_risunok_karandashom_lyogkie_detski_1;
             this.pictureBox1.Location = new System.Drawing.Point(280, 320);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(188, 152);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 159;
             this.pictureBox1.TabStop = false;
             // 

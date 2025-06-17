@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fullInfoReference));
             this.labelRed = new System.Windows.Forms.Label();
             this.labelYellow = new System.Windows.Forms.Label();
-            this.labelGreen = new System.Windows.Forms.Label();
             this.closeBtn = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -55,16 +54,6 @@
             this.labelYellow.Size = new System.Drawing.Size(151, 31);
             this.labelYellow.TabIndex = 1;
             this.labelYellow.Text = "labelYellow";
-            // 
-            // labelGreen
-            // 
-            this.labelGreen.AutoSize = true;
-            this.labelGreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelGreen.Location = new System.Drawing.Point(12, 233);
-            this.labelGreen.Name = "labelGreen";
-            this.labelGreen.Size = new System.Drawing.Size(86, 31);
-            this.labelGreen.TabIndex = 2;
-            this.labelGreen.Text = "label3";
             // 
             // closeBtn
             // 
@@ -102,7 +91,6 @@
             this.ClientSize = new System.Drawing.Size(327, 385);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.closeBtn);
-            this.Controls.Add(this.labelGreen);
             this.Controls.Add(this.labelYellow);
             this.Controls.Add(this.labelRed);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -119,7 +107,6 @@
 
         private System.Windows.Forms.Label labelRed;
         private System.Windows.Forms.Label labelYellow;
-        private System.Windows.Forms.Label labelGreen;
         private System.Windows.Forms.Button closeBtn;
         private System.Windows.Forms.Label label4;
     }

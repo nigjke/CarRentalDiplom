@@ -27,10 +27,6 @@ namespace CarRental.fullInfo
             labelYellow.BackColor = Color.Yellow;
             labelYellow.ForeColor = Color.Black;
             labelYellow.Text = "Аренда в процессе";
-
-            labelGreen.BackColor = Color.Green;
-            labelGreen.ForeColor = Color.White;
-            labelGreen.Text = "Аренда запланирована";
         }
         private void closeBtn_Click(object sender, EventArgs e)
         {

@@ -173,6 +173,7 @@ namespace CarRental
             this.dateTimePickerRentalDate.Enabled = false;
             this.dateTimePickerRentalDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dateTimePickerRentalDate.Location = new System.Drawing.Point(222, 229);
+            this.dateTimePickerRentalDate.MaxDate = new System.DateTime(2030, 12, 28, 0, 0, 0, 0);
             this.dateTimePickerRentalDate.Name = "dateTimePickerRentalDate";
             this.dateTimePickerRentalDate.Size = new System.Drawing.Size(242, 31);
             this.dateTimePickerRentalDate.TabIndex = 5;
@@ -181,6 +182,7 @@ namespace CarRental
             // 
             this.dateTimePickerReturnDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.dateTimePickerReturnDate.Location = new System.Drawing.Point(221, 280);
+            this.dateTimePickerReturnDate.MaxDate = new System.DateTime(2025, 7, 18, 0, 0, 0, 0);
             this.dateTimePickerReturnDate.Name = "dateTimePickerReturnDate";
             this.dateTimePickerReturnDate.Size = new System.Drawing.Size(242, 31);
             this.dateTimePickerReturnDate.TabIndex = 6;

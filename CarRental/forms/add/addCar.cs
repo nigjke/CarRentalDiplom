@@ -52,9 +52,9 @@ namespace CarRental
                 con.Open();
 
                 const string query = @"INSERT INTO cars 
-                    (make, model, year, license_plate, status, price, photo) 
-                    VALUES 
-                    (@make, @model, @year, @license_plate, @status, @price, @photo)";
+            (make, model, year, license_plate, status, price, photo) 
+            VALUES 
+            (@make, @model, @year, @license_plate, @status, @price, @photo)";
 
                 using (var cmd = new MySqlCommand(query, con))
                 {
@@ -64,12 +64,18 @@ namespace CarRental
                     cmd.Parameters.AddWithValue("@license_plate", maskedTextBox1.Text);
                     cmd.Parameters.AddWithValue("@status", comboBox1.SelectedItem);
                     cmd.Parameters.AddWithValue("@price", decimal.Parse(textBox4.Text));
-                    cmd.Parameters.Add("@photo", MySqlDbType.Blob).Value = _imageBytes;
 
+                    if (_imageBytes == null)
+                    {
+                        _imageBytes = ImageToByteArray(Properties.Resources._1637827423_1_flomaster_club_p_mashina_risunok_karandashom_lyogkie_detski_1);
+                    }
+
+                    cmd.Parameters.Add("@photo", MySqlDbType.Blob).Value = _imageBytes;
                     cmd.ExecuteNonQuery();
                 }
             }
         }
+
         private void ClearForm()
         {
             textBox1.Clear();
@@ -134,9 +140,7 @@ namespace CarRental
                 string.IsNullOrWhiteSpace(textBox2.Text) ||
                 string.IsNullOrWhiteSpace(textBox3.Text) ||
                 !maskedTextBox1.MaskCompleted ||
-                string.IsNullOrWhiteSpace(textBox4.Text) ||
-                isUpload == false
-                )
+                string.IsNullOrWhiteSpace(textBox4.Text))
             {
                 MessageBox.Show("Заполните все поля корректно");
                 return false;

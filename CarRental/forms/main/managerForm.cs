@@ -73,7 +73,9 @@ namespace CarRental
             if ((DateTime.Now - lastActivityTime).TotalSeconds > inactivityTimeSeconds)
             {
                 inactivityTimer.Stop();
-                this.WindowState = FormWindowState.Minimized;
+                this.Close();
+                loginForm loginForm = new loginForm();
+                loginForm.ShowDialog();
             }
         }
 
@@ -263,19 +265,20 @@ namespace CarRental
             {
                 con.Open();
                 string sql = @"
-            UPDATE cars
-            SET status = 'Свободная'
-            WHERE car_id NOT IN (
-                SELECT car_id
-                FROM maintenance
-                WHERE CURDATE() BETWEEN service_start_date AND service_end_date
-            )
-            AND status = 'На обслуживании'
-            AND car_id NOT IN (
-                SELECT car_id
-                FROM rentals
-                WHERE CURDATE() BETWEEN rental_date AND return_date
-            )";
+                UPDATE cars
+                SET status = 'Свободная'
+                WHERE car_id NOT IN (
+                    SELECT car_id
+                    FROM maintenance
+                    WHERE CURDATE() BETWEEN service_start_date AND service_end_date
+                )
+                AND status = 'На обслуживании'
+                AND car_id NOT IN (
+                    SELECT car_id
+                    FROM rentals
+                    WHERE CURDATE() BETWEEN DATE(rental_date) AND DATE(return_date)
+                )
+                ";
 
                 using (var cmd = new MySqlCommand(sql, con))
                 {
@@ -283,7 +286,6 @@ namespace CarRental
                 }
             }
         }
-
 
         private void backBtn_Click(object sender, EventArgs e)
         {

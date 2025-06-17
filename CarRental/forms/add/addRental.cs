@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,27 +66,29 @@ namespace CarRental
                 comboBoxCustomer.ValueMember = "customer_id";
             }
         }
-
         private void CheckRentals(object sender, EventArgs e)
         {
-            string connectionString = db.connect;
-            string query = @"
-        UPDATE cars 
-        SET status = 'Свободная'
-        WHERE car_id IN (
-            SELECT car_id 
-            FROM rentals 
-            WHERE return_date < NOW()
-        ) AND status = 'Занята'";
+            string path = Path.Combine(Application.StartupPath, "log.txt");
+            File.AppendAllText(path, $"[{DateTime.Now}] Выполняется CheckRentals\n");
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            string query = @"
+        UPDATE cars
+        SET status = 'Свободная'
+        WHERE car_id NOT IN (
+            SELECT car_id
+            FROM rentals
+            WHERE NOW() BETWEEN rental_date AND return_date
+        )
+        AND status = 'Занята'";
+
+            using (MySqlConnection connection = new MySqlConnection(db.connect))
             {
                 connection.Open();
                 MySqlCommand command = new MySqlCommand(query, connection);
-                command.ExecuteNonQuery();
+                int affected = command.ExecuteNonQuery();
+                File.AppendAllText(path, $"[{DateTime.Now}] Обновлено записей: {affected}\n");
             }
         }
-
         private void CalculateTotalAmount()
         {
             if (comboBoxModel.SelectedItem == null || dateTimePickerRentalDate.Value == null || dateTimePickerReturnDate.Value == null)
